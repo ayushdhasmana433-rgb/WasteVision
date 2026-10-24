@@ -1,0 +1,5 @@
+*.cmd text eol=crlf
+*.keras binary
+*.woff2 binary
+*.png binary
+*.jpg binary

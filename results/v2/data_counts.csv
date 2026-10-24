@@ -1,0 +1,14 @@
+split,dwsd_test,test,test,test,test,test,test,test,test,train,train,train,train,train,train,train,train,train,val,val,val,val,val,val,val,val
+source,DWSD,BePLi,Drinking,GD,RealWaste,TACO,TIDY,TrashBox,TrashNet,BePLi,DWSD,Drinking,GD,RealWaste,TACO,TIDY,TrashBox,TrashNet,BePLi,Drinking,GD,RealWaste,TACO,TIDY,TrashBox,TrashNet
+label,,,,,,,,,,,,,,,,,,,,,,,,,,
+biological,0,0,0,149,160,2,0,0,0,0,0,0,475,577,5,0,0,0,0,0,75,106,1,0,0,0
+paper_cardboard,12,0,0,128,142,109,13,0,112,0,26,0,450,441,336,44,0,474,0,0,71,66,45,6,0,63
+plastic,155,181,50,47,53,112,19,0,67,527,610,205,208,202,352,61,0,183,72,25,25,25,47,10,0,29
+metal,20,0,122,112,111,80,1,0,61,0,66,385,405,416,334,6,0,199,0,67,57,47,60,1,0,36
+glass,5,0,178,174,88,55,2,0,20,0,26,639,644,302,95,12,0,54,0,84,82,30,32,2,0,7
+clothes,0,0,0,365,63,0,0,0,0,0,7,0,1332,219,0,0,0,0,0,0,191,35,0,0,0,0
+shoes,0,0,0,289,0,3,0,0,0,0,0,0,1012,0,2,0,0,0,0,0,147,0,2,0,0,0
+trash,0,0,0,92,102,0,0,0,29,0,0,0,311,339,0,0,0,97,0,0,47,50,0,0,0,11
+battery,0,0,0,167,0,0,0,0,0,0,0,0,513,0,1,0,0,0,0,0,70,0,1,0,0,0
+medicines_syringes,0,0,0,0,0,0,0,161,0,0,0,0,0,0,0,0,561,0,0,0,0,0,0,0,76,0
+e_waste,0,0,0,0,0,0,0,450,0,0,0,0,0,0,0,0,1597,0,0,0,0,0,0,0,227,0

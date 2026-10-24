@@ -1,0 +1,200 @@
+{
+  "dwsd_zip_sha256_matches": true,
+  "sources_ok": [
+    "bepli",
+    "drinking",
+    "dwsd",
+    "gd",
+    "psu",
+    "realwaste",
+    "taco",
+    "tidy",
+    "trashbox",
+    "trashnet"
+  ],
+  "sources_failed": [
+    "zerowaste"
+  ],
+  "excluded_folders": {
+    "Drinking:YOLO_imgs": 4821,
+    "TIDY:beach": 67,
+    "TIDY:street": 40,
+    "TIDY:zpersonal": 20,
+    "TrashBox:medical/gloves": 355,
+    "TrashBox:medical/masks": 400
+  },
+  "raw_counts": {
+    "BePLi": 5932,
+    "Drinking": 9641,
+    "GD": 12259,
+    "RealWaste": 4752,
+    "TACO": 3241,
+    "TIDY": 304,
+    "TrashBox": 3970,
+    "TrashNet": 5054
+  },
+  "mapped_counts": {
+    "BePLi:plastic": 3730,
+    "Drinking:glass": 1224,
+    "Drinking:metal": 1060,
+    "Drinking:plastic": 2536,
+    "GD:battery": 756,
+    "GD:biological": 699,
+    "GD:clothes": 1892,
+    "GD:glass": 1736,
+    "GD:metal": 930,
+    "GD:paper_cardboard": 2747,
+    "GD:plastic": 1597,
+    "GD:shoes": 1449,
+    "GD:trash": 453,
+    "RealWaste:biological": 847,
+    "RealWaste:clothes": 318,
+    "RealWaste:glass": 420,
+    "RealWaste:metal": 790,
+    "RealWaste:paper_cardboard": 961,
+    "RealWaste:plastic": 921,
+    "RealWaste:trash": 495,
+    "TACO:battery": 2,
+    "TACO:biological": 8,
+    "TACO:glass": 182,
+    "TACO:metal": 474,
+    "TACO:paper_cardboard": 490,
+    "TACO:plastic": 2078,
+    "TACO:shoes": 7,
+    "TIDY:glass": 16,
+    "TIDY:metal": 8,
+    "TIDY:paper_cardboard": 63,
+    "TIDY:plastic": 90,
+    "TrashBox:e_waste": 2405,
+    "TrashBox:medicines_syringes": 810,
+    "TrashNet:glass": 1002,
+    "TrashNet:metal": 820,
+    "TrashNet:paper_cardboard": 1994,
+    "TrashNet:plastic": 964,
+    "TrashNet:trash": 274
+  },
+  "dwsd_files": {
+    "images": 784,
+    "masks": 784,
+    "paired": 784
+  },
+  "dwsd_mask_kinds": {
+    "index": 784
+  },
+  "dwsd_parent_photos": 784,
+  "dwsd_parent_groups": 441,
+  "dwsd_crops_skipped": {
+    "too_small": 1037,
+    "excluded_class": 202
+  },
+  "dwsd_crops_by_class": {
+    "aluminium-foil": 55,
+    "cloth": 7,
+    "glass": 31,
+    "metal-bottle": 31,
+    "nylon": 6,
+    "paper": 21,
+    "paper-cup": 17,
+    "plastic": 39,
+    "plastic-bottle": 2,
+    "plastic-container": 11,
+    "plastic-cup": 35,
+    "thermocol": 672
+  },
+  "cleaning_dropped": {
+    "unreadable (SyntaxError)": 1
+  },
+  "dedup": {
+    "threshold": 5,
+    "images_before": 37247,
+    "images_after": 31757,
+    "duplicate_pairs": 6336,
+    "exact_pairs": 6046,
+    "cross_source_pairs": 1510,
+    "clusters_with_conflicting_labels": 20
+  },
+  "leakage_audit_near_duplicates_vs_train": {
+    "val": 0,
+    "test": 0,
+    "dwsd_test": 1
+  },
+  "data_counts": {
+    "dwsd_test": {
+      "glass": 5,
+      "metal": 20,
+      "paper_cardboard": 12,
+      "plastic": 155
+    },
+    "test": {
+      "battery": 167,
+      "biological": 311,
+      "clothes": 428,
+      "e_waste": 450,
+      "glass": 517,
+      "medicines_syringes": 161,
+      "metal": 487,
+      "paper_cardboard": 504,
+      "plastic": 529,
+      "shoes": 292,
+      "trash": 223
+    },
+    "train": {
+      "battery": 514,
+      "biological": 1057,
+      "clothes": 1558,
+      "e_waste": 1597,
+      "glass": 1772,
+      "medicines_syringes": 561,
+      "metal": 1811,
+      "paper_cardboard": 1771,
+      "plastic": 2348,
+      "shoes": 1014,
+      "trash": 747
+    },
+    "val": {
+      "battery": 71,
+      "biological": 182,
+      "clothes": 226,
+      "e_waste": 227,
+      "glass": 237,
+      "medicines_syringes": 76,
+      "metal": 268,
+      "paper_cardboard": 251,
+      "plastic": 233,
+      "shoes": 149,
+      "trash": 108
+    }
+  },
+  "data_totals": {
+    "dwsd_test": 192,
+    "test": 4069,
+    "train": 14750,
+    "val": 2028
+  },
+  "data_by_source": {
+    "BePLi": 780,
+    "DWSD": 927,
+    "Drinking": 1755,
+    "GD": 7638,
+    "RealWaste": 3574,
+    "TACO": 1674,
+    "TIDY": 177,
+    "TrashBox": 3072,
+    "TrashNet": 1442
+  },
+  "real_photo_share": {
+    "dwsd_test": 1.0,
+    "test": 0.47554681739985255,
+    "train": 0.49098305084745764,
+    "val": 0.47337278106508873
+  },
+  "environment": {
+    "tensorflow": "2.21.0",
+    "keras": "3.13.2",
+    "python": "3.13.16",
+    "gpu": [
+      "Tesla T4"
+    ]
+  },
+  "best_model": "efficientnetv2b0"
+}

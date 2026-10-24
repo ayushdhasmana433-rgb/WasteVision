@@ -1,0 +1,4 @@
+Model,Val macro-F1,Test class acc,Test macro-F1,Test stream acc,Stream acc (top-class lookup),Special Care recall @0.20,False alarm @0.20,ECE test before → after,Temperature,"Test class acc, real photos","Test macro-F1, real photos","Test class acc, web/mixed",Indian class acc [95% CI],Indian stream acc [95% CI],Params (M),Size (MB),Latency GPU (ms),Latency CPU (ms),Train (min)
+scratch_cnn,0.541,0.54,0.535,0.864,0.851,0.914,0.17,0.022 → 0.023,1.0,0.488,0.408,0.588,"0.620 [0.549, 0.691]","0.948 [0.915, 0.978]",1.91,7.8,4.9,74.0,30.4
+mobilenetv2,0.845,0.842,0.847,0.968,0.966,0.979,0.042,0.012 → 0.014,0.99,0.765,0.704,0.911,"0.786 [0.716, 0.850]","0.995 [0.984, 1.000]",2.42,10.3,5.5,47.8,11.7
+efficientnetv2b0,0.87,0.866,0.867,0.971,0.967,0.978,0.039,0.016 → 0.012,1.07,0.802,0.746,0.925,"0.755 [0.678, 0.828]","0.979 [0.953, 1.000]",6.08,25.3,9.5,63.1,13.2

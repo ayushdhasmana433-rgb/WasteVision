@@ -1,0 +1,2 @@
+ONNX Runtime Web 1.29.0 (wasm build), https://github.com/microsoft/onnxruntime
+Copyright (c) Microsoft Corporation. MIT License.

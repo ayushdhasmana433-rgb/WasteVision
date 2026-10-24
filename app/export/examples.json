@@ -1,0 +1,77 @@
+[
+ {
+  "file": "biological_RealWaste.jpg",
+  "label": "biological",
+  "source": "RealWaste"
+ },
+ {
+  "file": "paper_cardboard_TrashNet.jpg",
+  "label": "paper_cardboard",
+  "source": "TrashNet"
+ },
+ {
+  "file": "plastic_TrashNet.jpg",
+  "label": "plastic",
+  "source": "TrashNet"
+ },
+ {
+  "file": "metal_TrashNet.jpg",
+  "label": "metal",
+  "source": "TrashNet"
+ },
+ {
+  "file": "glass_Drinking.jpg",
+  "label": "glass",
+  "source": "Drinking"
+ },
+ {
+  "file": "clothes_RealWaste.jpg",
+  "label": "clothes",
+  "source": "RealWaste"
+ },
+ {
+  "file": "shoes_TACO.jpg",
+  "label": "shoes",
+  "source": "TACO"
+ },
+ {
+  "file": "trash_RealWaste.jpg",
+  "label": "trash",
+  "source": "RealWaste"
+ },
+ {
+  "file": "battery_GD.jpg",
+  "label": "battery",
+  "source": "GD"
+ },
+ {
+  "file": "medicines_syringes_TrashBox.jpg",
+  "label": "medicines_syringes",
+  "source": "TrashBox"
+ },
+ {
+  "file": "e_waste_TrashBox.jpg",
+  "label": "e_waste",
+  "source": "TrashBox"
+ },
+ {
+  "file": "india_paper_cardboard_0.jpg",
+  "label": "paper_cardboard",
+  "source": "DWSD"
+ },
+ {
+  "file": "india_plastic_1.jpg",
+  "label": "plastic",
+  "source": "DWSD"
+ },
+ {
+  "file": "india_plastic_2.jpg",
+  "label": "plastic",
+  "source": "DWSD"
+ },
+ {
+  "file": "india_plastic_3.jpg",
+  "label": "plastic",
+  "source": "DWSD"
+ }
+]

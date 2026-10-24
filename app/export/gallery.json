@@ -1,0 +1,498 @@
+[
+ {
+  "file": "test_biological_correct_0.jpg",
+  "true": "biological",
+  "pred": "biological",
+  "confidence": 1.0,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_biological_correct_1.jpg",
+  "true": "biological",
+  "pred": "biological",
+  "confidence": 0.9999997615814209,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_biological_wrong_2.jpg",
+  "true": "biological",
+  "pred": "medicines_syringes",
+  "confidence": 0.9905915856361389,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_biological_wrong_3.jpg",
+  "true": "biological",
+  "pred": "paper_cardboard",
+  "confidence": 0.45476895570755005,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_paper_cardboard_correct_4.jpg",
+  "true": "paper_cardboard",
+  "pred": "paper_cardboard",
+  "confidence": 0.9999613761901855,
+  "kind": "correct",
+  "source": "TrashNet"
+ },
+ {
+  "file": "test_paper_cardboard_correct_5.jpg",
+  "true": "paper_cardboard",
+  "pred": "paper_cardboard",
+  "confidence": 0.9999380111694336,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_paper_cardboard_wrong_6.jpg",
+  "true": "paper_cardboard",
+  "pred": "metal",
+  "confidence": 0.9953466057777405,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_paper_cardboard_wrong_7.jpg",
+  "true": "paper_cardboard",
+  "pred": "medicines_syringes",
+  "confidence": 0.9682793617248535,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_plastic_correct_8.jpg",
+  "true": "plastic",
+  "pred": "plastic",
+  "confidence": 0.9947649240493774,
+  "kind": "correct",
+  "source": "BePLi"
+ },
+ {
+  "file": "test_plastic_correct_9.jpg",
+  "true": "plastic",
+  "pred": "plastic",
+  "confidence": 0.9947037100791931,
+  "kind": "correct",
+  "source": "BePLi"
+ },
+ {
+  "file": "test_plastic_wrong_10.jpg",
+  "true": "plastic",
+  "pred": "glass",
+  "confidence": 0.9867238402366638,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_plastic_wrong_11.jpg",
+  "true": "plastic",
+  "pred": "medicines_syringes",
+  "confidence": 0.9788338541984558,
+  "kind": "wrong",
+  "source": "TrashNet"
+ },
+ {
+  "file": "test_metal_correct_12.jpg",
+  "true": "metal",
+  "pred": "metal",
+  "confidence": 0.9998562335968018,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_metal_correct_13.jpg",
+  "true": "metal",
+  "pred": "metal",
+  "confidence": 0.9997431635856628,
+  "kind": "correct",
+  "source": "Drinking"
+ },
+ {
+  "file": "test_metal_wrong_14.jpg",
+  "true": "metal",
+  "pred": "plastic",
+  "confidence": 0.9098765850067139,
+  "kind": "wrong",
+  "source": "TACO"
+ },
+ {
+  "file": "test_metal_wrong_15.jpg",
+  "true": "metal",
+  "pred": "paper_cardboard",
+  "confidence": 0.9037198424339294,
+  "kind": "wrong",
+  "source": "RealWaste"
+ },
+ {
+  "file": "test_glass_correct_16.jpg",
+  "true": "glass",
+  "pred": "glass",
+  "confidence": 0.9999767541885376,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_glass_correct_17.jpg",
+  "true": "glass",
+  "pred": "glass",
+  "confidence": 0.999969482421875,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_glass_wrong_18.jpg",
+  "true": "glass",
+  "pred": "metal",
+  "confidence": 0.9966928958892822,
+  "kind": "wrong",
+  "source": "TrashNet"
+ },
+ {
+  "file": "test_glass_wrong_19.jpg",
+  "true": "glass",
+  "pred": "metal",
+  "confidence": 0.9445144534111023,
+  "kind": "wrong",
+  "source": "TrashNet"
+ },
+ {
+  "file": "test_clothes_correct_20.jpg",
+  "true": "clothes",
+  "pred": "clothes",
+  "confidence": 0.9999998807907104,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_clothes_correct_21.jpg",
+  "true": "clothes",
+  "pred": "clothes",
+  "confidence": 0.9999997615814209,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_clothes_wrong_22.jpg",
+  "true": "clothes",
+  "pred": "shoes",
+  "confidence": 0.9891892671585083,
+  "kind": "wrong",
+  "source": "RealWaste"
+ },
+ {
+  "file": "test_clothes_wrong_23.jpg",
+  "true": "clothes",
+  "pred": "shoes",
+  "confidence": 0.9786486029624939,
+  "kind": "wrong",
+  "source": "RealWaste"
+ },
+ {
+  "file": "test_shoes_correct_24.jpg",
+  "true": "shoes",
+  "pred": "shoes",
+  "confidence": 1.0,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_shoes_correct_25.jpg",
+  "true": "shoes",
+  "pred": "shoes",
+  "confidence": 0.9999994039535522,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_shoes_wrong_26.jpg",
+  "true": "shoes",
+  "pred": "glass",
+  "confidence": 0.9649322628974915,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_shoes_wrong_27.jpg",
+  "true": "shoes",
+  "pred": "trash",
+  "confidence": 0.5089119076728821,
+  "kind": "wrong",
+  "source": "TACO"
+ },
+ {
+  "file": "test_trash_correct_28.jpg",
+  "true": "trash",
+  "pred": "trash",
+  "confidence": 0.9998161196708679,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_trash_correct_29.jpg",
+  "true": "trash",
+  "pred": "trash",
+  "confidence": 0.9992021918296814,
+  "kind": "correct",
+  "source": "RealWaste"
+ },
+ {
+  "file": "test_trash_wrong_30.jpg",
+  "true": "trash",
+  "pred": "medicines_syringes",
+  "confidence": 0.9792444109916687,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_trash_wrong_31.jpg",
+  "true": "trash",
+  "pred": "biological",
+  "confidence": 0.959865152835846,
+  "kind": "wrong",
+  "source": "RealWaste"
+ },
+ {
+  "file": "test_battery_correct_32.jpg",
+  "true": "battery",
+  "pred": "battery",
+  "confidence": 0.9999971389770508,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_battery_correct_33.jpg",
+  "true": "battery",
+  "pred": "battery",
+  "confidence": 0.9999914169311523,
+  "kind": "correct",
+  "source": "GD"
+ },
+ {
+  "file": "test_battery_wrong_34.jpg",
+  "true": "battery",
+  "pred": "e_waste",
+  "confidence": 0.9811712503433228,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_battery_wrong_35.jpg",
+  "true": "battery",
+  "pred": "metal",
+  "confidence": 0.9789348244667053,
+  "kind": "wrong",
+  "source": "GD"
+ },
+ {
+  "file": "test_medicines_syringes_correct_36.jpg",
+  "true": "medicines_syringes",
+  "pred": "medicines_syringes",
+  "confidence": 0.9999985694885254,
+  "kind": "correct",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_medicines_syringes_correct_37.jpg",
+  "true": "medicines_syringes",
+  "pred": "medicines_syringes",
+  "confidence": 0.9999983310699463,
+  "kind": "correct",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_medicines_syringes_wrong_38.jpg",
+  "true": "medicines_syringes",
+  "pred": "paper_cardboard",
+  "confidence": 0.9980905652046204,
+  "kind": "wrong",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_medicines_syringes_wrong_39.jpg",
+  "true": "medicines_syringes",
+  "pred": "e_waste",
+  "confidence": 0.983697235584259,
+  "kind": "wrong",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_e_waste_correct_40.jpg",
+  "true": "e_waste",
+  "pred": "e_waste",
+  "confidence": 0.9999992847442627,
+  "kind": "correct",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_e_waste_correct_41.jpg",
+  "true": "e_waste",
+  "pred": "e_waste",
+  "confidence": 0.9999969005584717,
+  "kind": "correct",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_e_waste_wrong_42.jpg",
+  "true": "e_waste",
+  "pred": "metal",
+  "confidence": 0.8754926323890686,
+  "kind": "wrong",
+  "source": "TrashBox"
+ },
+ {
+  "file": "test_e_waste_wrong_43.jpg",
+  "true": "e_waste",
+  "pred": "glass",
+  "confidence": 0.8674994707107544,
+  "kind": "wrong",
+  "source": "TrashBox"
+ },
+ {
+  "file": "dwsd_paper_cardboard_correct_0.jpg",
+  "true": "paper_cardboard",
+  "pred": "paper_cardboard",
+  "confidence": 0.4199586808681488,
+  "kind": "correct",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_paper_cardboard_wrong_1.jpg",
+  "true": "paper_cardboard",
+  "pred": "plastic",
+  "confidence": 0.8902613520622253,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_paper_cardboard_wrong_2.jpg",
+  "true": "paper_cardboard",
+  "pred": "plastic",
+  "confidence": 0.8381296992301941,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_paper_cardboard_wrong_3.jpg",
+  "true": "paper_cardboard",
+  "pred": "plastic",
+  "confidence": 0.8279086351394653,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_plastic_correct_4.jpg",
+  "true": "plastic",
+  "pred": "plastic",
+  "confidence": 0.9535751342773438,
+  "kind": "correct",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_plastic_correct_5.jpg",
+  "true": "plastic",
+  "pred": "plastic",
+  "confidence": 0.920925498008728,
+  "kind": "correct",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_plastic_correct_6.jpg",
+  "true": "plastic",
+  "pred": "plastic",
+  "confidence": 0.915219783782959,
+  "kind": "correct",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_plastic_wrong_7.jpg",
+  "true": "plastic",
+  "pred": "medicines_syringes",
+  "confidence": 0.98649001121521,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_plastic_wrong_8.jpg",
+  "true": "plastic",
+  "pred": "medicines_syringes",
+  "confidence": 0.9063398838043213,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_plastic_wrong_9.jpg",
+  "true": "plastic",
+  "pred": "paper_cardboard",
+  "confidence": 0.8302224278450012,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_metal_correct_10.jpg",
+  "true": "metal",
+  "pred": "metal",
+  "confidence": 0.3377784192562103,
+  "kind": "correct",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_metal_wrong_11.jpg",
+  "true": "metal",
+  "pred": "plastic",
+  "confidence": 0.9235764741897583,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_metal_wrong_12.jpg",
+  "true": "metal",
+  "pred": "plastic",
+  "confidence": 0.8898701071739197,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_metal_wrong_13.jpg",
+  "true": "metal",
+  "pred": "plastic",
+  "confidence": 0.8855143189430237,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_glass_correct_14.jpg",
+  "true": "glass",
+  "pred": "glass",
+  "confidence": 0.516936719417572,
+  "kind": "correct",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_glass_wrong_15.jpg",
+  "true": "glass",
+  "pred": "plastic",
+  "confidence": 0.7988059520721436,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_glass_wrong_16.jpg",
+  "true": "glass",
+  "pred": "plastic",
+  "confidence": 0.7770381569862366,
+  "kind": "wrong",
+  "source": "DWSD"
+ },
+ {
+  "file": "dwsd_glass_wrong_17.jpg",
+  "true": "glass",
+  "pred": "plastic",
+  "confidence": 0.739316463470459,
+  "kind": "wrong",
+  "source": "DWSD"
+ }
+]

@@ -1,0 +1,173 @@
+{
+ "version": "v1",
+ "model_file": "wastevision_v1.keras",
+ "architecture": "efficientnetv2b0",
+ "img_size": 224,
+ "preprocessing": "RGB -> tf.image.resize_with_pad(224, 224, antialias=True) -> round and clip to 0..255 -> float32. No other scaling: the model normalises internally.",
+ "classes": [
+  "biological",
+  "paper_cardboard",
+  "plastic",
+  "metal",
+  "glass",
+  "clothes",
+  "shoes",
+  "trash",
+  "battery",
+  "medicines_syringes",
+  "e_waste"
+ ],
+ "class_display": {
+  "biological": "Food & garden organics",
+  "paper_cardboard": "Paper & cardboard",
+  "plastic": "Plastic (incl. thermocol)",
+  "metal": "Metal",
+  "glass": "Glass",
+  "clothes": "Clothes & textiles",
+  "shoes": "Shoes",
+  "trash": "Other dry residue",
+  "battery": "Battery",
+  "medicines_syringes": "Medicines & syringes",
+  "e_waste": "E-waste"
+ },
+ "streams": [
+  "Wet",
+  "Dry",
+  "Special Care"
+ ],
+ "stream_of": {
+  "biological": "Wet",
+  "paper_cardboard": "Dry",
+  "plastic": "Dry",
+  "metal": "Dry",
+  "glass": "Dry",
+  "clothes": "Dry",
+  "shoes": "Dry",
+  "trash": "Dry",
+  "battery": "Special Care",
+  "medicines_syringes": "Special Care",
+  "e_waste": "Special Care"
+ },
+ "sanitary_supported": false,
+ "temperature": 1.0713930060008507,
+ "cost_ratio": 4.0,
+ "special_care_threshold": 0.2,
+ "not_sure_stream_threshold": 0.49206581711769104,
+ "not_sure_class_threshold": 0.6949189901351929,
+ "grad_cam": "model.get_layer('preproc') -> get_layer('backbone') (last conv feature map) -> get_layer('head') (logits)",
+ "metrics": {
+  "test": {
+   "n": 4069,
+   "class_acc": 0.8663062177439175,
+   "macro_f1": 0.8668179029172262,
+   "stream_acc": 0.9710002457606292,
+   "stream_acc_top_class": 0.9668223150651266,
+   "sc_recall@0.33": 0.9665809768637532,
+   "sc_false_alarm@0.33": 0.02582801580066849,
+   "sc_recall@0.20": 0.9781491002570694,
+   "sc_false_alarm@0.20": 0.03859009419629292,
+   "sc_recall@0.10": 0.9897172236503856,
+   "sc_false_alarm@0.10": 0.05317532664843513,
+   "sc_recall_argmax": 0.9575835475578406
+  },
+  "val": {
+   "n": 2028,
+   "class_acc": 0.8722879684418146,
+   "macro_f1": 0.8700679199384492,
+   "stream_acc": 0.9758382642998028,
+   "stream_acc_top_class": 0.9748520710059172,
+   "sc_recall@0.33": 0.9812834224598931,
+   "sc_false_alarm@0.33": 0.01995163240628779,
+   "sc_recall@0.20": 0.9919786096256684,
+   "sc_false_alarm@0.20": 0.026602176541717048,
+   "sc_recall@0.10": 0.9946524064171123,
+   "sc_false_alarm@0.10": 0.0562273276904474,
+   "sc_recall_argmax": 0.9705882352941176
+  },
+  "test_real": {
+   "n": 1935,
+   "class_acc": 0.8020671834625323,
+   "macro_f1": 0.7460938753527985,
+   "stream_acc": 0.9689922480620154,
+   "stream_acc_top_class": 0.9607235142118863,
+   "sc_recall@0.33": NaN,
+   "sc_false_alarm@0.33": 0.028940568475452195,
+   "sc_recall@0.20": NaN,
+   "sc_false_alarm@0.20": 0.04237726098191214,
+   "sc_recall@0.10": NaN,
+   "sc_false_alarm@0.10": 0.05839793281653747,
+   "sc_recall_argmax": NaN
+  },
+  "test_web": {
+   "n": 2134,
+   "class_acc": 0.9245548266166823,
+   "macro_f1": 0.8762786421933282,
+   "stream_acc": 0.9728209934395501,
+   "stream_acc_top_class": 0.9723523898781631,
+   "sc_recall@0.33": 0.9665809768637532,
+   "sc_false_alarm@0.33": 0.021386430678466076,
+   "sc_recall@0.20": 0.9781491002570694,
+   "sc_false_alarm@0.20": 0.033185840707964605,
+   "sc_recall@0.10": 0.9897172236503856,
+   "sc_false_alarm@0.10": 0.045722713864306784,
+   "sc_recall_argmax": 0.9575835475578406
+  },
+  "test_selective_class": {
+   "coverage": 0.8058491029737036,
+   "accuracy_answered": 0.9478499542543458
+  },
+  "test_selective_stream": {
+   "coverage": 0.9992627181125584,
+   "accuracy_answered": 0.9717166748647319
+  },
+  "dwsd_test": {
+   "n": 192,
+   "class_acc": 0.7552083333333334,
+   "macro_f1": 0.3452239789196311,
+   "stream_acc": 0.9791666666666666,
+   "stream_acc_top_class": 0.9791666666666666,
+   "sc_recall@0.33": NaN,
+   "sc_false_alarm@0.33": 0.026041666666666668,
+   "sc_recall@0.20": NaN,
+   "sc_false_alarm@0.20": 0.046875,
+   "sc_recall@0.10": NaN,
+   "sc_false_alarm@0.10": 0.08854166666666667,
+   "sc_recall_argmax": NaN
+  },
+  "dwsd_ci": {
+   "class_acc": [
+    0.6779440324858756,
+    0.8280279657643312
+   ],
+   "stream_acc": [
+    0.9529396365876193,
+    1.0
+   ],
+   "sc_false_alarm": [
+    0.01538265306122449,
+    0.08697773064687167
+   ]
+  },
+  "ece_test_after": 0.011923129328142757
+ },
+ "data": {
+  "totals": {
+   "dwsd_test": 192,
+   "test": 4069,
+   "train": 14750,
+   "val": 2028
+  },
+  "by_source": {
+   "BePLi": 780,
+   "DWSD": 927,
+   "Drinking": 1755,
+   "GD": 7638,
+   "RealWaste": 3574,
+   "TACO": 1674,
+   "TIDY": 177,
+   "TrashBox": 3072,
+   "TrashNet": 1442
+  }
+ },
+ "created": "2026-10-24T09:44:08"
+}
