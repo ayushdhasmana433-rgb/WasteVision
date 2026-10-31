@@ -1,5 +1,5 @@
 /* WasteVision web app. Tokens from the WasteVision design system.
-   Colour means a stream: wet = green, dry = blue, special = charcoal with an amber band. Controls are ink on paper. */
+   Colour means a stream: wet = green, dry = blue, special = charcoal with an amber band, sanitary = plum. Controls are ink on paper. */
 @font-face { font-family: "Anek Latin"; font-weight: 500 800; font-stretch: 100% 125%; font-style: normal; font-display: swap; src: url(assets/fonts/AnekLatin-Display.woff2) format("woff2"); }
 @font-face { font-family: "Anek Devanagari"; font-weight: 700; font-style: normal; font-display: swap; src: url(assets/fonts/AnekDevanagari-Bold.woff2) format("woff2"); }
 @font-face { font-family: "Noto Sans Devanagari"; font-weight: 400 600; font-style: normal; font-display: swap; src: url(assets/fonts/NotoSansDevanagari-Text.woff2) format("woff2"); }
@@ -9,7 +9,7 @@
   --wv-line: #d8dbd3; --wv-border: #7f867b;
   --wv-ink: #151915; --wv-muted: #566052;
   --wv-accent: #151915; --wv-on-accent: #ffffff; --wv-focus: #1b4f99;
-  --wv-wet: #1f8043; --wv-dry: #1b4f99; --wv-special: #2a2e2b; --wv-on-stream: #ffffff;
+  --wv-wet: #1f8043; --wv-dry: #1b4f99; --wv-special: #2a2e2b; --wv-sanitary: #a3315f; --wv-on-stream: #ffffff;
   --wv-caution: #f4c542; --wv-on-caution: #151915;
   --wv-unsure: #e3e5df; --wv-unsure-ink: #4f584c; --wv-danger: #b42318;
   --wv-shadow-1: 0 1px 2px #1519150f, 0 2px 8px #1519150d;
@@ -108,6 +108,7 @@ button { cursor: pointer; }
 .wv-wet .wv-band { --fill: var(--wv-wet); --on: var(--wv-on-stream); }
 .wv-dry .wv-band { --fill: var(--wv-dry); --on: var(--wv-on-stream); }
 .wv-special .wv-band { --fill: var(--wv-special); --on: var(--wv-on-stream); padding-top: 24px; }
+.wv-sanitary .wv-band { --fill: var(--wv-sanitary); --on: var(--wv-on-stream); }
 .wv-special .wv-band::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: var(--wv-caution); }
 .wv-glyph { width: 48px; height: 48px; flex: none; fill: currentColor; stroke: currentColor; }
 .wv-glyph .wv-lidg { transform-box: fill-box; transform-origin: 0% 100%; animation: wv-lid var(--wv-verdict-t) cubic-bezier(.3,1.4,.5,1) 120ms both; }
@@ -140,6 +141,7 @@ button { cursor: pointer; }
 .wv-leg-wet .wv-dot { background: var(--wv-wet); }
 .wv-leg-dry .wv-dot { background: var(--wv-dry); }
 .wv-leg-special .wv-dot { background: var(--wv-special); box-shadow: inset 0 4px 0 var(--wv-caution); }
+.wv-leg-sanitary .wv-dot { background: var(--wv-sanitary); }
 .spinner { width: 28px; height: 28px; flex: none; border-radius: 50%; border: 3px solid var(--wv-line); border-top-color: var(--wv-ink); animation: spin 0.9s linear infinite; }
 .progress { height: 6px; border-radius: 9999px; background: var(--wv-raised); overflow: hidden; margin-top: 12px; }
 .progress span { display: block; height: 100%; width: 0; background: var(--wv-ink); transition: width 200ms; }
@@ -155,7 +157,7 @@ button { cursor: pointer; }
 .wv-barlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wv-track { height: 8px; border-radius: 9999px; background: var(--wv-sunken); overflow: hidden; }
 .wv-fill { display: block; height: 100%; border-radius: 9999px; background: var(--wv-muted); }
-.wv-fill.wet { background: var(--wv-wet); } .wv-fill.dry { background: var(--wv-dry); } .wv-fill.special { background: var(--wv-ink); }
+.wv-fill.wet { background: var(--wv-wet); } .wv-fill.dry { background: var(--wv-dry); } .wv-fill.special { background: var(--wv-ink); } .wv-fill.sanitary { background: var(--wv-sanitary); }
 .wv-pct { text-align: right; font-variant-numeric: tabular-nums; color: var(--wv-muted); font-size: 13px; }
 .attrib { margin: 8px 0 0; font-size: 13px; line-height: 18px; color: var(--wv-muted); }
 .private { display: flex; gap: 6px; align-items: flex-start; }

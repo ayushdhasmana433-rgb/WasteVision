@@ -5,19 +5,19 @@
   "source": "RealWaste"
  },
  {
-  "file": "paper_cardboard_TrashNet.jpg",
+  "file": "paper_cardboard_ZeroWaste.jpg",
   "label": "paper_cardboard",
-  "source": "TrashNet"
+  "source": "ZeroWaste"
  },
  {
-  "file": "plastic_TrashNet.jpg",
+  "file": "plastic_ZeroWaste.jpg",
   "label": "plastic",
-  "source": "TrashNet"
+  "source": "ZeroWaste"
  },
  {
-  "file": "metal_TrashNet.jpg",
+  "file": "metal_PSU.jpg",
   "label": "metal",
-  "source": "TrashNet"
+  "source": "PSU"
  },
  {
   "file": "glass_Drinking.jpg",
@@ -40,19 +40,24 @@
   "source": "RealWaste"
  },
  {
-  "file": "battery_GD.jpg",
+  "file": "battery_TACO.jpg",
   "label": "battery",
-  "source": "GD"
+  "source": "TACO"
  },
  {
-  "file": "medicines_syringes_TrashBox.jpg",
+  "file": "medicines_syringes_MedPackID.jpg",
   "label": "medicines_syringes",
-  "source": "TrashBox"
+  "source": "MedPackID"
  },
  {
-  "file": "e_waste_TrashBox.jpg",
+  "file": "e_waste_GlobalWaste.jpg",
   "label": "e_waste",
-  "source": "TrashBox"
+  "source": "GlobalWaste"
+ },
+ {
+  "file": "sanitary_Sanitary.jpg",
+  "label": "sanitary",
+  "source": "Sanitary"
  },
  {
   "file": "india_paper_cardboard_0.jpg",

@@ -1,6 +1,6 @@
 /* WasteVision in the browser.
  * The EfficientNetV2-B0 backbone runs in ONNX Runtime Web (model/backbone.onnx, input 1x224x224x3 in 0..255).
- * The classification head (global average pooling, Dense 128 + ReLU, Dense 11) and Grad-CAM are computed here
+ * The classification head (global average pooling, Dense 128 + ReLU, Dense = number of classes in site.json) and Grad-CAM are computed here
  * from model/head.bin, so the class scores and the heat map match the Keras model in app/ exactly.
  * Calibration, stream probabilities, the Special Care rule and the "not sure" rule follow app/wv_core.py.
  */
@@ -11,7 +11,8 @@
   const fmt = (s, kw) => s.replace(/\{(\w+)\}/g, (m, k) => (k in kw ? kw[k] : m));
   const pct = (x) => (x >= 0.1 ? (x * 100).toFixed(0) : (x * 100).toFixed(1)) + '%';
   const pct1 = (x) => (x * 100).toFixed(1) + '%';
-  const STREAM_KEY = { Wet: 'wet', Dry: 'dry', 'Special Care': 'special' };
+  // Stream key from its name in site.json: Wet -> wet, Special Care -> special, Sanitary -> sanitary (same rule as wv_core.stream_key).
+  const streamKey = (name) => name.split(' ')[0].toLowerCase();
   const SIZE = 224, FEAT = 1280, HID = 128, CELLS = 49;
 
   // ------------------------------------------------------------ icons (same as the Gradio app)
@@ -20,6 +21,7 @@
     wet: I('<path d="M5 19c0-8 5-13 14-14 0 9-5 14-12 14"/><path d="M5 19c3-4 6-6 9-8"/>'),
     dry: I('<path d="M7 10l3-5h4l3 5"/><path d="M17 10l2 4-3 5H8l-3-5 2-4"/><path d="M10 15h4"/>'),
     special: I('<path d="M12 3.5l9 15.5H3z"/><path d="M12 10v4"/><path d="M12 16.8h.01"/>'),
+    sanitary: I('<path d="M8.5 3.5h7l2.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V8z"/><path d="M6 8h12"/><path d="M10 13.5h4"/>'),
     unsure: I('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.5"/><path d="M12 17h.01"/>'),
     photo: I('<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/>'),
   };
@@ -27,6 +29,7 @@
     wet: '<path d="M19 34c0-6 3.5-9.5 10-10 0 6.5-3.5 10-8.5 10M19 34c2-2.6 4-4 6-5.2" fill="none" stroke-width="2.2" stroke-linecap="round"/>',
     dry: '<path d="M21 29.5l2-3.3h3l2 3.3M28 29.5l1.3 2.6-2 3.3h-6.6l-2-3.3 1.3-2.6" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
     special: '<path d="M24 24.5l6 10.5H18z" fill="none" stroke-width="2.2" stroke-linejoin="round"/><path d="M24 28.5v2.6" stroke-width="2.2" stroke-linecap="round"/>',
+    sanitary: '<path d="M20.5 24h7l2 3.5v7a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-7z" fill="none" stroke-width="2.2" stroke-linejoin="round"/><path d="M18.5 27.5h11" stroke-width="2.2" stroke-linecap="round"/>',
     unsure: '<path d="M21.5 27.5a2.6 2.6 0 1 1 3.6 2.4c-.7.3-1.1.8-1.1 1.6" fill="none" stroke-width="2.2" stroke-linecap="round"/><circle cx="24" cy="35" r="1.3"/>',
   };
   const glyph = (k) => '<svg class="wv-glyph" viewBox="0 0 48 48" aria-hidden="true">'
@@ -35,6 +38,7 @@
     + (GLYPH_INNER[k] || GLYPH_INNER.unsure) + '</svg>';
 
   // ------------------------------------------------------------ state
+  let NC = 0;   // number of classes, set from site.json
   let SITE, CFG, TX, lang = 'en', res = null, session = null, W = null, busy = false, stream = null, reqId = 0;
   let modelReady, loadFraction = 0;
   const store = {
@@ -50,7 +54,7 @@
     + `<div class="wv-verdict">${E(title)}</div><div class="wv-sub">${E(sub)}</div>${conf ? `<span class="wv-conf">${E(conf)}</span>` : ''}</div></div>`;
 
   function renderEmpty() {
-    const rows = ['wet', 'dry', 'special'].map((k) => `<li class="wv-leg wv-leg-${k}"><span class="wv-dot" aria-hidden="true">${ICON[k]}</span>`
+    const rows = CFG.streams.map(streamKey).map((k) => `<li class="wv-leg wv-leg-${k}"><span class="wv-dot" aria-hidden="true">${ICON[k]}</span>`
       + `<span><b>${E(TX.BINS[lang][k][0])}</b> <span class="wv-legsub">· ${E(TX.BINS[lang][k][1])}</span><small>${E(TX.LEGEND[lang][k])}</small></span></li>`).join('');
     return `<section class="wv-res wv-empty" role="status" aria-live="polite"><div class="wv-emptyhead">${ICON.photo}`
       + `<div><div class="wv-h">${E(t().empty_title)}</div><div class="wv-muted">${E(t().empty_body)}</div></div></div><ul class="wv-legend">${rows}</ul></section>`;
@@ -74,7 +78,7 @@
       conf = pct(r.streamProb);
     } else {
       kind = key;
-      eyebrow = key === 'special' ? T.eyebrow_special : T.eyebrow_sure;
+      eyebrow = T['eyebrow_' + key] || T.eyebrow_sure;   // eyebrow_special, eyebrow_sanitary; wet and dry use "Put it in"
       if (r.mode === 'precaution') {
         caution = `<div class="wv-caution" role="note">${ICON.special}<p><b>${E(T.eyebrow_precaution)}.</b> `
           + `${E(fmt(T.precaution_body, { m: names[r.topClass], pct: pct(r.hazardProb), h: names[r.hazardClass] }))}</p></div>`;
@@ -92,7 +96,7 @@
     const names = TX.CLASS_NAMES[lang];
     const row = (label, v, cls) => `<li class="wv-bar"><span class="wv-barlabel">${E(label)}</span><span class="wv-track" aria-hidden="true">`
       + `<span class="wv-fill ${cls || ''}" style="width:${Math.max(v * 100, 1).toFixed(1)}%"></span></span><span class="wv-pct">${pct1(v)}</span></li>`;
-    const streams = CFG.streams.map((s, i) => row(TX.BINS[lang][STREAM_KEY[s]][0], r.streamProbs[i], STREAM_KEY[s])).join('');
+    const streams = CFG.streams.map((s, i) => row(TX.BINS[lang][streamKey(s)][0], r.streamProbs[i], streamKey(s))).join('');
     const mats = r.ranked.slice(0, 3).map(([c, v]) => row(names[c], v)).join('');
     return `<h3 class="mini">${E(t().bins_heading)}</h3><ul class="wv-bars">${streams}</ul><h3 class="mini">${E(t().materials_heading)}</h3><ul class="wv-bars">${mats}</ul>`;
   }
@@ -103,7 +107,7 @@
     let extra = '';
     if (real.n) extra += fmt(T.about_extra_real, { n_real: real.n });
     if (india.n) extra += fmt(T.about_extra_india, { n_india: india.n });
-    const tr = (key, value, kw = {}) => `<tr><td>${E(T[key][0])}</td><td class="num">${value}</td><td>${E(fmt(T[key][1], kw))}</td></tr>`;
+    const tr = (key, value, kw = {}) => `<tr><td>${E(fmt(T[key][0], { n: CFG.classes.length }))}</td><td class="num">${value}</td><td>${E(fmt(T[key][1], kw))}</td></tr>`;
     const rows = [tr('m_stream', pct1(te.stream_acc)), tr('m_class', pct1(te.class_acc))];
     if (real.n) rows.push(tr('m_real', pct1(real.stream_acc)));
     if (te['sc_recall@0.20'] != null) {
@@ -113,8 +117,8 @@
     if (india.n) rows.push(tr('m_india', pct1(india.stream_acc), { ci: fmtCi(ci.stream_acc) }));
     const th = T.about_th.map((h) => `<th scope="col">${E(h)}</th>`).join('');
     const how = ['how_safety', 'how_unsure', 'how_why'].map((k) => `<li>${fmt(T[k], { sc_t: pct(CFG.special_care_threshold), t_stream: pct(CFG.not_sure_stream_threshold) })}</li>`).join('');
-    const limits = T.limits.map((x) => `<li>${E(x)}</li>`).join('');
-    const modelLine = fmt(T.about_model, { arch: E(CFG.architecture), params: CFG.params_m.toFixed(1), n_train: totals.train || '–', n_src: sources.length, src: E(sources.join(', ')), v: E(CFG.version) });
+    const limits = (CFG.sanitary_supported === false ? [T.limit_no_sanitary] : []).concat(T.limits).map((x) => `<li>${E(x)}</li>`).join('');
+    const modelLine = fmt(T.about_model, { arch: E(CFG.architecture), params: CFG.params_m.toFixed(1), n_train: totals.train || '–', n_src: sources.length, src: E(sources.join(', ')) });
     const names = TX.CLASS_NAMES[lang];
     const gal = CFG.gallery.map((g) => {
       const place = g.source === 'DWSD' ? 'India · ' : '';
@@ -130,11 +134,16 @@
 
   function applyText() {
     document.documentElement.lang = lang;
-    document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = t()[el.dataset.t]; });
+    document.querySelectorAll('[data-t]').forEach((el) => {
+      const k = el.dataset.t;
+      el.textContent = k === 'footer'
+        ? fmt(CFG.sanitary_supported === false ? t().footer_unsupported : t().footer, { n: CFG.classes.length })
+        : t()[k];
+    });
     document.querySelectorAll('.lang button').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.lang === lang)));
     $('.pickers').setAttribute('aria-label', t().photo_label);
     $('#cam').setAttribute('aria-label', t().cam_label);
-    $('#attrib').textContent = fmt(t().attrib, { v: CFG.version, arch: CFG.architecture });
+    $('#attrib').textContent = fmt(t().attrib, { arch: CFG.architecture });
     $('#about').innerHTML = renderAbout();
     if (!busy) $('#verdict').innerHTML = renderVerdict(res);
     if (res) $('#details').innerHTML = renderDetails(res);
@@ -178,7 +187,8 @@
     const raw = new Float32Array(head);
     let o = 0;
     const take = (n) => { const a = raw.subarray(o, o + n); o += n; return a; };
-    W = { W1: take(FEAT * HID), b1: take(HID), W2: take(HID * 11), b2: take(11) };
+    if (raw.length !== FEAT * HID + HID + HID * NC + NC) throw new Error(`head.bin has ${raw.length} values, expected ${FEAT * HID + HID + HID * NC + NC} for ${NC} classes`);
+    W = { W1: take(FEAT * HID), b1: take(HID), W2: take(HID * NC), b2: take(NC) };
     session = await ort.InferenceSession.create(onnx, { executionProviders: ['wasm'], graphOptimizationLevel: 'all' });
     await session.run({ [session.inputNames[0]]: new ort.Tensor('float32', new Float32Array(SIZE * SIZE * 3), [1, SIZE, SIZE, 3]) });
   }
@@ -193,11 +203,11 @@
     const h = Float32Array.from(b1);
     for (let k = 0; k < FEAT; k++) { const v = pooled[k]; if (v !== 0) for (let j = 0; j < HID; j++) h[j] += v * W1[k * HID + j]; }
     const z = Float32Array.from(b2);
-    for (let j = 0; j < HID; j++) { const a = h[j] > 0 ? h[j] : 0; if (a) for (let c = 0; c < 11; c++) z[c] += a * W2[j * 11 + c]; }
+    for (let j = 0; j < HID; j++) { const a = h[j] > 0 ? h[j] : 0; if (a) for (let c = 0; c < NC; c++) z[c] += a * W2[j * NC + c]; }
     let c = 0;
-    for (let i = 1; i < 11; i++) if (z[i] > z[c]) c = i;
+    for (let i = 1; i < NC; i++) if (z[i] > z[c]) c = i;
     const m = new Float32Array(HID);
-    for (let j = 0; j < HID; j++) m[j] = h[j] > 0 ? W2[j * 11 + c] : 0;
+    for (let j = 0; j < HID; j++) m[j] = h[j] > 0 ? W2[j * NC + c] : 0;
     const g = new Float32Array(FEAT);
     for (let k = 0; k < FEAT; k++) { let s = 0; for (let j = 0; j < HID; j++) s += W1[k * HID + j] * m[j]; g[k] = s / CELLS; }
     const cam = new Float32Array(CELLS);
@@ -227,7 +237,7 @@
     else { mode = 'sure'; verdict = streams[sIdx]; }
     const order = p.map((v, i) => i).sort((a, b) => p[b] - p[a]);
     return {
-      mode, verdict, verdictKey: STREAM_KEY[verdict], topClass: classes[top], topProb: p[top], classSure: p[top] >= CFG.not_sure_class_threshold,
+      mode, verdict, verdictKey: streamKey(verdict), topClass: classes[top], topProb: p[top], classSure: p[top] >= CFG.not_sure_class_threshold,
       streamProbs: sp, streamProb: sp[sIdx], hazardClass: classes[hazard], hazardProb: sp[scIdx], ranked: order.map((i) => [classes[i], p[i]]), probs: p,
     };
   }
@@ -430,8 +440,8 @@
   }
 
   async function init() {
-    SITE = await (await fetch('model/site.json?v=3')).json();
-    CFG = SITE.config; TX = SITE.text;
+    SITE = await (await fetch('model/site.json?v=4')).json();
+    CFG = SITE.config; TX = SITE.text; NC = CFG.classes.length;
     const saved = store.get('wv-lang');
     if (saved === 'hi' || saved === 'en') lang = saved;
     else if ((navigator.language || '').toLowerCase().startsWith('hi')) lang = 'hi';
