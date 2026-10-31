@@ -1,0 +1,3 @@
+,n_test,class_acc,macro_f1,stream_acc,test_with_near_duplicate_in_train,acc_items_with_duplicate,acc_items_without_duplicate
+"naive random split (no de-duplication, no grouping)",19368.0,0.8731928954977282,0.8644122205044767,0.9566294919454771,0.3319392812887237,0.8788303002022088,0.8703918386274055
+grouped by photo and duplicate cluster,19724.0,0.8665585074021497,0.8551749073531775,0.9534070168322856,0.0,,0.8665585074021497

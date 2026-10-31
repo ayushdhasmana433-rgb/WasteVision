@@ -1,65 +1,101 @@
 # WasteVision
 
-WasteVision classifies a photograph of a single household waste item into one of 11 material classes and maps the result to the three source-segregation streams of India's Solid Waste Management (SWM) Rules, 2026: **Wet**, **Dry** and **Special Care**. The app also reports how confident the model is, refuses to answer when confidence is low, and shows a Grad-CAM heat map of the image regions that drove the decision.
+Which bin does this go in? WasteVision classifies a photo of one household waste item into 12 material classes and routes it to
+one of the four streams that India's **Solid Waste Management Rules, 2026** require at source: **Wet, Dry, Sanitary and Special Care**.
+It flags hazards with a cost-derived threshold, says "not sure" when it should, and shows where it looked (Grad-CAM).
 
-**Live demo:** https://ayushdhasmana433-rgb.github.io/WasteVision/ (runs entirely in the browser, on phones too; the photo never leaves the device)
+**Try it:** https://ayushdhasmana433-rgb.github.io/WasteVision/ (runs in your browser; English and Hindi; works with a phone camera).
 
-By Ayush Dhasmana, 2026.
+The project also asks a research question: does a good score on a shuffled test split mean the bin decision is safe?
+We test the decision on datasets the model never saw, on hazard types it never saw, and with near-duplicate photos removed.
 
-## Results (v2, held-out test set, 4,069 images)
+## Results (final run)
 
-| Model | Params (M) | Class accuracy | Macro-F1 | Stream accuracy | Special Care recall at 0.20 | False alarm at 0.20 |
-|---|---|---|---|---|---|---|
-| Scratch CNN | 1.91 | 0.540 | 0.535 | 0.864 | 0.914 | 0.170 |
-| MobileNetV2 | 2.42 | 0.842 | 0.847 | 0.968 | 0.979 | 0.042 |
-| **EfficientNetV2-B0** (deployed) | 6.08 | **0.866** | **0.867** | **0.971** | 0.978 | **0.039** |
+Data: 29,717 images from 18 public sources after cleaning and cross-source de-duplication
+(24,672 near-duplicates removed; 27,918 duplicate pairs crossed two datasets).
 
-On 192 street crops from Kolkata (DWSD photographs held out from training) the deployed model reaches 0.755 class accuracy (95% CI 0.678 to 0.828) and 0.979 stream accuracy (0.953 to 1.000). Accuracy on real-life photographs in the test set is 0.802, against 0.925 on web and studio images; that gap is the main limitation.
+| Model | Class acc. | Stream acc. | Special Care recall (4:1) | False alarm |
+|---|---|---|---|---|
+| EfficientNetV2-B0 (seed 42) | 85.1% | 96.2% | 97.4% | 4.0% |
+| MobileNetV2 | 83.3% | 94.6% | 97.7% | 6.4% |
+| EfficientNetV2-B0 (seed 7) | 85.3% | 95.9% | 97.6% | 4.9% |
+| EfficientNetV2-B0 (seed 123) | 85.3% | 95.9% | 97.4% | 3.9% |
+| Scratch CNN | 52.8% | 78.5% | 87.6% | 22.5% |
 
-The training and validation curves stay within one percentage point of each other for the deployed model (train 0.881, validation 0.872 at the kept epoch; validation to test drop 0.6 points), so the model shows no sign of memorising the training set. See `results/v2/overfitting_check.csv` and `results/v2/figures/overfitting_curves.png`.
+EfficientNetV2-B0 over three seeds: stream accuracy 96.0 ± 0.1%, class accuracy 85.2 ± 0.1%,
+Special Care recall 97.4 ± 0.1%. Answering "Dry" for everything would score 69.6% stream accuracy.
 
-## Classes and streams
+**On a dataset the model never saw** (leave one dataset out, frozen features): stream accuracy 27.6% to 98.7%
+(median 81.6%, against 94.9% when the dataset was seen).
 
-| Stream | Classes |
+| Held-out dataset | Images | Stream acc. | Seen in training | Always-Dry | Special Care miss |
+|---|---|---|---|---|---|
+| MedPackID | 689 | 27.6% | 94.6% | 0.0% | 53.8% |
+| Sanitary | 176 | 39.8% | 81.2% | 0.0% | – |
+| Drinking | 641 | 60.4% | 94.9% | 100.0% | – |
+| WastePro | 2,011 | 67.8% | 95.4% | 50.2% | 72.5% |
+| Mayank14 | 560 | 67.9% | 83.8% | 53.6% | 30.0% |
+| GlobalWaste | 10,202 | 71.6% | 92.8% | 39.5% | 19.0% |
+| RealWaste | 2,186 | 81.4% | 95.1% | 69.4% | – |
+| ZeroWaste | 4,897 | 81.8% | 99.8% | 100.0% | – |
+| TACO | 760 | 88.8% | 94.0% | 98.7% | 0.0% |
+| TrashNet | 543 | 93.2% | 94.5% | 100.0% | – |
+| SGBattery | 314 | 93.3% | 100.0% | 0.0% | 1.3% |
+| DWSD | 927 | 94.1% | – | 100.0% | – |
+| GD | 4,477 | 95.7% | 97.6% | 69.6% | 0.0% |
+| PSU | 716 | 98.7% | 100.0% | 100.0% | – |
+
+**Batteries the model never saw:** 20.2% rejected as "not sure", 76.2% flagged as Special Care,
+19.5% sent to the dry bin without a warning. The model called most unseen batteries e-waste, metal or
+medicines; because the Special Care flag sums all hazardous classes, that mistake still raised the warning.
+
+**False alarms on new datasets:** the 4:1 hazard threshold, tuned on known datasets, raised false hazard flags on a median of
+18% of items from an unseen dataset (up to 54% for drink containers).
+
+**Leakage:** a naive random split scores 87.3%; keeping duplicates together scores 86.7%
+(0.7 points of difference). The frozen-feature head cannot memorise photos, so read this as a lower bound.
+Whole datasets re-host others: 99% of TrashBox was already inside GlobalWasteData, and 78% of WastePro repeats RealWaste,
+TrashNet and GlobalWasteData photos.
+
+Full numbers: `results/final/`.
+
+## Data sources
+
+| Source | Images used |
 |---|---|
-| Wet | food and garden organics |
-| Dry | paper and cardboard, plastic (including thermocol), metal, glass, clothes, shoes, other dry trash |
-| Special Care | batteries, medicines and syringes, e-waste |
+| GlobalWaste | 10,202 |
+| ZeroWaste | 4,897 |
+| GD | 4,477 |
+| RealWaste | 2,186 |
+| WastePro | 2,011 |
+| DWSD | 927 |
+| TACO | 760 |
+| PSU | 716 |
+| MedPackID | 689 |
+| Drinking | 641 |
+| Mayank14 | 560 |
+| TrashNet | 543 |
+| PharmaSynth | 488 |
+| SGBattery | 314 |
+| Sanitary | 176 |
+| TIDY | 95 |
+| TrashBox | 27 |
+| BePLi | 8 |
 
-The stream probability is the sum of the calibrated class probabilities in that stream. If the Special Care probability reaches 0.20 the answer is Special Care, a threshold derived from a 4:1 cost of a missed hazard against a false alarm. Sanitary waste is a separate stream under the Rules but is not covered, because no suitable public image set exists.
+Images are not redistributed here; the notebook downloads every source from its original host. Licences differ by source
+(see the paper). The split manifest, perceptual hashes and the duplicate pair list are in `results/final/`.
 
-## Repository layout
+## Repository
 
-| Path | Contents |
-|---|---|
-| `app/` | Gradio app (English and Hindi), the trained v2 model in `app/export/`, run scripts |
-| `notebooks/WasteVision_v2_training.ipynb` | Final pipeline: data download, cleaning, deduplication, grouped splits, training of three models, calibration, evaluation, export |
-| `notebooks/WasteVision_v1_training.ipynb` | First version, trained on two web datasets |
-| `results/v2/` | Metrics, figures, per-epoch training logs and the overfitting check for the final models |
-| `results/v1/` | Summary of the first version |
-| `docs/` | The live web version served by GitHub Pages: the same model exported to ONNX and run with ONNX Runtime Web, the classification head and Grad-CAM computed in JavaScript |
-| `tools/export_web_model.py` | Converts the Keras model into the files the web version loads |
+- `notebooks/WasteVision_final_training.ipynb`: the whole pipeline in one notebook (download, clean, de-duplicate, split,
+  train, evaluate, research analyses, export). Run the data steps on a CPU runtime, then switch to a T4 GPU and Run all.
+- `app/`: local Gradio app (`run_app.cmd`), the same decision logic as the paper.
+- `docs/`: the browser app (ONNX Runtime Web), served by GitHub Pages.
+- `tools/export_web_model.py`: exports the trained model for the browser app.
+- `results/final/`: metrics, figures and analysis tables of the final run.
 
-## Web version
+## Cite
 
-`docs/` is a static site, so GitHub Pages can host it without a server. The EfficientNetV2-B0 backbone was exported to ONNX (`docs/model/backbone.onnx`) and runs in ONNX Runtime Web. The head (global average pooling, Dense 128 with ReLU, Dense 11) is computed in `docs/app.js` from the exported weights (`docs/model/head.bin`). Grad-CAM is computed analytically from the same weights. On the 35 example and gallery images, the browser version gives the same top class and the same stream decision as the Keras model in `app/`. The median probability difference is 0.5 percentage points, caused by image resampling in the browser. To run it locally, serve the folder with any static server, for example `python -m http.server -d docs`.
+A. Dhasmana and P. Gupta, "Hazard-Aware Waste-Stream Routing from Photographs under Source Shift," Manipal University Jaipur, 2026.
 
-## Run the app locally
-
-```
-cd app
-python -m venv .venv
-.venv\Scripts\activate          # Windows; on macOS or Linux: . .venv/bin/activate
-pip install -r requirements.txt
-python app.py                   # add --lan to open it from a phone on the same Wi-Fi
-```
-
-On Windows, double-clicking `app/run_app.cmd` does the same. On a phone, the app shows **Take a photo** and **Choose from gallery** buttons above the photo area.
-
-## Reproduce the training
-
-Open `notebooks/WasteVision_v2_training.ipynb` in Google Colab with a T4 GPU and run all cells. The notebook downloads the public datasets itself (TrashNet, TACO, RealWaste, TrashBox, Garbage Dataset, BePLi, Drinking Waste, TIDY and DWSD), so no data is stored in this repository. Each dataset keeps its own licence. Training the three models took about 55 minutes on a T4; downloading, cleaning and evaluation add to that.
-
-## Licence
-
-Code: MIT (see `LICENSE`). Fonts in `app/assets/fonts/`: SIL Open Font License. Example images in `app/export/` come from the public datasets listed above and remain under their original licences.
+Licence: MIT for the code. Datasets keep their own licences.

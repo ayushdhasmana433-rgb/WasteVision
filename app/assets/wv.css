@@ -1,5 +1,5 @@
 /* WasteVision interface, built on the WasteVision design system (tokens.json).
-   Colour means a stream: wet = green, dry = blue, special = charcoal + amber band. Controls are ink on paper. */
+   Colour means a stream: wet = green, dry = blue, special = charcoal + amber band, sanitary = plum. Controls are ink on paper. */
 /*FONTS*/
 
 :root, .light {
@@ -7,9 +7,9 @@
   --wv-line: #d8dbd3; --wv-border: #7f867b;
   --wv-ink: #151915; --wv-muted: #566052;
   --wv-accent: #151915; --wv-on-accent: #ffffff; --wv-focus: #1b4f99;
-  --wv-wet: #1f8043; --wv-dry: #1b4f99; --wv-special: #2a2e2b; --wv-on-stream: #ffffff;
-  --wv-wet-ink: #176a35; --wv-dry-ink: #1b56a0;
-  --wv-wet-tint: #e3f1e7; --wv-dry-tint: #e2ebf7; --wv-special-tint: #ecebe6;
+  --wv-wet: #1f8043; --wv-dry: #1b4f99; --wv-special: #2a2e2b; --wv-sanitary: #a3315f; --wv-on-stream: #ffffff;
+  --wv-wet-ink: #176a35; --wv-dry-ink: #1b56a0; --wv-sanitary-ink: #8f2754;
+  --wv-wet-tint: #e3f1e7; --wv-dry-tint: #e2ebf7; --wv-special-tint: #ecebe6; --wv-sanitary-tint: #f6e4ec;
   --wv-caution: #f4c542; --wv-on-caution: #151915; --wv-caution-ink: #7f5600;
   --wv-unsure: #e3e5df; --wv-unsure-ink: #4f584c; --wv-danger: #b42318;
   --wv-shadow-1: 0 1px 2px #1519150f, 0 2px 8px #1519150d;
@@ -27,8 +27,8 @@
   --wv-ink: #eef0eb; --wv-muted: #a3ab9f;
   --wv-accent: #eef0eb; --wv-on-accent: #121512; --wv-focus: #79acf0;
   --wv-special: #454b46;
-  --wv-wet-ink: #5cc983; --wv-dry-ink: #79acf0;
-  --wv-wet-tint: #16281c; --wv-dry-tint: #172233; --wv-special-tint: #232624;
+  --wv-wet-ink: #5cc983; --wv-dry-ink: #79acf0; --wv-sanitary-ink: #ee8fb4;
+  --wv-wet-tint: #16281c; --wv-dry-tint: #172233; --wv-special-tint: #232624; --wv-sanitary-tint: #2b1721;
   --wv-caution-ink: #f4c542;
   --wv-unsure: #262b26; --wv-unsure-ink: #b4bbb0; --wv-danger: #ff8a7a;
   --wv-shadow-1: 0 1px 2px #00000080, 0 0 0 1px #2a302a;
@@ -117,6 +117,7 @@ footer:not(.wv-footer) { display: none !important; }
 .wv-wet .wv-band { --fill: var(--wv-wet); --on: var(--wv-on-stream); }
 .wv-dry .wv-band { --fill: var(--wv-dry); --on: var(--wv-on-stream); }
 .wv-special .wv-band { --fill: var(--wv-special); --on: var(--wv-on-stream); padding-top: 24px; }
+.wv-sanitary .wv-band { --fill: var(--wv-sanitary); --on: var(--wv-on-stream); }
 .wv-special .wv-band::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: var(--wv-caution); }
 .wv-band * { color: var(--on) !important; }
 .wv-glyph { width: 48px; height: 48px; flex: none; fill: currentColor; stroke: currentColor; }
@@ -154,6 +155,7 @@ footer:not(.wv-footer) { display: none !important; }
 .wv-leg-wet .wv-dot { background: var(--wv-wet); }
 .wv-leg-dry .wv-dot { background: var(--wv-dry); }
 .wv-leg-special .wv-dot { background: var(--wv-special); box-shadow: inset 0 4px 0 var(--wv-caution); }
+.wv-leg-sanitary .wv-dot { background: var(--wv-sanitary); }
 
 /* why: Grad-CAM beside the probability bars */
 #wv-whyhead:empty, #wv-whyhead .html-container:empty { display: none; }
@@ -168,7 +170,7 @@ footer:not(.wv-footer) { display: none !important; }
 .wv-barlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wv-track { height: 8px; border-radius: 9999px; background: var(--wv-sunken); overflow: hidden; }
 .wv-fill { display: block; height: 100%; border-radius: 9999px; background: var(--wv-muted); }
-.wv-fill.wet { background: var(--wv-wet); } .wv-fill.dry { background: var(--wv-dry); } .wv-fill.special { background: var(--wv-ink); }
+.wv-fill.wet { background: var(--wv-wet); } .wv-fill.dry { background: var(--wv-dry); } .wv-fill.special { background: var(--wv-ink); } .wv-fill.sanitary { background: var(--wv-sanitary); }
 .wv-pct { text-align: right; font-variant-numeric: tabular-nums; color: var(--wv-muted); font-size: 13px; }
 
 /* feedback */

@@ -50,7 +50,12 @@ class ColorJitter(keras.layers.Layer):
 
 FEEDBACK_FIELDS = ["timestamp", "file", "predicted_class", "predicted_stream", "confidence",
                    "human_label", "model_version"]
-STREAM_KEYS = {"Wet": "wet", "Dry": "dry", "Special Care": "special"}
+
+
+def stream_key(name):
+    """CSS / text key of a stream, derived from its name in config.json:
+    "Wet" -> "wet", "Dry" -> "dry", "Special Care" -> "special", "Sanitary" -> "sanitary"."""
+    return name.split()[0].lower()
 
 
 class WasteModel:
@@ -67,8 +72,12 @@ class WasteModel:
         self.sc_threshold = float(c["special_care_threshold"])
         self.t_stream = float(c["not_sure_stream_threshold"])
         self.t_class = float(c["not_sure_class_threshold"])
-        self.version = c.get("version", "v1")
+        # Only recorded in the feedback file (never shown): the config's own id, else its build timestamp.
+        self.version = str(c.get("version") or c.get("created") or "")
         self.arch = c.get("architecture", "")
+        missing = [cls for cls in self.classes if self.stream_of.get(cls) not in self.streams]
+        if missing:
+            raise ValueError(f"config.json: classes without a valid stream in 'stream_of': {missing}")
         self.stream_matrix = np.zeros((len(self.classes), len(self.streams)), np.float32)
         for i, cls in enumerate(self.classes):
             self.stream_matrix[i, self.streams.index(self.stream_of[cls])] = 1.0
@@ -76,13 +85,17 @@ class WasteModel:
         self.sc_classes = [i for i, cls in enumerate(self.classes) if self.stream_of[cls] == "Special Care"]
 
         t0 = time.time()
-        self.model = keras.models.load_model(os.path.join(self.export_dir, c["model_file"]), compile=False)
+        self.model = keras.models.load_model(os.path.join(self.export_dir, c.get("model_file", "wastevision.keras")),
+                                             compile=False)
         self._pre = self.model.get_layer("preproc")
         self._backbone = self.model.get_layer("backbone")
         self._head = self.model.get_layer("head")
         self._lock = threading.Lock()
         self._step = tf.function(self._forward_with_cam, reduce_retracing=True)
-        self._step(tf.zeros((1, self.size, self.size, 3), tf.float32))  # warm-up: first real photo is fast
+        n_out = int(self._step(tf.zeros((1, self.size, self.size, 3), tf.float32))[0].shape[-1])  # warm-up: first real photo is fast
+        if n_out != len(self.classes):
+            raise ValueError(f"The model has {n_out} outputs but config.json lists {len(self.classes)} classes. "
+                             "Use the config.json that was exported together with this model.")
         self.load_seconds = time.time() - t0
 
     # ---------- preprocessing (identical to training) ----------
@@ -140,7 +153,7 @@ class WasteModel:
             mode, verdict = "sure", self.streams[s_idx]
         order = np.argsort(-p)
         return dict(
-            mode=mode, verdict=verdict, verdict_key=STREAM_KEYS[verdict],
+            mode=mode, verdict=verdict, verdict_key=stream_key(verdict),
             top_class=self.classes[top], top_prob=float(p[top]),
             class_sure=bool(p[top] >= self.t_class),
             stream_probs={s: float(v) for s, v in zip(self.streams, sp)},

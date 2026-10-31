@@ -25,11 +25,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 import gradio as gr
 
-from wv_core import WasteModel, FeedbackStore
+from wv_core import WasteModel, FeedbackStore, stream_key
 from wv_text import LANGS, CLASS_NAMES, BINS, LEGEND, TIPS, T
 
 E = html.escape
-STREAM_KEY = {"Wet": "wet", "Dry": "dry", "Special Care": "special"}
+# Stream keys shown in the empty-state legend, in model order. build() replaces this with the streams from config.json.
+LEGEND_KEYS = ["wet", "dry", "special", "sanitary"]
 # The public online demo does not collect photos; feedback is only offered when the app runs locally.
 SHOW_FEEDBACK = not os.environ.get("SPACE_ID")
 
@@ -39,6 +40,7 @@ ICON = {
     "wet": _I.format('<path d="M5 19c0-8 5-13 14-14 0 9-5 14-12 14"/><path d="M5 19c3-4 6-6 9-8"/>'),
     "dry": _I.format('<path d="M7 10l3-5h4l3 5"/><path d="M17 10l2 4-3 5H8l-3-5 2-4"/><path d="M10 15h4"/>'),
     "special": _I.format('<path d="M12 3.5l9 15.5H3z"/><path d="M12 10v4"/><path d="M12 16.8h.01"/>'),
+    "sanitary": _I.format('<path d="M8.5 3.5h7l2.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V8z"/><path d="M6 8h12"/><path d="M10 13.5h4"/>'),
     "unsure": _I.format('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.5"/><path d="M12 17h.01"/>'),
     "photo": _I.format('<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/>'),
 }
@@ -51,6 +53,7 @@ GLYPH_INNER = {
     "wet": '<path d="M19 34c0-6 3.5-9.5 10-10 0 6.5-3.5 10-8.5 10M19 34c2-2.6 4-4 6-5.2" fill="none" stroke-width="2.2" stroke-linecap="round"/>',
     "dry": '<path d="M21 29.5l2-3.3h3l2 3.3M28 29.5l1.3 2.6-2 3.3h-6.6l-2-3.3 1.3-2.6" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
     "special": '<path d="M24 24.5l6 10.5H18z" fill="none" stroke-width="2.2" stroke-linejoin="round"/><path d="M24 28.5v2.6" stroke-width="2.2" stroke-linecap="round"/>',
+    "sanitary": '<path d="M20.5 24h7l2 3.5v7a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-7z" fill="none" stroke-width="2.2" stroke-linejoin="round"/><path d="M18.5 27.5h11" stroke-width="2.2" stroke-linecap="round"/>',
     "unsure": '<path d="M21.5 27.5a2.6 2.6 0 1 1 3.6 2.4c-.7.3-1.1.8-1.1 1.6" fill="none" stroke-width="2.2" stroke-linecap="round"/><circle cx="24" cy="35" r="1.3"/>',
 }
 
@@ -90,7 +93,7 @@ def render_empty(lang):
     rows = "".join(f'<li class="wv-leg wv-leg-{k}"><span class="wv-dot" aria-hidden="true">{ICON[k]}</span>'
                    f'<span><b>{E(BINS[lang][k][0])}</b> <span class="wv-legsub">· {E(BINS[lang][k][1])}</span>'
                    f'<small>{E(LEGEND[lang][k])}</small></span></li>'
-                   for k in ("wet", "dry", "special"))
+                   for k in LEGEND_KEYS)
     return (f'<section class="wv-res wv-empty" role="status" aria-live="polite"><div class="wv-emptyhead">{ICON["photo"]}'
             f'<div><div class="wv-h">{E(t["empty_title"])}</div><div class="wv-muted">{E(t["empty_body"])}</div></div></div>'
             f'<ul class="wv-legend">{rows}</ul></section>')
@@ -124,7 +127,7 @@ def render_verdict(res, lang):
         conf = pct(res["stream_prob"])
     else:
         kind = key
-        eyebrow = t["eyebrow_special"] if key == "special" else t["eyebrow_sure"]
+        eyebrow = t.get("eyebrow_" + key, t["eyebrow_sure"])   # eyebrow_special, eyebrow_sanitary; wet and dry use "Put it in"
         if res["mode"] == "precaution":
             caution = (f'<div class="wv-caution" role="note">{ICON["special"]}<p><b>{E(t["eyebrow_precaution"])}.</b> '
                        f'{E(t["precaution_body"].format(m=names[res["top_class"]], pct=pct(res["hazard_prob"]), h=names[res["hazard_class"]]))}</p></div>')
@@ -151,7 +154,7 @@ def render_details(res, lang):
         return (f'<li class="wv-bar"><span class="wv-barlabel">{E(label)}</span>'
                 f'<span class="wv-track" aria-hidden="true"><span class="wv-fill {cls}" style="width:{max(v * 100, 1):.1f}%"></span></span>'
                 f'<span class="wv-pct">{pct1(v)}</span></li>')
-    streams = "".join(row(BINS[lang][STREAM_KEY[s]][0], v, STREAM_KEY[s]) for s, v in res["stream_probs"].items())
+    streams = "".join(row(BINS[lang][stream_key(s)][0], v, stream_key(s)) for s, v in res["stream_probs"].items())
     mats = "".join(row(names[c], v) for c, v in res["ranked"][:3])
     return (f'<div class="wv-details"><h3 class="wv-mini">{E(t["bins_heading"])}</h3><ul class="wv-bars">{streams}</ul>'
             f'<h3 class="wv-mini">{E(t["materials_heading"])}</h3><ul class="wv-bars">{mats}</ul></div>')
@@ -164,7 +167,13 @@ def render_why_head(lang, visible=True):
 
 
 def render_attrib(lang, model):
-    return f'<p class="wv-attrib">{E(T[lang]["attrib"].format(v=model.version, arch=model.arch))}</p>'
+    return f'<p class="wv-attrib">{E(T[lang]["attrib"].format(arch=model.arch))}</p>'
+
+
+def render_footer(lang, model):
+    t = T[lang]
+    text = t["footer"] if model.cfg.get("sanitary_supported", True) else t["footer_unsupported"]
+    return f'<footer class="wv-footer">{E(text.format(n=len(model.classes)))}</footer>'
 
 
 def render_bar_title(lang):
@@ -190,7 +199,7 @@ def render_about(lang, model, lockup):
 
     def tr(key, value, **kw):
         lab, mean = t[key]
-        return f'<tr><td>{E(lab)}</td><td class="num">{value}</td><td>{E(mean.format(**kw))}</td></tr>'
+        return f'<tr><td>{E(lab.format(n=len(model.classes)))}</td><td class="num">{value}</td><td>{E(mean.format(**kw))}</td></tr>'
     rows = [tr("m_stream", pct1(te["stream_acc"])), tr("m_class", pct1(te["class_acc"]))]
     if real.get("n"):
         rows.append(tr("m_real", pct1(real["stream_acc"])))
@@ -202,9 +211,10 @@ def render_about(lang, model, lockup):
     th = "".join(f"<th scope=\"col\">{E(h)}</th>" for h in t["about_th"])
     how = "".join(f"<li>{t[k].format(sc_t=pct(model.sc_threshold), t_stream=pct(model.t_stream))}</li>"
                   for k in ("how_safety", "how_unsure", "how_why"))
-    limits = "".join(f"<li>{E(x)}</li>" for x in t["limits"])
+    limit_list = ([t["limit_no_sanitary"]] if not model.cfg.get("sanitary_supported", True) else []) + list(t["limits"])
+    limits = "".join(f"<li>{E(x)}</li>" for x in limit_list)
     model_line = t["about_model"].format(arch=E(model.arch), params=f"{params:.1f}", n_train=totals.get("train", "–"),
-                                         n_src=len(sources), src=E(", ".join(sources)), v=E(model.version))
+                                         n_src=len(sources), src=E(", ".join(sources)))
     return (f'<div class="wv-about"><section class="wv-card wv-pad"><h2 class="wv-h2">{E(t["about_h_perf"])}</h2>'
             f'<p>{E(t["about_intro"].format(n_test=te["n"], extra=extra))}</p>'
             f'<table class="wv-table"><thead><tr>{th}</tr></thead><tbody>{"".join(rows)}</tbody></table></section>'
@@ -246,7 +256,7 @@ def example_paths(export_dir):
 
 def fix_choices(res, lang):
     names = CLASS_NAMES[lang]
-    order = [c for c, _ in res["ranked"]] if res else list(CLASS_NAMES["en"])[:-1]
+    order = [c for c, _ in res["ranked"]] if res else [c for c in CLASS_NAMES["en"] if c != "not_waste"]
     return [(names[c], c) for c in order] + [(names["not_waste"], "not_waste")]
 
 
@@ -373,13 +383,16 @@ def render_pickers(lang):
 
 # ---------------------------------------------------------------- app
 def build(model, store, export_dir):
+    global LEGEND_KEYS
+    LEGEND_KEYS = [stream_key(s) for s in model.streams]
     lockup = themed_svg(os.path.join(HERE, "assets", "wv-lockup.svg"))
     examples = example_paths(export_dir)
     lang0 = "en"
     t0 = T[lang0]
+    stream_list = ", ".join(model.streams[:-1]) + " or " + model.streams[-1]
     head = ('<meta name="theme-color" content="#f2f3ef" media="(prefers-color-scheme: light)">'
             '<meta name="theme-color" content="#121512" media="(prefers-color-scheme: dark)">'
-            '<meta name="description" content="WasteVision: photograph one waste item and see whether it goes in the Wet, Dry or Special Care stream.">'
+            '<meta name="description" content="WasteVision: photograph one waste item and see whether it goes in the ' + E(stream_list) + ' stream.">'
             + PAGE_CSS + PICK_JS)
 
     with gr.Blocks(theme=make_theme(), css=load_css(), title="WasteVision", analytics_enabled=False, head=head,
@@ -436,7 +449,7 @@ def build(model, store, export_dir):
                 gal = gr.Gallery(gallery_items(lang0, export_dir), columns=4, height="auto", allow_preview=True,
                                  show_label=False, object_fit="cover", show_share_button=False, elem_id="wv-gallery")
 
-        footer = gr.HTML(f'<footer class="wv-footer">{E(t0["footer"])}</footer>')
+        footer = gr.HTML(render_footer(lang0, model))
 
         # ---------------- events
         def on_image(img, lg):
@@ -476,7 +489,7 @@ def build(model, store, export_dir):
             n = store.save(res["image"], res, choice, model.version)
             res = dict(res, corrected=choice)
             if choice != "not_waste":
-                res["verdict_key"] = STREAM_KEY[model.stream_of[choice]]
+                res["verdict_key"] = stream_key(model.stream_of[choice])
             bin_name = BINS[lg][res["verdict_key"]][0] if choice != "not_waste" else CLASS_NAMES[lg]["not_waste"]
             text = T[lg]["saved_fix"].format(b=bin_name, n=n)
             return (render_verdict(res, lg), gr.update(visible=False), gr.update(visible=False),
@@ -496,7 +509,7 @@ def build(model, store, export_dir):
                     gr.update(label=t["fix_label"], choices=fix_choices(res, lg)), gr.update(value=t["save_fix"]),
                     f'<p class="wv-attrib">{E(t["feedback_privacy"])}</p>', "", render_attrib(lg, model),
                     render_about(lg, model, lockup), gr.update(value=gallery_items(lg, export_dir)),
-                    f'<footer class="wv-footer">{E(t["footer"])}</footer>')
+                    render_footer(lg, model))
 
         lang.change(on_lang, [lang, st_res],
                     [st_lang, brand, pickers, tab_sort, tab_about, image, hint, ex_head, verdict, why_head, cam, details,
@@ -532,7 +545,7 @@ def main():
         sys.exit(f"Model folder not found: {a.export}\nPut the 'export' folder from Google Drive next to app.py.")
     print("Loading the WasteVision model ...", flush=True)
     model = WasteModel(a.export)
-    print(f"Model {model.version} ({model.arch}) ready in {model.load_seconds:.1f}s", flush=True)
+    print(f"Model ({model.arch}) ready in {model.load_seconds:.1f}s", flush=True)
     store = FeedbackStore(a.feedback)
     demo = build(model, store, a.export)
     if a.lan and not on_space and (ip := lan_ip()):

@@ -1,0 +1,190 @@
+source,orig_class,images,label
+BePLi,other_container,1396,plastic
+Drinking,AluCan,1060,metal
+Drinking,Glass,1224,glass
+Drinking,HDPEM,1028,plastic
+Drinking,PET,1508,plastic
+Drinking,YOLO_imgs,4821,
+GD,battery,756,battery
+GD,biological,699,biological
+GD,cardboard,1411,paper_cardboard
+GD,clothes,1892,clothes
+GD,glass,1736,glass
+GD,metal,930,metal
+GD,paper,1336,paper_cardboard
+GD,plastic,1597,plastic
+GD,shoes,1449,shoes
+GD,trash,453,trash
+GlobalWaste,aluminium,332,metal
+GlobalWaste,bandai,399,sanitary
+GlobalWaste,battery,1916,battery
+GlobalWaste,beverage_cans,1429,metal
+GlobalWaste,brown_glass,63,glass
+GlobalWaste,cardboard,2976,paper_cardboard
+GlobalWaste,carton,338,paper_cardboard
+GlobalWaste,clothes,5305,clothes
+GlobalWaste,compost,169,biological
+GlobalWaste,diaper,753,sanitary
+GlobalWaste,electrical_cables,472,e_waste
+GlobalWaste,electronic_chips,452,e_waste
+GlobalWaste,electronic_components,1294,e_waste
+GlobalWaste,foods,4435,biological
+GlobalWaste,garbage,878,trash
+GlobalWaste,glass,3305,glass
+GlobalWaste,glass_materials,1320,glass
+GlobalWaste,green_glass,58,glass
+GlobalWaste,laptops,397,e_waste
+GlobalWaste,medicine_and_strip,1290,medicines_syringes
+GlobalWaste,metal,1786,metal
+GlobalWaste,metal_containers,434,metal
+GlobalWaste,metallic_materials,1281,metal
+GlobalWaste,newspaper,1071,paper_cardboard
+GlobalWaste,organic_wastes,1420,biological
+GlobalWaste,paper_cups,502,paper_cardboard
+GlobalWaste,papers,2559,paper_cardboard
+GlobalWaste,shoes,1935,shoes
+GlobalWaste,small_appliances,737,e_waste
+GlobalWaste,smartphones,218,e_waste
+GlobalWaste,syringe,403,medicines_syringes
+GlobalWaste,tetra_pak,829,paper_cardboard
+GlobalWaste,textile_trash,64,clothes
+GlobalWaste,trash,1503,trash
+GlobalWaste,vegetation,434,biological
+GlobalWaste,white_glass,57,glass
+Mayank14,Electronic waste,100,e_waste
+Mayank14,General waste,52,trash
+Mayank14,Glass waste,100,glass
+Mayank14,Hazardous waste,80,
+Mayank14,Medicinal waste,75,medicines_syringes
+Mayank14,Metal waste,96,metal
+Mayank14,Organic waste,93,biological
+Mayank14,Paper and cardboard waste,87,paper_cardboard
+Mayank14,Plastic waste,87,plastic
+MedPackID,medicine_packaging,899,medicines_syringes
+MedPackID,pill,641,medicines_syringes
+PSU,boxes,2300,paper_cardboard
+PSU,cans,2300,metal
+PSU,crushed_cans,2300,metal
+PSU,glass_bottles,2300,glass
+PSU,water_bottles,2300,plastic
+PharmaSynth,Alaxan,50,medicines_syringes
+PharmaSynth,Bactidol,50,medicines_syringes
+PharmaSynth,Bioflu,50,medicines_syringes
+PharmaSynth,Biogesic,50,medicines_syringes
+PharmaSynth,DayZinc,50,medicines_syringes
+PharmaSynth,Decolgen,50,medicines_syringes
+PharmaSynth,Fish Oil,50,medicines_syringes
+PharmaSynth,Kremil S,50,medicines_syringes
+PharmaSynth,Medicol,50,medicines_syringes
+PharmaSynth,Neozep,50,medicines_syringes
+RealWaste,Cardboard,461,paper_cardboard
+RealWaste,Food Organics,411,biological
+RealWaste,Glass,420,glass
+RealWaste,Metal,790,metal
+RealWaste,Miscellaneous Trash,495,trash
+RealWaste,Paper,500,paper_cardboard
+RealWaste,Plastic,921,plastic
+RealWaste,Textile Trash,318,clothes
+RealWaste,Vegetation,436,biological
+SGBattery,Duracell_Alk,42,battery
+SGBattery,Energizer_Alk,29,battery
+SGBattery,Energizer_Ind,19,battery
+SGBattery,Energizer_Li,33,battery
+SGBattery,Exell_Green,21,battery
+SGBattery,Exell_Yellow,24,battery
+SGBattery,GP_Alk,42,battery
+SGBattery,IKEA_Alk,40,battery
+SGBattery,Klarus,51,battery
+SGBattery,Other,59,battery
+Sanitary,open pads,90,sanitary
+Sanitary,wrapped pad ,100,sanitary
+TACO,Aerosol,10,metal
+TACO,Aluminium foil,60,metal
+TACO,Battery,2,battery
+TACO,Broken glass,68,glass
+TACO,Clear plastic bottle,278,plastic
+TACO,Corrugated carton,64,paper_cardboard
+TACO,Crisp packet,39,plastic
+TACO,Disposable food container,37,plastic
+TACO,Disposable plastic cup,104,plastic
+TACO,Drink can,219,metal
+TACO,Drink carton,44,paper_cardboard
+TACO,Egg carton,11,paper_cardboard
+TACO,Foam cup,13,plastic
+TACO,Foam food container,15,plastic
+TACO,Food Can,34,metal
+TACO,Food waste,8,biological
+TACO,Garbage bag,31,plastic
+TACO,Glass bottle,102,glass
+TACO,Glass cup,6,glass
+TACO,Glass jar,6,glass
+TACO,Magazine paper,12,paper_cardboard
+TACO,Meal carton,30,paper_cardboard
+TACO,Metal bottle cap,63,metal
+TACO,Metal lid,10,metal
+TACO,Normal paper,79,paper_cardboard
+TACO,Other carton,92,paper_cardboard
+TACO,Other plastic,227,plastic
+TACO,Other plastic bottle,49,plastic
+TACO,Other plastic container,6,plastic
+TACO,Other plastic cup,2,plastic
+TACO,Other plastic wrapper,252,plastic
+TACO,Paper bag,27,paper_cardboard
+TACO,Paper cup,66,paper_cardboard
+TACO,Paper straw,4,paper_cardboard
+TACO,Pizza box,3,paper_cardboard
+TACO,Plastic bottle cap,158,plastic
+TACO,Plastic film,445,plastic
+TACO,Plastic lid,72,plastic
+TACO,Plastic straw,124,plastic
+TACO,Plastic utensils,35,plastic
+TACO,Polypropylene bag,3,plastic
+TACO,Pop tab,60,metal
+TACO,Scrap metal,18,metal
+TACO,Shoe,7,shoes
+TACO,Single-use carrier bag,60,plastic
+TACO,Six pack rings,5,plastic
+TACO,Spread tub,9,plastic
+TACO,Squeezable tube,7,plastic
+TACO,Styrofoam piece,103,plastic
+TACO,Tissues,42,paper_cardboard
+TACO,Toilet tube,4,paper_cardboard
+TACO,Tupperware,4,plastic
+TACO,Wrapping paper,12,paper_cardboard
+TIDY,beach,67,
+TIDY,glass,16,glass
+TIDY,metal,8,metal
+TIDY,paper,63,paper_cardboard
+TIDY,plastic,70,plastic
+TIDY,plastic-bag,8,plastic
+TIDY,plastic-bottle,12,plastic
+TIDY,street,40,
+TIDY,zpersonal,20,
+TrashBox,e-waste/electrical cables,554,e_waste
+TrashBox,e-waste/electronic chips,492,e_waste
+TrashBox,e-waste/laptops,400,e_waste
+TrashBox,e-waste/small appliances,740,e_waste
+TrashBox,e-waste/smartphones,219,e_waste
+TrashBox,medical/gloves,355,
+TrashBox,medical/masks,400,
+TrashBox,medical/medicines,405,medicines_syringes
+TrashBox,medical/syringe,405,medicines_syringes
+TrashNet,cardboard,806,paper_cardboard
+TrashNet,glass,1002,glass
+TrashNet,metal,820,metal
+TrashNet,paper,1188,paper_cardboard
+TrashNet,plastic,964,plastic
+TrashNet,trash,274,trash
+WastePro,Construction_Waste,1676,
+WastePro,Electronic_Waste,1510,e_waste
+WastePro,Glass_Waste,1169,glass
+WastePro,Medical_Waste,1227,medicines_syringes
+WastePro,Metal_Waste,1402,metal
+WastePro,Organic_Waste,1793,biological
+WastePro,Paper_Cardboard_Waste,1892,paper_cardboard
+WastePro,Plastic_Waste,1593,plastic
+WastePro,Textile_Rubber_Waste,1168,clothes
+ZeroWaste,cardboard,17523,paper_cardboard
+ZeroWaste,metal,373,metal
+ZeroWaste,rigid_plastic,1749,plastic
+ZeroWaste,soft_plastic,6809,plastic
