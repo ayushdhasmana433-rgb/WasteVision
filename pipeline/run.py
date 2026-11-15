@@ -1431,8 +1431,15 @@ def run_training_job(job, drive_root, data_root, splits_path, all_csv_path):
     parts = {"val": (data.val, val_lg), "test": (data.test, test_lg)}
     if unknown is not None:
         parts["unknown"] = (data.unknown, unk_lg)
-    write_npz_atomic(os.path.join(drive_root, "results", f"{job.id}_logits.npz"),
-                     **pack_predictions(parts, res["temperature"], data.space))
+    packed = pack_predictions(parts, res["temperature"], data.space)
+    if job.kind in ("leak_naive", "leak_grouped"):
+        # per-image flag for the analysis: does this test image have a training image within the pHash threshold?
+        near = has_near_neighbour(phash_array(data.test.phash.values), phash_array(data.train.phash.values),
+                                  C_PHASH_THRESHOLD)
+        flag = np.zeros(len(packed["ids"]), dtype=bool)
+        flag[packed["role"] == "test"] = near
+        packed["near_dup_in_train"] = flag
+    write_npz_atomic(os.path.join(drive_root, "results", f"{job.id}_logits.npz"), **packed)
     hist = state["history"]
     result = dict(job=job.id, what=job.what, kind=job.kind, seed=job.seed, label_space=data.space.kind,
                   label_names=data.space.names, hazard_threshold=SC_THRESHOLD,
@@ -1623,10 +1630,10 @@ def run_clip_job(job, drive_root, data_root, splits_path, limit=None):
     summary = clip_summary(scores, df)
     y = df["label"].map(CLASS_TO_IDX).values
     write_npz_atomic(os.path.join(drive_root, "results", f"{job.id}_logits.npz"),
-                     ids=df["id"].astype(str).values, role=np.where(df.split == "val", "val",
+                     ids=np.asarray(df["id"].astype(str), dtype=str), role=np.where(df.split == "val", "val",
                                                                   np.where(df.split.isin(EVAL_SPLITS), "test", "train")),
-                     split=df["split"].astype(str).values, tier=df["tier"].astype(str).values,
-                     source=df["source"].astype(str).values, group=df["group"].astype(str).values,
+                     split=np.asarray(df["split"].astype(str), dtype=str), tier=np.asarray(df["tier"].astype(str), dtype=str),
+                     source=np.asarray(df["source"].astype(str), dtype=str), group=np.asarray(df["group"].astype(str), dtype=str),
                      label_idx=y, class_idx=y, stream_true=CLASS_STREAM_IDX[y],
                      logits=scores["class_logits"].astype(np.float32), class_probs=scores["class_probs"].astype(np.float32),
                      stream_probs=scores["stream_probs"].astype(np.float32),
