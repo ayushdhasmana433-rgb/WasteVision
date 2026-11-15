@@ -4,7 +4,7 @@ Use a **CPU runtime** (Runtime > Change runtime type > CPU). No GPU is needed. P
 
 Drive folders used:
 
-- inputs: `MyDrive/WasteVision_final/`
+- inputs: `MyDrive/WasteVision_final/data/` and `MyDrive/WasteVision_final/results/`
 - outputs: `MyDrive/WasteVision_v3/data/` and `MyDrive/WasteVision_v3/audit/`
 
 ## Step 1: mount Drive
@@ -31,15 +31,15 @@ ls
 pip install -q imagehash
 ```
 
-Expect: a list of files that includes `add_extra_images.py`, `rebuild_splits.py` and `make_audit_sheets.py`. If one of the three is missing, stop and tell Ayush the code is not pushed yet.
+Expect: a list of files that includes `add_extra_images.py`, `rebuild_splits.py` and `make_audit_sheets.py`. If one of the three is missing, stop and report it: the code is not pushed yet.
 
 ## Step 3: check the five input files
 
 ```python
 import os
 base = "/content/drive/MyDrive/WasteVision_final"
-names = ["normalized_images.tar", "all_images_before_dedup.csv", "duplicate_pairs.csv.gz",
-         "frozen_features_effv2b0.npz", "splits.csv"]
+names = ["data/normalized_images.tar", "data/all_images_before_dedup.csv", "results/duplicate_pairs.csv.gz",
+         "data/frozen_features_effv2b0.npz", "data/splits.csv"]
 for n in names:
     p = f"{base}/{n}"
     print(f"{os.path.getsize(p)/1e6:10.1f} MB  {n}" if os.path.exists(p) else f"   MISSING     {n}")
@@ -52,7 +52,7 @@ Expect: five lines with sizes (the tar is the big one, probably several GB). Any
 ```bash
 %%bash
 mkdir -p /content/data
-tar -xf /content/drive/MyDrive/WasteVision_final/normalized_images.tar -C /content/data
+tar -xf /content/drive/MyDrive/WasteVision_final/data/normalized_images.tar -C /content/data
 ls /content/data
 find /content/data -type f | wc -l
 ```
@@ -69,7 +69,7 @@ python -u add_extra_images.py \
   --raw-dir /content/raw_extra \
   --data-root /content/data \
   --out-dir /content/drive/MyDrive/WasteVision_v3/data \
-  --all-csv /content/drive/MyDrive/WasteVision_final/all_images_before_dedup.csv
+  --all-csv /content/drive/MyDrive/WasteVision_final/data/all_images_before_dedup.csv
 ```
 
 Expect: some `git clone` lines, then a small table like
@@ -89,10 +89,10 @@ The numbers should be close to 355 and 400 (a few rejected images are fine) and 
 cd /content/WasteVision/pipeline
 mkdir -p /content/drive/MyDrive/WasteVision_v3/data
 python -u rebuild_splits.py \
-  --all-csv /content/drive/MyDrive/WasteVision_final/all_images_before_dedup.csv \
+  --all-csv /content/drive/MyDrive/WasteVision_final/data/all_images_before_dedup.csv \
   --extra-csv /content/drive/MyDrive/WasteVision_v3/data/extra_images.csv \
-  --features /content/drive/MyDrive/WasteVision_final/frozen_features_effv2b0.npz \
-  --old-splits /content/drive/MyDrive/WasteVision_final/splits.csv \
+  --features /content/drive/MyDrive/WasteVision_final/data/frozen_features_effv2b0.npz \
+  --old-splits /content/drive/MyDrive/WasteVision_final/data/splits.csv \
   --images-root /content/data \
   --out-dir /content/drive/MyDrive/WasteVision_v3/data
 ```
@@ -117,8 +117,8 @@ python -u make_audit_sheets.py \
   --splits /content/drive/MyDrive/WasteVision_v3/data/splits_v3.csv \
   --images-root /content/data \
   --out-dir /content/drive/MyDrive/WasteVision_v3/audit \
-  --pairs /content/drive/MyDrive/WasteVision_final/duplicate_pairs.csv.gz \
-  --all-csv /content/drive/MyDrive/WasteVision_final/all_images_before_dedup.csv \
+  --pairs /content/drive/MyDrive/WasteVision_final/results/duplicate_pairs.csv.gz \
+  --all-csv /content/drive/MyDrive/WasteVision_final/data/all_images_before_dedup.csv \
   --skip-first 20 --max-pairs 180
 ```
 

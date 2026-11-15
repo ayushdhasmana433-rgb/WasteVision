@@ -1723,8 +1723,8 @@ def parse_args(argv=None):
     ap.add_argument("--drive-root", default="/content/drive/MyDrive/WasteVision_v3")
     ap.add_argument("--data-root", default="/content/data")
     ap.add_argument("--splits", default=None, help="default: <drive-root>/data/splits_v3.csv")
-    ap.add_argument("--all-csv", default=None, help="default: WasteVision_final/all_images_before_dedup.csv")
-    ap.add_argument("--tar", default="/content/drive/MyDrive/WasteVision_final/normalized_images.tar")
+    ap.add_argument("--all-csv", default=None, help="default: WasteVision_final/data/all_images_before_dedup.csv")
+    ap.add_argument("--tar", default="/content/drive/MyDrive/WasteVision_final/data/normalized_images.tar")
     ap.add_argument("--extra-tar", default=None, help="optional second archive; default <drive-root>/data/extra_images.tar")
     ap.add_argument("--rerun-stale", action="store_true",
                     help="rerun jobs whose stored input hash differs (old result is archived under results/stale/)")
@@ -1738,7 +1738,7 @@ def parse_args(argv=None):
     if a.splits is None:
         a.splits = os.path.join(a.drive_root, "data", "splits_v3.csv")
     if a.all_csv is None:
-        a.all_csv = first_existing("/content/drive/MyDrive/WasteVision_final/all_images_before_dedup.csv",
+        a.all_csv = first_existing("/content/drive/MyDrive/WasteVision_final/data/all_images_before_dedup.csv",
                                    os.path.join(a.drive_root, "data", "all_images_before_dedup.csv"))
     if not (a.job or a.queue or a.extract_only or a.list):
         ap.error("give --job, --queue, --extract-only or --list")

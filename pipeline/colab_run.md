@@ -13,8 +13,8 @@ Use a **T4 GPU** runtime (Runtime > Change runtime type > T4 GPU). Paste each bl
 Files that must already be on Drive before you start:
 
 - `MyDrive/WasteVision_v3/data/splits_v3.csv` (written by `rebuild_splits.py`)
-- `MyDrive/WasteVision_final/normalized_images.tar`
-- `MyDrive/WasteVision_final/all_images_before_dedup.csv` (only the leakage jobs C1 and C2 read it)
+- `MyDrive/WasteVision_final/data/normalized_images.tar`
+- `MyDrive/WasteVision_final/data/all_images_before_dedup.csv` (only the leakage jobs C1 and C2 read it)
 - Optional: `MyDrive/WasteVision_v3/data/extra_images.tar` (images added after the original run). If this file exists it is extracted into the same folder as the main archive; if it does not exist, nothing happens.
 
 ## Cell 1: mount Drive
@@ -50,8 +50,8 @@ gpus = tf.config.list_physical_devices("GPU")
 print("GPU:", gpus)
 assert gpus, "No GPU: Runtime > Change runtime type > T4 GPU, then run the cells again"
 for p in ["/content/drive/MyDrive/WasteVision_v3/data/splits_v3.csv",
-          "/content/drive/MyDrive/WasteVision_final/normalized_images.tar",
-          "/content/drive/MyDrive/WasteVision_final/all_images_before_dedup.csv",
+          "/content/drive/MyDrive/WasteVision_final/data/normalized_images.tar",
+          "/content/drive/MyDrive/WasteVision_final/data/all_images_before_dedup.csv",
           "/content/drive/MyDrive/WasteVision_v3/data/extra_images.tar"]:
     print("OK     " if os.path.exists(p) else "MISSING", p)
 ```
