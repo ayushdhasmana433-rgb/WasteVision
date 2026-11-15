@@ -151,11 +151,18 @@ def sha256_file(path, chunk=1 << 20):
     return h.hexdigest()
 
 
+# The OpenAI ViT-B/32 weights were trained with QuickGELU activations; open_clip's plain "ViT-B-32" config uses
+# standard GELU and warns about the mismatch. "ViT-B-32-quickgelu" matches the pretrained weights.
+CLIP_MODEL = "ViT-B-32-quickgelu"
+
+
 def current_hashes(job, splits_path, all_csv_path):
     """Input provenance stored in every result: SHA-256 of the splits file, and for C jobs of the all-images CSV."""
     out = dict(splits_sha256=sha256_file(splits_path) if os.path.exists(splits_path) else None)
     if job.kind in ("leak_naive", "leak_grouped"):
         out["all_csv_sha256"] = sha256_file(all_csv_path)
+    if job.kind == "clip":
+        out["clip_model"] = CLIP_MODEL   # a result made with another CLIP variant counts as stale
     return out
 
 
@@ -1553,9 +1560,9 @@ def clip_image_features(df, cache_path, shard_dir, device="cuda"):
         import open_clip
     from PIL import Image
     dev = device if torch.cuda.is_available() else "cpu"
-    model, _, preprocess = open_clip.create_model_and_transforms("ViT-B-32", pretrained="openai")
+    model, _, preprocess = open_clip.create_model_and_transforms(CLIP_MODEL, pretrained="openai")
     model = model.to(dev).eval()
-    tokenizer = open_clip.get_tokenizer("ViT-B-32")
+    tokenizer = open_clip.get_tokenizer(CLIP_MODEL)
     ids = df["id"].astype(str).values
     if os.path.exists(cache_path):
         z = np.load(cache_path, allow_pickle=False)
@@ -1614,7 +1621,7 @@ def run_clip_job(job, drive_root, data_root, splits_path, limit=None):
         base = os.path.join(drive_root, "runs", job.id, f"selftest_{limit}")
         cache, shards = os.path.join(base, "features.npz"), os.path.join(base, "shards")
     else:
-        cache, shards = os.path.join(drive_root, "data", "clip_features_vitb32.npz"), os.path.join(drive_root, "runs", job.id, "shards")
+        cache, shards = os.path.join(drive_root, "data", f"clip_features_{CLIP_MODEL}.npz"), os.path.join(drive_root, "runs", job.id, f"shards_{CLIP_MODEL}")
     feats, model, tokenizer, dev = clip_image_features(df, cache, shards)
     with torch.no_grad():
         txt = model.encode_text(tokenizer(CLIP_CLASS_PROMPTS + CLIP_HAZARD_PROMPTS).to(dev))
@@ -1640,7 +1647,7 @@ def run_clip_job(job, drive_root, data_root, splits_path, limit=None):
                      hazard_prob=scores["hazard_prob"].astype(np.float32), label_names=np.array(CLASSES),
                      temperature=np.float64(1.0))
     result = dict(job=job.id, what=job.what, kind=job.kind, label_space="class", label_names=CLASSES,
-                  settings=dict(model="ViT-B-32", pretrained="openai", logit_scale=scale, class_prompts=CLIP_CLASS_PROMPTS,
+                  settings=dict(model=CLIP_MODEL, pretrained="openai", logit_scale=scale, class_prompts=CLIP_CLASS_PROMPTS,
                                 hazard_prompts=CLIP_HAZARD_PROMPTS, hazard_thresholds=CLIP_HAZARD_THRESHOLDS,
                                 preprocessing="open_clip preprocess (resize + centre crop), not the padded 224 pipeline"),
                   n_images=len(df), finished=time.strftime("%Y-%m-%d %H:%M:%S"),
