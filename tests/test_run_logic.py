@@ -19,7 +19,13 @@ HERE = os.path.dirname(__file__)
 def test_job_table_matches_plan_order_and_content():
     queue = run.read_queue(os.path.join(HERE, "..", "pipeline", "queue.txt"))
     assert queue == "A1 A2 A3 B1 B2 B3 B4 E1 B5 B6 B7 B8 C1 C2 S1 S2 S3 S4".split()
-    assert set(queue) == set(run.JOBS)
+    seeds = run.read_queue(os.path.join(HERE, "..", "pipeline", "queue_seeds.txt"))
+    assert set(queue) | set(seeds) == set(run.JOBS) and not set(queue) & set(seeds)
+    for s in (7, 123):
+        for i, c in enumerate(["battery", "medicines_syringes", "e_waste"], 1):
+            b, st = run.JOBS[f"B{i}R{s}"], run.JOBS[f"S{i + 1}R{s}"]
+            assert (b.kind, b.seed, b.holdout_class, b.label_space) == ("holdout_class", s, c, "class")
+            assert (st.kind, st.seed, st.holdout_class, st.label_space) == ("holdout_class", s, c, "stream")
     assert [run.JOBS[j].seed for j in ("A1", "A2", "A3")] == [42, 7, 123]
     assert [run.JOBS[j].holdout_class for j in ("B1", "B2", "B3", "B4")] == \
         ["battery", "medicines_syringes", "e_waste", "shoes"]

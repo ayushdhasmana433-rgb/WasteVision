@@ -110,6 +110,13 @@ def _build_jobs():
         jobs[f"S{i}"] = Job(f"S{i}", "holdout_class", label_space="stream", holdout_class=c,
                             what=f"4-stream network, hold out class {c}")
     jobs["E1"] = Job("E1", "clip", what="CLIP ViT-B/32 zero-shot")
+    # extra seeds for the hazard hold-outs (class model B1-B3, stream model S2-S4)
+    for s in (7, 123):
+        for i, c in enumerate(HAZARD_CLASSES, 1):
+            jobs[f"B{i}R{s}"] = Job(f"B{i}R{s}", "holdout_class", seed=s, holdout_class=c,
+                                    what=f"hold out class {c}, seed {s}")
+            jobs[f"S{i + 1}R{s}"] = Job(f"S{i + 1}R{s}", "holdout_class", seed=s, label_space="stream",
+                                        holdout_class=c, what=f"4-stream network, hold out class {c}, seed {s}")
     return jobs
 
 

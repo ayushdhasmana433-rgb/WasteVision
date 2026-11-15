@@ -1,0 +1,13 @@
+# extra seeds for hazard hold-outs (GPU)
+B1R7
+B2R7
+B3R7
+S2R7
+S3R7
+S4R7
+B1R123
+B2R123
+B3R123
+S2R123
+S3R123
+S4R123
