@@ -1,0 +1,13 @@
+label,mapped,after_filter,set_aside_T3,removed_T3_group_or_near,after_phash,after_features,after_cap,train,val,test_T1,test_T2,test_T3,source_files
+biological,7190,3440,0,0,2521,2424,2424,1696,224,504,0,0,../an_in/data/count_table.csv
+paper_cardboard,16209,12461,12,0,9801,9667,2500,1782,252,446,20,12,../an_in/data/count_table.csv
+plastic,17889,17889,155,1,15210,15121,2500,1815,222,403,60,155,../an_in/data/count_table.csv
+metal,13539,9789,20,0,7584,7473,2500,1688,242,469,101,20,../an_in/data/count_table.csv
+glass,11930,8180,5,0,5865,5760,2500,1750,258,492,0,5,../an_in/data/count_table.csv
+clothes,7135,3385,0,0,2910,2873,2500,1744,258,498,0,0,../an_in/data/count_table.csv
+shoes,3391,3391,0,0,2919,2420,2420,1698,257,465,0,0,../an_in/data/count_table.csv
+trash,3655,1274,0,0,1010,975,975,683,103,189,0,0,../an_in/data/count_table.csv
+battery,3034,3034,0,0,2348,2206,2206,1526,225,455,0,0,../an_in/data/count_table.csv
+medicines_syringes,5845,5845,0,0,4755,4722,2500,1859,208,433,0,0,../an_in/data/count_table.csv
+e_waste,7584,4014,0,0,3270,3270,2500,1753,247,500,0,0,../an_in/data/count_table.csv
+sanitary,2096,2096,0,0,2067,2067,2067,1446,208,413,0,0,../an_in/data/count_table.csv

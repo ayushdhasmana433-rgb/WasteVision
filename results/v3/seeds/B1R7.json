@@ -1,0 +1,481 @@
+{
+ "job": "B1R7",
+ "what": "hold out class battery, seed 7",
+ "kind": "holdout_class",
+ "seed": 7,
+ "label_space": "class",
+ "label_names": [
+  "biological",
+  "paper_cardboard",
+  "plastic",
+  "metal",
+  "glass",
+  "clothes",
+  "shoes",
+  "trash",
+  "medicines_syringes",
+  "e_waste",
+  "sanitary"
+ ],
+ "hazard_threshold": 0.2,
+ "reject_threshold_msp": 0.4095488299080608,
+ "held_out_class": "battery",
+ "held_out_source": null,
+ "unseen_classes": [],
+ "meta": {
+  "held_out_class": "battery",
+  "held_out_source": null,
+  "unseen_classes": [],
+  "counts": {
+   "train": 17914,
+   "val": 2479,
+   "test": 5185,
+   "unknown": 455
+  }
+ },
+ "settings": {
+  "arch": "efficientnetv2b0",
+  "img_size": 224,
+  "batch_size": 32,
+  "epochs_head": 6,
+  "epochs_finetune": 8,
+  "unfreeze_last_layers": 30,
+  "lr_head": 0.001,
+  "lr_finetune": 1e-05,
+  "patience_head": 3,
+  "patience_finetune": 4,
+  "plateau_factor": 0.3,
+  "pretrained": "imagenet",
+  "balanced_batches": true,
+  "cost_ratio": 4.0,
+  "sensitivity_cost_ratios": [
+   2.0,
+   4.0,
+   9.0
+  ],
+  "target_stream_acc": 0.97,
+  "target_class_acc": 0.95,
+  "reject_val_quantile": 0.05,
+  "dataset_shuffle_seed": 42
+ },
+ "device": [
+  "Tesla T4"
+ ],
+ "epochs_run": {
+  "total": 14,
+  "head": 6,
+  "finetune": 8
+ },
+ "training_minutes": 13.388658098379771,
+ "history": [
+  {
+   "phase": "head",
+   "epoch": 1,
+   "lr": 0.001,
+   "acc": 0.6295759081840515,
+   "loss": 1.1236965656280518,
+   "val_acc": 0.7789431214332581,
+   "val_loss": 0.6452422738075256
+  },
+  {
+   "phase": "head",
+   "epoch": 2,
+   "lr": 0.001,
+   "acc": 0.72265625,
+   "loss": 0.8257061839103699,
+   "val_acc": 0.8160548806190491,
+   "val_loss": 0.5584694743156433
+  },
+  {
+   "phase": "head",
+   "epoch": 3,
+   "lr": 0.001,
+   "acc": 0.7459821701049805,
+   "loss": 0.7563510537147522,
+   "val_acc": 0.8305768370628357,
+   "val_loss": 0.5217903256416321
+  },
+  {
+   "phase": "head",
+   "epoch": 4,
+   "lr": 0.001,
+   "acc": 0.7646205425262451,
+   "loss": 0.6943328976631165,
+   "val_acc": 0.8309802412986755,
+   "val_loss": 0.5004702806472778
+  },
+  {
+   "phase": "head",
+   "epoch": 5,
+   "lr": 0.001,
+   "acc": 0.7715401649475098,
+   "loss": 0.6609091758728027,
+   "val_acc": 0.837837815284729,
+   "val_loss": 0.48979440331459045
+  },
+  {
+   "phase": "head",
+   "epoch": 6,
+   "lr": 0.001,
+   "acc": 0.7810267806053162,
+   "loss": 0.6512268781661987,
+   "val_acc": 0.8350141048431396,
+   "val_loss": 0.4797833561897278
+  },
+  {
+   "phase": "finetune",
+   "epoch": 7,
+   "lr": 1e-05,
+   "acc": 0.7953125238418579,
+   "loss": 0.5951648950576782,
+   "val_acc": 0.841468334197998,
+   "val_loss": 0.46663689613342285
+  },
+  {
+   "phase": "finetune",
+   "epoch": 8,
+   "lr": 1e-05,
+   "acc": 0.8122767806053162,
+   "loss": 0.5650116801261902,
+   "val_acc": 0.8455021977424622,
+   "val_loss": 0.4598037600517273
+  },
+  {
+   "phase": "finetune",
+   "epoch": 9,
+   "lr": 1e-05,
+   "acc": 0.8137834668159485,
+   "loss": 0.5561144948005676,
+   "val_acc": 0.8475191593170166,
+   "val_loss": 0.454418420791626
+  },
+  {
+   "phase": "finetune",
+   "epoch": 10,
+   "lr": 1e-05,
+   "acc": 0.8122209906578064,
+   "loss": 0.5536290407180786,
+   "val_acc": 0.8471157550811768,
+   "val_loss": 0.4487830698490143
+  },
+  {
+   "phase": "finetune",
+   "epoch": 11,
+   "lr": 1e-05,
+   "acc": 0.8154017925262451,
+   "loss": 0.5458864569664001,
+   "val_acc": 0.849536120891571,
+   "val_loss": 0.44413360953330994
+  },
+  {
+   "phase": "finetune",
+   "epoch": 12,
+   "lr": 1e-05,
+   "acc": 0.8189732432365417,
+   "loss": 0.530450701713562,
+   "val_acc": 0.8527632355690002,
+   "val_loss": 0.44333311915397644
+  },
+  {
+   "phase": "finetune",
+   "epoch": 13,
+   "lr": 1e-05,
+   "acc": 0.8201450705528259,
+   "loss": 0.5360772609710693,
+   "val_acc": 0.8519564270973206,
+   "val_loss": 0.44165289402008057
+  },
+  {
+   "phase": "finetune",
+   "epoch": 14,
+   "lr": 1e-05,
+   "acc": 0.8237165212631226,
+   "loss": 0.5231766104698181,
+   "val_acc": 0.8499394655227661,
+   "val_loss": 0.4370870590209961
+  }
+ ],
+ "resumed": false,
+ "n_resumes": 0,
+ "resume_epochs": [],
+ "resume_events": [],
+ "provenance": {
+  "splits_sha256": "047608ef314416cbf59184e630768a81ae587a6b330ab83df7f29d475fd3ff70",
+  "splits_file": "/content/drive/MyDrive/WasteVision_v3/data/splits_v3.csv",
+  "all_csv_file": null
+ },
+ "finished": "2026-11-16 01:20:28",
+ "temperature": 0.9981863516723821,
+ "thresholds": {
+  "hazard": 0.2,
+  "hazard_cost_ratio": 4.0,
+  "reject_msp": 0.4095488299080608,
+  "reject": {
+   "MSP": 0.4095488299080608,
+   "MaxLogit": 2.7552890539169312,
+   "Energy": 3.565749454527718
+  },
+  "reject_val_quantile": 0.05,
+  "not_sure_stream": 0.7260467600906235,
+  "not_sure_class": 0.7078751923210346,
+  "not_sure_targets_met_on_val": {
+   "stream": true,
+   "cls": true
+  }
+ },
+ "metrics": {
+  "val": {
+   "n": 2479,
+   "n_class_scored": 2479,
+   "class_acc": 0.8499394917305365,
+   "macro_f1": 0.835215330693197,
+   "stream_acc": 0.9411052843888664,
+   "stream_acc_top_class": 0.9330375151270673,
+   "recall_Wet": 0.96875,
+   "n_Wet": 224,
+   "recall_Dry": 0.967964824120603,
+   "n_Dry": 1592,
+   "recall_Special Care": 0.8747252747252747,
+   "n_Special Care": 455,
+   "recall_Sanitary": 0.8509615384615384,
+   "n_Sanitary": 208,
+   "always_dry_baseline": 0.6421944332392093,
+   "sc_recall@0.33": 0.9032967032967033,
+   "sc_false_alarm@0.33": 0.02766798418972332,
+   "sc_recall@0.20": 0.9296703296703297,
+   "sc_false_alarm@0.20": 0.050889328063241104,
+   "sc_recall@0.10": 0.9560439560439561,
+   "sc_false_alarm@0.10": 0.08843873517786562,
+   "sc_recall_argmax": 0.8747252747252747,
+   "sc_false_alarm_argmax": 0.016304347826086956,
+   "sc_recall_top_class": 0.8747252747252747,
+   "sc_false_alarm_top_class": 0.023715415019762844,
+   "ece_before": 0.01185151599998664,
+   "ece_after": 0.01155031208341662,
+   "reject_stream": {
+    "coverage": 0.9124647035094796,
+    "accuracy_answered": 0.9703801945181255
+   },
+   "reject_class": {
+    "coverage": 0.7777329568374345,
+    "accuracy_answered": 0.950207468879668
+   }
+  },
+  "test_T1": {
+   "n": 4812,
+   "n_class_scored": 4812,
+   "class_acc": 0.8595178719866999,
+   "macro_f1": 0.8406797258980322,
+   "stream_acc": 0.9428512053200333,
+   "stream_acc_top_class": 0.9413965087281796,
+   "recall_Wet": 0.9702380952380952,
+   "n_Wet": 504,
+   "recall_Dry": 0.9669142471303174,
+   "n_Dry": 2962,
+   "recall_Special Care": 0.8681672025723473,
+   "n_Special Care": 933,
+   "recall_Sanitary": 0.9055690072639225,
+   "n_Sanitary": 413,
+   "always_dry_baseline": 0.6155444721529509,
+   "sc_recall@0.33": 0.9003215434083601,
+   "sc_false_alarm@0.33": 0.027068832173240527,
+   "sc_recall@0.20": 0.9356913183279743,
+   "sc_false_alarm@0.20": 0.05078628512503223,
+   "sc_recall@0.10": 0.9560557341907824,
+   "sc_false_alarm@0.10": 0.07940190770817221,
+   "sc_recall_argmax": 0.8681672025723473,
+   "sc_false_alarm_argmax": 0.018045888115493684,
+   "sc_recall_top_class": 0.8831725616291533,
+   "sc_false_alarm_top_class": 0.02294405774684197,
+   "ece_before": 0.01021219878701487,
+   "ece_after": 0.010386442275725934,
+   "reject_stream": {
+    "coverage": 0.9187448046550291,
+    "accuracy_answered": 0.9744401719068084
+   },
+   "reject_class": {
+    "coverage": 0.7938487115544473,
+    "accuracy_answered": 0.9486910994764398
+   }
+  },
+  "test_T2": {
+   "n": 181,
+   "n_class_scored": 181,
+   "class_acc": 0.5966850828729282,
+   "macro_f1": 0.6323434453217402,
+   "stream_acc": 0.9005524861878453,
+   "stream_acc_top_class": 0.8011049723756906,
+   "recall_Wet": null,
+   "n_Wet": 0,
+   "recall_Dry": 0.9005524861878453,
+   "n_Dry": 181,
+   "recall_Special Care": null,
+   "n_Special Care": 0,
+   "recall_Sanitary": null,
+   "n_Sanitary": 0,
+   "always_dry_baseline": 1.0,
+   "sc_recall@0.33": null,
+   "sc_false_alarm@0.33": 0.09944751381215469,
+   "sc_recall@0.20": null,
+   "sc_false_alarm@0.20": 0.15469613259668508,
+   "sc_recall@0.10": null,
+   "sc_false_alarm@0.10": 0.287292817679558,
+   "sc_recall_argmax": null,
+   "sc_false_alarm_argmax": 0.055248618784530384,
+   "sc_recall_top_class": null,
+   "sc_false_alarm_top_class": 0.10497237569060773,
+   "ece_before": 0.1088750704745652,
+   "ece_after": 0.11235149407657491,
+   "reject_stream": {
+    "coverage": 0.7513812154696132,
+    "accuracy_answered": 0.9779411764705882
+   },
+   "reject_class": {
+    "coverage": 0.20441988950276244,
+    "accuracy_answered": 0.8918918918918919
+   }
+  },
+  "test_T3": {
+   "n": 192,
+   "n_class_scored": 192,
+   "class_acc": 0.640625,
+   "macro_f1": 0.25737645797150965,
+   "stream_acc": 0.9739583333333334,
+   "stream_acc_top_class": 0.9635416666666666,
+   "recall_Wet": null,
+   "n_Wet": 0,
+   "recall_Dry": 0.9739583333333334,
+   "n_Dry": 192,
+   "recall_Special Care": null,
+   "n_Special Care": 0,
+   "recall_Sanitary": null,
+   "n_Sanitary": 0,
+   "always_dry_baseline": 1.0,
+   "sc_recall@0.33": null,
+   "sc_false_alarm@0.33": 0.020833333333333332,
+   "sc_recall@0.20": null,
+   "sc_false_alarm@0.20": 0.026041666666666668,
+   "sc_recall@0.10": null,
+   "sc_false_alarm@0.10": 0.13020833333333334,
+   "sc_recall_argmax": null,
+   "sc_false_alarm_argmax": 0.015625,
+   "sc_recall_top_class": null,
+   "sc_false_alarm_top_class": 0.015625,
+   "ece_before": 0.1432965571884584,
+   "ece_after": 0.1405019485842834,
+   "reject_stream": {
+    "coverage": 0.9322916666666666,
+    "accuracy_answered": 0.9776536312849162
+   },
+   "reject_class": {
+    "coverage": 0.17708333333333334,
+    "accuracy_answered": 0.6176470588235294
+   }
+  },
+  "test_all": {
+   "n": 5185,
+   "n_class_scored": 5185,
+   "class_acc": 0.8422372227579557,
+   "macro_f1": 0.8307685313483643,
+   "stream_acc": 0.942526518804243,
+   "stream_acc_top_class": 0.9373191899710704,
+   "recall_Wet": 0.9702380952380952,
+   "n_Wet": 504,
+   "recall_Dry": 0.9637181409295352,
+   "n_Dry": 3335,
+   "recall_Special Care": 0.8681672025723473,
+   "n_Special Care": 933,
+   "recall_Sanitary": 0.9055690072639225,
+   "n_Sanitary": 413,
+   "always_dry_baseline": 0.6432015429122468,
+   "sc_recall@0.33": 0.9003215434083601,
+   "sc_false_alarm@0.33": 0.02986829727187206,
+   "sc_recall@0.20": 0.9356913183279743,
+   "sc_false_alarm@0.20": 0.05409219190968956,
+   "sc_recall@0.10": 0.9560557341907824,
+   "sc_false_alarm@0.10": 0.0905456255879586,
+   "sc_recall_argmax": 0.8681672025723473,
+   "sc_false_alarm_argmax": 0.019520225776105363,
+   "sc_recall_top_class": 0.8831725616291533,
+   "sc_false_alarm_top_class": 0.026105362182502354,
+   "ece_before": 0.0108010594667727,
+   "ece_after": 0.01053321761064892,
+   "reject_stream": {
+    "coverage": 0.913404050144648,
+    "accuracy_answered": 0.9746621621621622
+   },
+   "reject_class": {
+    "coverage": 0.7504339440694311,
+    "accuracy_answered": 0.9452582883577486
+   }
+  }
+ },
+ "unknown_T1": {
+  "n": 455,
+  "reject_threshold_msp": 0.4095488299080608,
+  "hazard_threshold": 0.2,
+  "rejected": 0.09010989010989011,
+  "flagged_special_care": 0.7516483516483516,
+  "rejected_or_flagged": 0.7538461538461538,
+  "rejected_MSP": 0.09010989010989011,
+  "rejected_MaxLogit": 0.041758241758241756,
+  "rejected_Energy": 0.03296703296703297,
+  "flagged@0.33": 0.6395604395604395,
+  "flagged@0.20": 0.7516483516483516,
+  "flagged@0.10": 0.8153846153846154,
+  "silently_routed_Wet": 0.0,
+  "top_stream_Wet": 0.0,
+  "silently_routed_Dry": 0.22637362637362637,
+  "top_stream_Dry": 0.33186813186813185,
+  "silently_routed_Special Care": 0.0,
+  "top_stream_Special Care": 0.5582417582417583,
+  "silently_routed_Sanitary": 0.01978021978021978,
+  "top_stream_Sanitary": 0.10989010989010989,
+  "most_common_predicted_class": {
+   "e_waste": 126,
+   "metal": 120,
+   "medicines_syringes": 117
+  },
+  "known_rejected": 0.046758104738154616,
+  "auroc_MSP": 0.7706046239712077,
+  "fpr95_MSP": 0.8923076923076924,
+  "auroc_MaxLogit": 0.7564650644451143,
+  "fpr95_MaxLogit": 0.9516483516483516,
+  "auroc_Energy": 0.7463009143807149,
+  "fpr95_Energy": 0.9604395604395605
+ },
+ "unknown_all_tiers": {
+  "n": 455,
+  "reject_threshold_msp": 0.4095488299080608,
+  "hazard_threshold": 0.2,
+  "rejected": 0.09010989010989011,
+  "flagged_special_care": 0.7516483516483516,
+  "rejected_or_flagged": 0.7538461538461538,
+  "rejected_MSP": 0.09010989010989011,
+  "rejected_MaxLogit": 0.041758241758241756,
+  "rejected_Energy": 0.03296703296703297,
+  "flagged@0.33": 0.6395604395604395,
+  "flagged@0.20": 0.7516483516483516,
+  "flagged@0.10": 0.8153846153846154,
+  "silently_routed_Wet": 0.0,
+  "top_stream_Wet": 0.0,
+  "silently_routed_Dry": 0.22637362637362637,
+  "top_stream_Dry": 0.33186813186813185,
+  "silently_routed_Special Care": 0.0,
+  "top_stream_Special Care": 0.5582417582417583,
+  "silently_routed_Sanitary": 0.01978021978021978,
+  "top_stream_Sanitary": 0.10989010989010989,
+  "most_common_predicted_class": {
+   "e_waste": 126,
+   "metal": 120,
+   "medicines_syringes": 117
+  },
+  "known_rejected": 0.05959498553519769,
+  "auroc_MSP": 0.7394423898184748,
+  "fpr95_MSP": 0.9296703296703297,
+  "auroc_MaxLogit": 0.7175080271705152,
+  "fpr95_MaxLogit": 0.9648351648351648,
+  "auroc_Energy": 0.707184079180222,
+  "fpr95_Energy": 0.9692307692307692
+ }
+}

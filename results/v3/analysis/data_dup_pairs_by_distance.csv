@@ -1,0 +1,4 @@
+distance,within_source,cross_source,all,source_files
+0,3648,11253,14901,../an_in/data/dup_pairs_phash.csv.gz
+2,822,282,1104,../an_in/data/dup_pairs_phash.csv.gz
+4,2205,752,2957,../an_in/data/dup_pairs_phash.csv.gz

@@ -1,0 +1,73 @@
+held_out_source,job,unseen_classes,condition,metric,value,ci_lo,ci_hi,n,source_files
+MedPackID,B5,none,left out of training,class_acc,0.09465020576131687,0.05753561670569867,0.13800360824742267,486,../an_in/results/B5.json;../an_in/results/B5_logits.npz
+MedPackID,B5,none,left out of training,stream_acc,0.2880658436213992,0.24202892781316349,0.3333333333333333,486,../an_in/results/B5.json;../an_in/results/B5_logits.npz
+MedPackID,B5,none,left out of training,ece_before,0.5099228319244847,0.4702399512025249,0.5488024919390967,486,../an_in/results/B5.json;../an_in/results/B5_logits.npz
+MedPackID,B5,none,left out of training,ece_after,0.5136235698953598,0.47393168750544235,0.5529810611214405,486,../an_in/results/B5.json;../an_in/results/B5_logits.npz
+MedPackID,B5,none,left out of training,sc_miss_rate,0.5267489711934157,0.47629299235691436,0.5802482353874217,486,../an_in/results/B5.json;../an_in/results/B5_logits.npz
+MedPackID,B5,none,left out of training,sc_false_alarm,,,,0,../an_in/results/B5.json;../an_in/results/B5_logits.npz
+MedPackID,B5,none,"same source in training (A1, T1 test rows)",class_acc,0.797752808988764,0.7045454545454546,0.8764044943820225,89,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,"same source in training (A1, T1 test rows)",stream_acc,0.8426966292134831,0.7613636363636364,0.9111111111111111,89,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,"same source in training (A1, T1 test rows)",ece_before,0.1344047107801531,0.09476321453105015,0.2059927594611812,89,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,"same source in training (A1, T1 test rows)",ece_after,0.14437750651044032,0.09931403434985149,0.21452571722231234,89,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,"same source in training (A1, T1 test rows)",sc_miss_rate,0.0674157303370787,0.022222222222222254,0.12225655430711593,89,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,"same source in training (A1, T1 test rows)",sc_false_alarm,,,,0,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,difference (left out minus in training),stream_acc,-0.5546307855920839,-0.6404635877598082,-0.46014494635470443,89,../an_in/results/B5.json;../an_in/results/B5_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,difference (left out minus in training),class_acc,-0.7031026032274471,-0.7908400687554252,-0.6043341434382153,89,../an_in/results/B5.json;../an_in/results/B5_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,difference (left out minus in training),sc_miss_rate,0.459333240856337,0.3844091541323302,0.5333345668214133,89,../an_in/results/B5.json;../an_in/results/B5_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,difference (left out minus in training),sc_false_alarm,,,,0,../an_in/results/B5.json;../an_in/results/B5_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,difference (left out minus in training),ece_before,0.37551812114433164,0.29337508064288287,0.43051134839986943,89,../an_in/results/B5.json;../an_in/results/B5_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+MedPackID,B5,none,difference (left out minus in training),ece_after,0.3692460633849195,0.288461282259212,0.42956667978704016,89,../an_in/results/B5.json;../an_in/results/B5_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,left out of training,class_acc,0.30363036303630364,0.28639530619728637,0.3201320132013201,2727,../an_in/results/B6.json;../an_in/results/B6_logits.npz
+TrashBox,B6,none,left out of training,stream_acc,0.48368170150348366,0.464979831316465,0.5016501650165016,2727,../an_in/results/B6.json;../an_in/results/B6_logits.npz
+TrashBox,B6,none,left out of training,ece_before,0.33074306391199204,0.31523887804591694,0.346904328943558,2727,../an_in/results/B6.json;../an_in/results/B6_logits.npz
+TrashBox,B6,none,left out of training,ece_after,0.336789093575487,0.3212164213568176,0.3529001617426806,2727,../an_in/results/B6.json;../an_in/results/B6_logits.npz
+TrashBox,B6,none,left out of training,sc_miss_rate,0.2573306370070778,0.23875870263756863,0.276986099796334,1978,../an_in/results/B6.json;../an_in/results/B6_logits.npz
+TrashBox,B6,none,left out of training,sc_false_alarm,0.45260347129506007,0.4180302430751837,0.48770491803278687,749,../an_in/results/B6.json;../an_in/results/B6_logits.npz
+TrashBox,B6,none,"same source in training (A1, T1 test rows)",class_acc,0.8812615955473099,0.8534322820037106,0.9072356215213359,539,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,"same source in training (A1, T1 test rows)",stream_acc,0.9090909090909091,0.884925788497217,0.9313543599257885,539,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,"same source in training (A1, T1 test rows)",ece_before,0.03259168761991778,0.02886467022090115,0.06275788633544759,539,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,"same source in training (A1, T1 test rows)",ece_after,0.02980443609594725,0.02784755834753886,0.061915429598803376,539,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,"same source in training (A1, T1 test rows)",sc_miss_rate,0.03359173126614989,0.017411855116477144,0.0539880542230938,387,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,"same source in training (A1, T1 test rows)",sc_false_alarm,0.13157894736842105,0.08028467153284671,0.18881651884700662,152,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,difference (left out minus in training),stream_acc,-0.4254092075874254,-0.4546693274769653,-0.39585359896533867,539,../an_in/results/B6.json;../an_in/results/B6_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,difference (left out minus in training),class_acc,-0.5776312325110062,-0.6098413923024956,-0.5450833858896094,539,../an_in/results/B6.json;../an_in/results/B6_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,difference (left out minus in training),sc_miss_rate,0.22373890574092792,0.19586505611565638,0.24875452682608934,387,../an_in/results/B6.json;../an_in/results/B6_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,difference (left out minus in training),sc_false_alarm,0.32102452392663905,0.25225484196748726,0.3844459605241939,152,../an_in/results/B6.json;../an_in/results/B6_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,difference (left out minus in training),ece_before,0.2981513762920743,0.2607972240233751,0.3087889794918212,539,../an_in/results/B6.json;../an_in/results/B6_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+TrashBox,B6,none,difference (left out minus in training),ece_after,0.30698465747953974,0.2685313111332979,0.3156877245468779,539,../an_in/results/B6.json;../an_in/results/B6_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,left out of training,class_acc,0.8759468103012961,0.8676990405655614,0.8841945800370308,5941,../an_in/results/B7.json;../an_in/results/B7_logits.npz
+GD,B7,none,left out of training,stream_acc,0.9372159569096111,0.9308197273186333,0.943111429052348,5941,../an_in/results/B7.json;../an_in/results/B7_logits.npz
+GD,B7,none,left out of training,ece_before,0.01853308393157449,0.014116264234670581,0.0263412507987041,5941,../an_in/results/B7.json;../an_in/results/B7_logits.npz
+GD,B7,none,left out of training,ece_after,0.019394169406070107,0.014804440929100996,0.02710498279509243,5941,../an_in/results/B7.json;../an_in/results/B7_logits.npz
+GD,B7,none,left out of training,sc_miss_rate,0.005805515239477477,0.0,0.01197785152586391,689,../an_in/results/B7.json;../an_in/results/B7_logits.npz
+GD,B7,none,left out of training,sc_false_alarm,0.07102056359482102,0.06431283912533259,0.07812559275417298,5252,../an_in/results/B7.json;../an_in/results/B7_logits.npz
+GD,B7,none,"same source in training (A1, T1 test rows)",class_acc,0.9364016736401674,0.9213389121338912,0.9497907949790795,1195,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,"same source in training (A1, T1 test rows)",stream_acc,0.9732217573221758,0.9640167364016736,0.9816108786610878,1195,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,"same source in training (A1, T1 test rows)",ece_before,0.01766646270341219,0.013963141950359895,0.03305662549337137,1195,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,"same source in training (A1, T1 test rows)",ece_after,0.014975295074876238,0.013044001846495987,0.030921102635610778,1195,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,"same source in training (A1, T1 test rows)",sc_miss_rate,0.0,0.0,0.0,148,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,"same source in training (A1, T1 test rows)",sc_false_alarm,0.04297994269340974,0.031005754015823544,0.05566477328389129,1047,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,difference (left out minus in training),stream_acc,-0.036005800412564626,-0.047240979816170044,-0.024593319665694596,1195,../an_in/results/B7.json;../an_in/results/B7_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,difference (left out minus in training),class_acc,-0.06045486333887129,-0.07637851002078308,-0.04354487185356141,1195,../an_in/results/B7.json;../an_in/results/B7_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,difference (left out minus in training),sc_miss_rate,0.005805515239477477,0.0,0.01197785152586391,148,../an_in/results/B7.json;../an_in/results/B7_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,difference (left out minus in training),sc_false_alarm,0.02804062090141128,0.013875310354290921,0.042213663105374555,1047,../an_in/results/B7.json;../an_in/results/B7_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,difference (left out minus in training),ece_before,0.0008666212281622995,-0.014367441221733286,0.007894411728360305,1195,../an_in/results/B7.json;../an_in/results/B7_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+GD,B7,none,difference (left out minus in training),ece_after,0.004418874331193869,-0.011751468849525569,0.009750276314407034,1195,../an_in/results/B7.json;../an_in/results/B7_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,left out of training,class_acc,0.3008102633355841,0.28425894665766377,0.3173531397704254,2962,../an_in/results/B8.json;../an_in/results/B8_logits.npz
+RealWaste,B8,none,left out of training,stream_acc,0.5178933153274814,0.49966239027683995,0.5361242403781229,2962,../an_in/results/B8.json;../an_in/results/B8_logits.npz
+RealWaste,B8,none,left out of training,ece_before,0.3972147770993492,0.37960350766087964,0.41503558274967006,2962,../an_in/results/B8.json;../an_in/results/B8_logits.npz
+RealWaste,B8,none,left out of training,ece_after,0.39215782589299153,0.374392474606891,0.41001960141773336,2962,../an_in/results/B8.json;../an_in/results/B8_logits.npz
+RealWaste,B8,none,left out of training,sc_miss_rate,,,,0,../an_in/results/B8.json;../an_in/results/B8_logits.npz
+RealWaste,B8,none,left out of training,sc_false_alarm,0.5577312626603647,0.5405131667792032,0.575962187711006,2962,../an_in/results/B8.json;../an_in/results/B8_logits.npz
+RealWaste,B8,none,"same source in training (A1, T1 test rows)",class_acc,0.8414839797639123,0.8111298482293423,0.8701517706576728,593,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,"same source in training (A1, T1 test rows)",stream_acc,0.9612141652613828,0.9459949409780776,0.9763912310286678,593,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,"same source in training (A1, T1 test rows)",ece_before,0.03294573023574278,0.02922998013839631,0.06651208253670206,593,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,"same source in training (A1, T1 test rows)",ece_after,0.03627488615808473,0.030347138954019803,0.06733436523895903,593,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,"same source in training (A1, T1 test rows)",sc_miss_rate,,,,0,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,"same source in training (A1, T1 test rows)",sc_false_alarm,0.01011804384485666,0.003372681281618887,0.01854974704890388,593,../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,difference (left out minus in training),stream_acc,-0.4433208499339014,-0.46659892648078594,-0.4210418960571966,593,../an_in/results/B8.json;../an_in/results/B8_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,difference (left out minus in training),class_acc,-0.5406737164283282,-0.5754188666333421,-0.5055809648464586,593,../an_in/results/B8.json;../an_in/results/B8_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,difference (left out minus in training),sc_miss_rate,,,,0,../an_in/results/B8.json;../an_in/results/B8_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,difference (left out minus in training),sc_false_alarm,0.547613218815508,0.5280237135247707,0.5682023307026723,593,../an_in/results/B8.json;../an_in/results/B8_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,difference (left out minus in training),ece_before,0.36426904686360645,0.3251811449425023,0.3760236924891529,593,../an_in/results/B8.json;../an_in/results/B8_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz
+RealWaste,B8,none,difference (left out minus in training),ece_after,0.3558829397349068,0.31915655844356694,0.3698335989952936,593,../an_in/results/B8.json;../an_in/results/B8_logits.npz;../an_in/results/A1.json;../an_in/results/A1_logits.npz

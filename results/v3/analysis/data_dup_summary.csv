@@ -1,0 +1,6 @@
+measure,value,n,source_files
+pairs,18962,18962,../an_in/data/dup_pairs_phash.csv.gz
+cross_source_pairs,12287,18962,../an_in/data/dup_pairs_phash.csv.gz
+within_source_pairs,6675,18962,../an_in/data/dup_pairs_phash.csv.gz
+exact_pairs_distance_0,14901,18962,../an_in/data/dup_pairs_phash.csv.gz
+pairs_with_different_labels,1628,18962,../an_in/data/dup_pairs_phash.csv.gz

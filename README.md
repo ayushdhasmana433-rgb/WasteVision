@@ -9,6 +9,10 @@ It flags hazards with a cost-derived threshold, says "not sure" when it should, 
 The project also asks a research question: does a good score on a shuffled test split mean the bin decision is safe?
 We test the decision on datasets the model never saw, on hazard types it never saw, and with near-duplicate photos removed.
 
+## Journal manuscript (v3)
+
+The files behind the journal manuscript (new splits, three-seed hold-outs, CLIP check, feature probes) are in [results/v3](results/v3/README.md), and the code is in `pipeline/`. The numbers below are from the earlier October run.
+
 ## Results (final run)
 
 Data: 29,717 images from 18 public sources after cleaning and cross-source de-duplication

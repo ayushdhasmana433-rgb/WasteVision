@@ -1,0 +1,6 @@
+,D1,D1,D2,D2,bestD4,bestD4,D2_minus_D1,D2_minus_D1
+,mean,std,mean,std,mean,std,mean,std
+cls,,,,,,,,
+battery,75.0,0.5,82.6,2.2,9.2,2.8,7.6,2.0
+e_waste,42.9,1.1,40.9,2.9,33.5,1.3,-1.9,1.8
+medicines_syringes,30.7,2.6,33.9,3.2,18.1,2.3,3.2,2.2

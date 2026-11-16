@@ -1,0 +1,9 @@
+stage,value,n,source_files
+mapped,99497,99497,../an_in/data/report.json
+after_filter,74798,74798,../an_in/data/report.json
+t3_set_aside,192,192,../an_in/data/report.json
+set_aside_T3,192,192,../an_in/data/report.json
+removed_T3_group_or_near,1,1,../an_in/data/report.json
+after_phash,60260,60260,../an_in/data/report.json
+after_features,58978,58978,../an_in/data/report.json
+after_cap,27592,27592,../an_in/data/report.json

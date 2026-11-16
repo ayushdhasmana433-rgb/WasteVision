@@ -1,0 +1,13 @@
+job,tier,metric,value,ci_lo,ci_hi,n,source_files
+S1,T1,stream_acc,0.9411429656350864,0.9348558910084003,0.947308855339527,5267,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,recall_Wet,0.9583333333333334,0.9401178371308774,0.9745789530143746,504,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,recall_Dry,0.9564483457123565,0.948846503348005,0.96376627514077,2962,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,recall_Special Care,0.9135446685878963,0.898391438856492,0.9277912501355653,1388,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,recall_Sanitary,0.9031476997578692,0.8740915612949511,0.9298273550117332,413,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,always_dry_baseline,0.5623694702866907,0.5483184816662884,0.577121714213359,5267,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,sc_recall@0.20,0.9589337175792507,0.9478706054796531,0.969231843575419,1388,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,sc_false_alarm@0.20,0.06393400360917763,0.05578542614792442,0.07236335642802155,3879,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,sc_recall_top_class,0.9135446685878963,0.898391438856492,0.9277912501355653,1388,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,sc_false_alarm_top_class,0.026295436968290797,0.021505376344086023,0.03132915195093082,3879,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,ece_before,0.004812748672752155,0.0047713740215133355,0.012187889900680397,5267,../an_in/results/S1.json;../an_in/results/S1_logits.npz
+S1,T1,ece_after,0.00444364980937988,0.004444224214934977,0.0115087920531682,5267,../an_in/results/S1.json;../an_in/results/S1_logits.npz

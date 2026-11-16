@@ -1,0 +1,999 @@
+{
+  "thresholds": {
+    "phash": 4,
+    "feature_removal": 0.97,
+    "feature_candidate": 0.9
+  },
+  "cap": 2500,
+  "max_per_group": 20,
+  "seed_requested": 42,
+  "rows_in_input_files": 99497,
+  "extra_csv_rows": 754,
+  "rows_bad_hash": 0,
+  "rows_with_missing_group": 0,
+  "globalwaste_filter": {
+    "rows_before": 99497,
+    "rows_after": 74798,
+    "globalwaste_before": 31395,
+    "globalwaste_after": 6696
+  },
+  "t3": {
+    "ids_in_old_splits": 192,
+    "found_in_all_csv": 192,
+    "missing_from_all_csv": 0
+  },
+  "rows_removed_same_group_as_T3": 0,
+  "rows_removed_near_T3": 1,
+  "phash": {
+    "pairs": 18962,
+    "cross_source_pairs": 12287,
+    "exact_pairs": 14901,
+    "label_conflict_pairs": 1539,
+    "dropped_near_conflict": 0,
+    "images_before": 74605,
+    "images_after": 60260
+  },
+  "features": {
+    "images_without_features": 749,
+    "chunk_rows": 829,
+    "chunks_truncated_to_removal_threshold": 0,
+    "candidate_pairs": 4290,
+    "candidate_list_complete": true,
+    "pairs_at_removal_threshold": 1238,
+    "images_before": 60260,
+    "images_after": 58978,
+    "images_without_feature_row": 749,
+    "share_without_feature_row": 0.012429472286757384,
+    "missing_features_allowed_by_flag": false,
+    "label_conflict_pairs": 44,
+    "dropped_near_conflict": 0,
+    "contact_sheet_pairs": 100
+  },
+  "seed_used": 42,
+  "split_seed_attempts": [
+    {
+      "seed": 42,
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "all_checks_passed": true,
+  "checks_passed": {
+    "every_class_has_100_val": true,
+    "every_cell_50plus_in_val": true,
+    "no_group_in_two_splits": true,
+    "no_heldout_near_duplicate_of_train": true,
+    "no_t3_group_in_train_val_test": true,
+    "no_train_image_near_t3": true
+  },
+  "failing_checks": [],
+  "failure_messages": [],
+  "stage_totals": {
+    "mapped": 99497,
+    "after_filter": 74798,
+    "t3_set_aside": 192,
+    "set_aside_T3": 192,
+    "removed_T3_group_or_near": 1,
+    "after_phash": 60260,
+    "after_features": 58978,
+    "after_cap": 27592
+  },
+  "stage_by_class": {
+    "mapped": {
+      "biological": 7190,
+      "paper_cardboard": 16209,
+      "plastic": 17889,
+      "metal": 13539,
+      "glass": 11930,
+      "clothes": 7135,
+      "shoes": 3391,
+      "trash": 3655,
+      "battery": 3034,
+      "medicines_syringes": 5845,
+      "e_waste": 7584,
+      "sanitary": 2096
+    },
+    "after_filter": {
+      "biological": 3440,
+      "paper_cardboard": 12461,
+      "plastic": 17889,
+      "metal": 9789,
+      "glass": 8180,
+      "clothes": 3385,
+      "shoes": 3391,
+      "trash": 1274,
+      "battery": 3034,
+      "medicines_syringes": 5845,
+      "e_waste": 4014,
+      "sanitary": 2096
+    },
+    "after_phash": {
+      "biological": 2521,
+      "paper_cardboard": 9801,
+      "plastic": 15210,
+      "metal": 7584,
+      "glass": 5865,
+      "clothes": 2910,
+      "shoes": 2919,
+      "trash": 1010,
+      "battery": 2348,
+      "medicines_syringes": 4755,
+      "e_waste": 3270,
+      "sanitary": 2067
+    },
+    "after_features": {
+      "biological": 2424,
+      "paper_cardboard": 9667,
+      "plastic": 15121,
+      "metal": 7473,
+      "glass": 5760,
+      "clothes": 2873,
+      "shoes": 2420,
+      "trash": 975,
+      "battery": 2206,
+      "medicines_syringes": 4722,
+      "e_waste": 3270,
+      "sanitary": 2067
+    },
+    "after_cap": {
+      "biological": 2424,
+      "paper_cardboard": 2500,
+      "plastic": 2500,
+      "metal": 2500,
+      "glass": 2500,
+      "clothes": 2500,
+      "shoes": 2420,
+      "trash": 975,
+      "battery": 2206,
+      "medicines_syringes": 2500,
+      "e_waste": 2500,
+      "sanitary": 2067
+    }
+  },
+  "split_totals": {
+    "train": 19440,
+    "val": 2704,
+    "test_T1": 5267,
+    "test_T2": 181,
+    "test_T3": 192
+  },
+  "split_by_class": {
+    "train": {
+      "biological": 1696,
+      "paper_cardboard": 1782,
+      "plastic": 1815,
+      "metal": 1688,
+      "glass": 1750,
+      "clothes": 1744,
+      "shoes": 1698,
+      "trash": 683,
+      "battery": 1526,
+      "medicines_syringes": 1859,
+      "e_waste": 1753,
+      "sanitary": 1446
+    },
+    "val": {
+      "biological": 224,
+      "paper_cardboard": 252,
+      "plastic": 222,
+      "metal": 242,
+      "glass": 258,
+      "clothes": 258,
+      "shoes": 257,
+      "trash": 103,
+      "battery": 225,
+      "medicines_syringes": 208,
+      "e_waste": 247,
+      "sanitary": 208
+    },
+    "test": {
+      "biological": 504,
+      "paper_cardboard": 466,
+      "plastic": 463,
+      "metal": 570,
+      "glass": 492,
+      "clothes": 498,
+      "shoes": 465,
+      "trash": 189,
+      "battery": 455,
+      "medicines_syringes": 433,
+      "e_waste": 500,
+      "sanitary": 413
+    }
+  },
+  "cap_info": [
+    {
+      "label": "battery",
+      "source": "GD",
+      "before_group_limit": 689,
+      "after_group_limit": 689,
+      "quota": 689,
+      "taken": 689
+    },
+    {
+      "label": "battery",
+      "source": "TACO",
+      "before_group_limit": 2,
+      "after_group_limit": 2,
+      "quota": 2,
+      "taken": 2
+    },
+    {
+      "label": "battery",
+      "source": "SGBattery",
+      "before_group_limit": 315,
+      "after_group_limit": 315,
+      "quota": 315,
+      "taken": 315
+    },
+    {
+      "label": "battery",
+      "source": "GlobalWaste",
+      "before_group_limit": 1200,
+      "after_group_limit": 1200,
+      "quota": 1200,
+      "taken": 1200
+    },
+    {
+      "label": "biological",
+      "source": "RealWaste",
+      "before_group_limit": 841,
+      "after_group_limit": 841,
+      "quota": 841,
+      "taken": 841
+    },
+    {
+      "label": "biological",
+      "source": "GD",
+      "before_group_limit": 699,
+      "after_group_limit": 699,
+      "quota": 699,
+      "taken": 699
+    },
+    {
+      "label": "biological",
+      "source": "TACO",
+      "before_group_limit": 8,
+      "after_group_limit": 8,
+      "quota": 8,
+      "taken": 8
+    },
+    {
+      "label": "biological",
+      "source": "Mayank14",
+      "before_group_limit": 90,
+      "after_group_limit": 90,
+      "quota": 90,
+      "taken": 90
+    },
+    {
+      "label": "biological",
+      "source": "WastePro",
+      "before_group_limit": 786,
+      "after_group_limit": 786,
+      "quota": 786,
+      "taken": 786
+    },
+    {
+      "label": "clothes",
+      "source": "RealWaste",
+      "before_group_limit": 316,
+      "after_group_limit": 316,
+      "quota": 316,
+      "taken": 316
+    },
+    {
+      "label": "clothes",
+      "source": "GD",
+      "before_group_limit": 1890,
+      "after_group_limit": 1890,
+      "quota": 1517,
+      "taken": 1517
+    },
+    {
+      "label": "clothes",
+      "source": "DWSD",
+      "before_group_limit": 7,
+      "after_group_limit": 7,
+      "quota": 7,
+      "taken": 7
+    },
+    {
+      "label": "clothes",
+      "source": "WastePro",
+      "before_group_limit": 660,
+      "after_group_limit": 660,
+      "quota": 660,
+      "taken": 660
+    },
+    {
+      "label": "e_waste",
+      "source": "TrashBox",
+      "before_group_limit": 2263,
+      "after_group_limit": 2263,
+      "quota": 1493,
+      "taken": 1493
+    },
+    {
+      "label": "e_waste",
+      "source": "Mayank14",
+      "before_group_limit": 96,
+      "after_group_limit": 96,
+      "quota": 96,
+      "taken": 96
+    },
+    {
+      "label": "e_waste",
+      "source": "WastePro",
+      "before_group_limit": 911,
+      "after_group_limit": 911,
+      "quota": 911,
+      "taken": 911
+    },
+    {
+      "label": "glass",
+      "source": "RealWaste",
+      "before_group_limit": 418,
+      "after_group_limit": 418,
+      "quota": 390,
+      "taken": 390
+    },
+    {
+      "label": "glass",
+      "source": "TrashNet",
+      "before_group_limit": 495,
+      "after_group_limit": 495,
+      "quota": 390,
+      "taken": 390
+    },
+    {
+      "label": "glass",
+      "source": "GD",
+      "before_group_limit": 1613,
+      "after_group_limit": 1613,
+      "quota": 390,
+      "taken": 390
+    },
+    {
+      "label": "glass",
+      "source": "PSU",
+      "before_group_limit": 1878,
+      "after_group_limit": 1878,
+      "quota": 389,
+      "taken": 389
+    },
+    {
+      "label": "glass",
+      "source": "Drinking",
+      "before_group_limit": 800,
+      "after_group_limit": 800,
+      "quota": 390,
+      "taken": 390
+    },
+    {
+      "label": "glass",
+      "source": "TACO",
+      "before_group_limit": 182,
+      "after_group_limit": 177,
+      "quota": 177,
+      "taken": 177
+    },
+    {
+      "label": "glass",
+      "source": "TIDY",
+      "before_group_limit": 16,
+      "after_group_limit": 16,
+      "quota": 16,
+      "taken": 16
+    },
+    {
+      "label": "glass",
+      "source": "DWSD",
+      "before_group_limit": 26,
+      "after_group_limit": 26,
+      "quota": 26,
+      "taken": 26
+    },
+    {
+      "label": "glass",
+      "source": "Mayank14",
+      "before_group_limit": 78,
+      "after_group_limit": 78,
+      "quota": 78,
+      "taken": 78
+    },
+    {
+      "label": "glass",
+      "source": "WastePro",
+      "before_group_limit": 254,
+      "after_group_limit": 254,
+      "quota": 254,
+      "taken": 254
+    },
+    {
+      "label": "medicines_syringes",
+      "source": "MedPackID",
+      "before_group_limit": 1476,
+      "after_group_limit": 1476,
+      "quota": 486,
+      "taken": 486
+    },
+    {
+      "label": "medicines_syringes",
+      "source": "TrashBox",
+      "before_group_limit": 797,
+      "after_group_limit": 797,
+      "quota": 485,
+      "taken": 485
+    },
+    {
+      "label": "medicines_syringes",
+      "source": "Mayank14",
+      "before_group_limit": 74,
+      "after_group_limit": 74,
+      "quota": 74,
+      "taken": 74
+    },
+    {
+      "label": "medicines_syringes",
+      "source": "WastePro",
+      "before_group_limit": 997,
+      "after_group_limit": 997,
+      "quota": 485,
+      "taken": 485
+    },
+    {
+      "label": "medicines_syringes",
+      "source": "PharmaSynth",
+      "before_group_limit": 488,
+      "after_group_limit": 488,
+      "quota": 485,
+      "taken": 485
+    },
+    {
+      "label": "medicines_syringes",
+      "source": "GlobalWaste",
+      "before_group_limit": 890,
+      "after_group_limit": 890,
+      "quota": 485,
+      "taken": 485
+    },
+    {
+      "label": "metal",
+      "source": "RealWaste",
+      "before_group_limit": 778,
+      "after_group_limit": 778,
+      "quota": 318,
+      "taken": 318
+    },
+    {
+      "label": "metal",
+      "source": "TrashNet",
+      "before_group_limit": 404,
+      "after_group_limit": 404,
+      "quota": 319,
+      "taken": 319
+    },
+    {
+      "label": "metal",
+      "source": "GD",
+      "before_group_limit": 844,
+      "after_group_limit": 844,
+      "quota": 318,
+      "taken": 318
+    },
+    {
+      "label": "metal",
+      "source": "PSU",
+      "before_group_limit": 3310,
+      "after_group_limit": 3310,
+      "quota": 318,
+      "taken": 318
+    },
+    {
+      "label": "metal",
+      "source": "Drinking",
+      "before_group_limit": 943,
+      "after_group_limit": 943,
+      "quota": 318,
+      "taken": 318
+    },
+    {
+      "label": "metal",
+      "source": "TACO",
+      "before_group_limit": 474,
+      "after_group_limit": 474,
+      "quota": 319,
+      "taken": 319
+    },
+    {
+      "label": "metal",
+      "source": "TIDY",
+      "before_group_limit": 8,
+      "after_group_limit": 8,
+      "quota": 8,
+      "taken": 8
+    },
+    {
+      "label": "metal",
+      "source": "DWSD",
+      "before_group_limit": 65,
+      "after_group_limit": 48,
+      "quota": 48,
+      "taken": 48
+    },
+    {
+      "label": "metal",
+      "source": "Mayank14",
+      "before_group_limit": 91,
+      "after_group_limit": 91,
+      "quota": 91,
+      "taken": 91
+    },
+    {
+      "label": "metal",
+      "source": "ZeroWaste",
+      "before_group_limit": 355,
+      "after_group_limit": 242,
+      "quota": 242,
+      "taken": 242
+    },
+    {
+      "label": "metal",
+      "source": "WastePro",
+      "before_group_limit": 201,
+      "after_group_limit": 201,
+      "quota": 201,
+      "taken": 201
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "RealWaste",
+      "before_group_limit": 956,
+      "after_group_limit": 956,
+      "quota": 375,
+      "taken": 375
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "TrashNet",
+      "before_group_limit": 976,
+      "after_group_limit": 976,
+      "quota": 375,
+      "taken": 375
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "GD",
+      "before_group_limit": 2618,
+      "after_group_limit": 2618,
+      "quota": 375,
+      "taken": 375
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "PSU",
+      "before_group_limit": 2276,
+      "after_group_limit": 2276,
+      "quota": 374,
+      "taken": 374
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "TACO",
+      "before_group_limit": 490,
+      "after_group_limit": 490,
+      "quota": 375,
+      "taken": 375
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "TIDY",
+      "before_group_limit": 63,
+      "after_group_limit": 63,
+      "quota": 63,
+      "taken": 63
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "DWSD",
+      "before_group_limit": 26,
+      "after_group_limit": 26,
+      "quota": 26,
+      "taken": 26
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "Mayank14",
+      "before_group_limit": 81,
+      "after_group_limit": 81,
+      "quota": 81,
+      "taken": 81
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "ZeroWaste",
+      "before_group_limit": 1803,
+      "after_group_limit": 81,
+      "quota": 81,
+      "taken": 81
+    },
+    {
+      "label": "paper_cardboard",
+      "source": "WastePro",
+      "before_group_limit": 378,
+      "after_group_limit": 378,
+      "quota": 375,
+      "taken": 375
+    },
+    {
+      "label": "plastic",
+      "source": "RealWaste",
+      "before_group_limit": 909,
+      "after_group_limit": 909,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "plastic",
+      "source": "TrashNet",
+      "before_group_limit": 474,
+      "after_group_limit": 474,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "plastic",
+      "source": "GD",
+      "before_group_limit": 1495,
+      "after_group_limit": 1495,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "plastic",
+      "source": "PSU",
+      "before_group_limit": 1950,
+      "after_group_limit": 1950,
+      "quota": 239,
+      "taken": 239
+    },
+    {
+      "label": "plastic",
+      "source": "Drinking",
+      "before_group_limit": 2299,
+      "after_group_limit": 2299,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "plastic",
+      "source": "TACO",
+      "before_group_limit": 2070,
+      "after_group_limit": 2040,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "plastic",
+      "source": "TIDY",
+      "before_group_limit": 90,
+      "after_group_limit": 90,
+      "quota": 90,
+      "taken": 90
+    },
+    {
+      "label": "plastic",
+      "source": "DWSD",
+      "before_group_limit": 606,
+      "after_group_limit": 353,
+      "quota": 239,
+      "taken": 239
+    },
+    {
+      "label": "plastic",
+      "source": "BePLi",
+      "before_group_limit": 1395,
+      "after_group_limit": 1395,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "plastic",
+      "source": "Mayank14",
+      "before_group_limit": 83,
+      "after_group_limit": 83,
+      "quota": 83,
+      "taken": 83
+    },
+    {
+      "label": "plastic",
+      "source": "ZeroWaste",
+      "before_group_limit": 3482,
+      "after_group_limit": 183,
+      "quota": 183,
+      "taken": 183
+    },
+    {
+      "label": "plastic",
+      "source": "WastePro",
+      "before_group_limit": 268,
+      "after_group_limit": 268,
+      "quota": 238,
+      "taken": 238
+    },
+    {
+      "label": "sanitary",
+      "source": "Sanitary",
+      "before_group_limit": 176,
+      "after_group_limit": 176,
+      "quota": 176,
+      "taken": 176
+    },
+    {
+      "label": "sanitary",
+      "source": "TrashBox",
+      "before_group_limit": 749,
+      "after_group_limit": 749,
+      "quota": 749,
+      "taken": 749
+    },
+    {
+      "label": "sanitary",
+      "source": "GlobalWaste",
+      "before_group_limit": 1142,
+      "after_group_limit": 1142,
+      "quota": 1142,
+      "taken": 1142
+    },
+    {
+      "label": "shoes",
+      "source": "GD",
+      "before_group_limit": 1407,
+      "after_group_limit": 1407,
+      "quota": 1407,
+      "taken": 1407
+    },
+    {
+      "label": "shoes",
+      "source": "TACO",
+      "before_group_limit": 7,
+      "after_group_limit": 7,
+      "quota": 7,
+      "taken": 7
+    },
+    {
+      "label": "shoes",
+      "source": "GlobalWaste",
+      "before_group_limit": 1006,
+      "after_group_limit": 1006,
+      "quota": 1006,
+      "taken": 1006
+    },
+    {
+      "label": "trash",
+      "source": "RealWaste",
+      "before_group_limit": 484,
+      "after_group_limit": 484,
+      "quota": 484,
+      "taken": 484
+    },
+    {
+      "label": "trash",
+      "source": "TrashNet",
+      "before_group_limit": 136,
+      "after_group_limit": 136,
+      "quota": 136,
+      "taken": 136
+    },
+    {
+      "label": "trash",
+      "source": "GD",
+      "before_group_limit": 308,
+      "after_group_limit": 308,
+      "quota": 308,
+      "taken": 308
+    },
+    {
+      "label": "trash",
+      "source": "Mayank14",
+      "before_group_limit": 47,
+      "after_group_limit": 47,
+      "quota": 47,
+      "taken": 47
+    }
+  ],
+  "dwsd_test_assigned_images_moved_to_train": 49,
+  "group_conflict_images_moved_to_train": 0,
+  "globalwaste_surviving_per_class": {
+    "after_filter": {
+      "sanitary": 1152,
+      "shoes": 1935,
+      "battery": 1916,
+      "medicines_syringes": 1693
+    },
+    "after_phash": {
+      "sanitary": 1142,
+      "shoes": 1494,
+      "battery": 1342,
+      "medicines_syringes": 890
+    },
+    "after_features": {
+      "sanitary": 1142,
+      "shoes": 1006,
+      "battery": 1200,
+      "medicines_syringes": 890
+    },
+    "after_cap": {
+      "sanitary": 1142,
+      "shoes": 1006,
+      "battery": 1200,
+      "medicines_syringes": 485
+    }
+  },
+  "largest_source_share_in_train": {
+    "biological": {
+      "source": "RealWaste",
+      "share": 0.3438,
+      "train_images": 1696
+    },
+    "paper_cardboard": {
+      "source": "TrashNet",
+      "share": 0.156,
+      "train_images": 1782
+    },
+    "plastic": {
+      "source": "DWSD",
+      "share": 0.1234,
+      "train_images": 1815
+    },
+    "metal": {
+      "source": "GD",
+      "share": 0.1404,
+      "train_images": 1688
+    },
+    "glass": {
+      "source": "GD",
+      "share": 0.1589,
+      "train_images": 1750
+    },
+    "clothes": {
+      "source": "GD",
+      "share": 0.6135,
+      "train_images": 1744
+    },
+    "shoes": {
+      "source": "GD",
+      "share": 0.5718,
+      "train_images": 1698
+    },
+    "trash": {
+      "source": "RealWaste",
+      "share": 0.5037,
+      "train_images": 683
+    },
+    "battery": {
+      "source": "GlobalWaste",
+      "share": 0.5433,
+      "train_images": 1526
+    },
+    "medicines_syringes": {
+      "source": "PharmaSynth",
+      "share": 0.2609,
+      "train_images": 1859
+    },
+    "e_waste": {
+      "source": "TrashBox",
+      "share": 0.6052,
+      "train_images": 1753
+    },
+    "sanitary": {
+      "source": "GlobalWaste",
+      "share": 0.556,
+      "train_images": 1446
+    }
+  },
+  "per_class": {
+    "biological": {
+      "n_sources_in_train": 5,
+      "val_count": 224,
+      "train_images": 1696,
+      "largest_source": "RealWaste",
+      "largest_source_share_in_train": 0.3438
+    },
+    "paper_cardboard": {
+      "n_sources_in_train": 10,
+      "val_count": 252,
+      "train_images": 1782,
+      "largest_source": "TrashNet",
+      "largest_source_share_in_train": 0.156
+    },
+    "plastic": {
+      "n_sources_in_train": 12,
+      "val_count": 222,
+      "train_images": 1815,
+      "largest_source": "DWSD",
+      "largest_source_share_in_train": 0.1234
+    },
+    "metal": {
+      "n_sources_in_train": 11,
+      "val_count": 242,
+      "train_images": 1688,
+      "largest_source": "GD",
+      "largest_source_share_in_train": 0.1404
+    },
+    "glass": {
+      "n_sources_in_train": 10,
+      "val_count": 258,
+      "train_images": 1750,
+      "largest_source": "GD",
+      "largest_source_share_in_train": 0.1589
+    },
+    "clothes": {
+      "n_sources_in_train": 4,
+      "val_count": 258,
+      "train_images": 1744,
+      "largest_source": "GD",
+      "largest_source_share_in_train": 0.6135
+    },
+    "shoes": {
+      "n_sources_in_train": 3,
+      "val_count": 257,
+      "train_images": 1698,
+      "largest_source": "GD",
+      "largest_source_share_in_train": 0.5718
+    },
+    "trash": {
+      "n_sources_in_train": 4,
+      "val_count": 103,
+      "train_images": 683,
+      "largest_source": "RealWaste",
+      "largest_source_share_in_train": 0.5037
+    },
+    "battery": {
+      "n_sources_in_train": 4,
+      "val_count": 225,
+      "train_images": 1526,
+      "largest_source": "GlobalWaste",
+      "largest_source_share_in_train": 0.5433
+    },
+    "medicines_syringes": {
+      "n_sources_in_train": 6,
+      "val_count": 208,
+      "train_images": 1859,
+      "largest_source": "PharmaSynth",
+      "largest_source_share_in_train": 0.2609
+    },
+    "e_waste": {
+      "n_sources_in_train": 3,
+      "val_count": 247,
+      "train_images": 1753,
+      "largest_source": "TrashBox",
+      "largest_source_share_in_train": 0.6052
+    },
+    "sanitary": {
+      "n_sources_in_train": 3,
+      "val_count": 208,
+      "train_images": 1446,
+      "largest_source": "GlobalWaste",
+      "largest_source_share_in_train": 0.556
+    }
+  },
+  "validation_counts_per_class": {
+    "biological": 224,
+    "paper_cardboard": 252,
+    "plastic": 222,
+    "metal": 242,
+    "glass": 258,
+    "clothes": 258,
+    "shoes": 257,
+    "trash": 103,
+    "battery": 225,
+    "medicines_syringes": 208,
+    "e_waste": 247,
+    "sanitary": 208
+  },
+  "classes_near_validation_floor": [
+    "trash"
+  ]
+}

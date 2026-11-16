@@ -1,0 +1,18 @@
+job,what,metric,value,ci_lo,ci_hi,n,json_value,abs_diff_vs_json,source_files,ci_method
+C1,"leakage pool, naive random 70/10/20 split",class_acc,0.8632989317399964,0.8537956219030958,0.8724774459304777,5523,0.8632989317399964,0.0,../an_in/results/C1.json;../an_in/results/C1_logits.npz,
+C1,"leakage pool, naive random 70/10/20 split",macro_f1,0.8533997413828455,0.8439083622288646,0.8629088052742663,5523,0.8533997413828455,0.0,../an_in/results/C1.json;../an_in/results/C1_logits.npz,
+C1,"leakage pool, naive random 70/10/20 split",stream_acc,0.9512945862755748,0.9455360281052131,0.9571351698605713,5523,0.9512945862755748,0.0,../an_in/results/C1.json;../an_in/results/C1_logits.npz,
+C1,"leakage pool, naive random 70/10/20 split",share_test_with_train_near_duplicate,0.16983523447401774,0.15990289246710163,0.17964295504385963,5523,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz,grouped_bootstrap
+C1,"leakage pool, naive random 70/10/20 split",acc_items_with_duplicate,0.8816631130063965,0.8610200102720749,0.9019226349068112,938,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz,grouped_bootstrap
+C1,"leakage pool, naive random 70/10/20 split",acc_items_without_duplicate,0.8595419847328244,0.848856320170546,0.8696985261236866,4585,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz,grouped_bootstrap
+C1,"leakage pool, naive random 70/10/20 split",diff_acc_with_minus_without_duplicate,0.022121128273572155,-9.456135708317542e-05,0.04481404210735239,938,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz,grouped_bootstrap
+C2,"leakage pool, grouped + duplicate-cluster split",class_acc,0.8592364754839877,0.84953019193912,0.8686794387163773,5527,0.8592364754839877,0.0,../an_in/results/C2.json;../an_in/results/C2_logits.npz,
+C2,"leakage pool, grouped + duplicate-cluster split",macro_f1,0.8500014138273472,0.8398635237184064,0.859500290757153,5527,0.8500014138273472,0.0,../an_in/results/C2.json;../an_in/results/C2_logits.npz,
+C2,"leakage pool, grouped + duplicate-cluster split",stream_acc,0.9511489053736204,0.9454405422875537,0.9568982610324673,5527,0.9511489053736204,0.0,../an_in/results/C2.json;../an_in/results/C2_logits.npz,
+C2,"leakage pool, grouped + duplicate-cluster split",share_test_with_train_near_duplicate,0.0,0.0,0.0,5527,,,../an_in/results/C2.json;../an_in/results/C2_logits.npz,grouped_bootstrap
+C2,"leakage pool, grouped + duplicate-cluster split",acc_items_with_duplicate,,,,0,,,../an_in/results/C2.json;../an_in/results/C2_logits.npz,grouped_bootstrap
+C2,"leakage pool, grouped + duplicate-cluster split",acc_items_without_duplicate,0.8592364754839877,0.84953019193912,0.8686794387163773,5527,,,../an_in/results/C2.json;../an_in/results/C2_logits.npz,grouped_bootstrap
+C2,"leakage pool, grouped + duplicate-cluster split",diff_acc_with_minus_without_duplicate,,,,0,,,../an_in/results/C2.json;../an_in/results/C2_logits.npz,grouped_bootstrap
+C1-C2,naive random split minus grouped split,diff_class_acc,0.004062456256008651,-0.0084807952629098,0.01791693093597383,5523,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz;../an_in/results/C2.json;../an_in/results/C2_logits.npz,
+C1-C2,naive random split minus grouped split,diff_macro_f1,0.003398327555498293,-0.009520453511222673,0.017258560556722168,5523,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz;../an_in/results/C2.json;../an_in/results/C2_logits.npz,
+C1-C2,naive random split minus grouped split,diff_stream_acc,0.00014568090195443695,-0.0078005438708101974,0.008511601453903244,5523,,,../an_in/results/C1.json;../an_in/results/C1_logits.npz;../an_in/results/C2.json;../an_in/results/C2_logits.npz,

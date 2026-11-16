@@ -1,0 +1,64 @@
+basis,hazard_prevalence,metric,value,ci_lo,ci_hi,n,source_files,a_job
+A_T1,0.01,hazards_present_per_10000,100.0,100.0,100.0,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.01,hazards_flagged_per_10000,95.7492795389049,94.64531122827373,96.81163012686292,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.01,hazards_not_flagged_per_10000,4.250720461095103,3.1883698731370824,5.354688771726261,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.01,hazards_reaching_dry_stream_per_10000,2.5936599423631126,1.7841556498977145,3.438248732677063,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.01,non_hazard_false_alarms_per_10000,607.4245939675174,525.4109451675616,695.8279644795783,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+unseen battery,0.01,hazards_present_per_10000,100.0,100.0,100.0,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.01,hazards_flagged_per_10000,74.50549450549451,70.30871080500783,78.4448717948718,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.01,hazards_not_flagged_per_10000,25.494505494505493,21.5551282051282,29.69128919499217,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.01,hazards_reaching_dry_stream_per_10000,23.956043956043956,19.95704585898766,28.000000000000004,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.01,non_hazard_false_alarms_per_10000,607.4245939675174,525.4109451675616,695.8279644795783,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen medicines_syringes,0.01,hazards_present_per_10000,100.0,100.0,100.0,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.01,hazards_flagged_per_10000,29.099307159353348,24.696569814366423,33.4841886640761,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.01,hazards_not_flagged_per_10000,70.90069284064666,66.5158113359239,75.30343018563357,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.01,hazards_reaching_dry_stream_per_10000,38.33718244803695,33.90602688249747,42.76652004909984,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.01,non_hazard_false_alarms_per_10000,607.4245939675174,525.4109451675616,695.8279644795783,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen e_waste,0.01,hazards_present_per_10000,100.0,100.0,100.0,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.01,hazards_flagged_per_10000,41.6,37.23175309164931,45.946490845684394,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.01,hazards_not_flagged_per_10000,58.400000000000006,54.053509154315606,62.7682469083507,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.01,hazards_reaching_dry_stream_per_10000,54.6,50.29574309185959,59.052009445888054,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.01,non_hazard_false_alarms_per_10000,607.4245939675174,525.4109451675616,695.8279644795783,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+always-dry baseline,0.01,hazards_reaching_dry_stream_per_10000,100.0,,,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.02,hazards_present_per_10000,200.0,200.0,200.0,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.02,hazards_flagged_per_10000,191.4985590778098,189.29062245654745,193.62326025372585,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.02,hazards_not_flagged_per_10000,8.501440922190206,6.376739746274165,10.709377543452522,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.02,hazards_reaching_dry_stream_per_10000,5.187319884726225,3.568311299795429,6.876497465354126,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.02,non_hazard_false_alarms_per_10000,601.2889920082495,520.1037639032428,688.7993991818049,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+unseen battery,0.02,hazards_present_per_10000,200.0,200.0,200.0,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.02,hazards_flagged_per_10000,149.01098901098902,140.61742161001567,156.8897435897436,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.02,hazards_not_flagged_per_10000,50.989010989010985,43.1102564102564,59.38257838998434,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.02,hazards_reaching_dry_stream_per_10000,47.91208791208791,39.91409171797532,56.00000000000001,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.02,non_hazard_false_alarms_per_10000,601.2889920082495,520.1037639032428,688.7993991818049,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen medicines_syringes,0.02,hazards_present_per_10000,200.0,200.0,200.0,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.02,hazards_flagged_per_10000,58.198614318706696,49.39313962873285,66.9683773281522,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.02,hazards_not_flagged_per_10000,141.8013856812933,133.0316226718478,150.60686037126715,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.02,hazards_reaching_dry_stream_per_10000,76.6743648960739,67.81205376499494,85.53304009819968,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.02,non_hazard_false_alarms_per_10000,601.2889920082495,520.1037639032428,688.7993991818049,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen e_waste,0.02,hazards_present_per_10000,200.0,200.0,200.0,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.02,hazards_flagged_per_10000,83.2,74.46350618329862,91.89298169136879,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.02,hazards_not_flagged_per_10000,116.80000000000001,108.10701830863121,125.5364938167014,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.02,hazards_reaching_dry_stream_per_10000,109.2,100.59148618371918,118.10401889177611,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.02,non_hazard_false_alarms_per_10000,601.2889920082495,520.1037639032428,688.7993991818049,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+always-dry baseline,0.02,hazards_reaching_dry_stream_per_10000,200.0,,,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.05,hazards_present_per_10000,500.0,500.0,500.0,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.05,hazards_flagged_per_10000,478.7463976945245,473.2265561413687,484.0581506343146,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.05,hazards_not_flagged_per_10000,21.253602305475518,15.941849365685412,26.773443858631307,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.05,hazards_reaching_dry_stream_per_10000,12.968299711815563,8.920778249488572,17.191243663385315,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+A_T1,0.05,non_hazard_false_alarms_per_10000,582.8821861304459,504.1822201102864,667.7137032884843,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
+unseen battery,0.05,hazards_present_per_10000,500.0,500.0,500.0,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.05,hazards_flagged_per_10000,372.5274725274725,351.54355402503916,392.22435897435895,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.05,hazards_not_flagged_per_10000,127.47252747252746,107.775641025641,148.45644597496084,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.05,hazards_reaching_dry_stream_per_10000,119.78021978021978,99.78522929493829,140.0,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen battery,0.05,non_hazard_false_alarms_per_10000,582.8821861304459,504.1822201102864,667.7137032884843,,../an_in/results/B1.json;../an_in/results/B1_logits.npz;../an_in/results/B1.json;../an_in/results/B1_logits.npz,A1
+unseen medicines_syringes,0.05,hazards_present_per_10000,500.0,500.0,500.0,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.05,hazards_flagged_per_10000,145.49653579676675,123.48284907183212,167.42094332038056,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.05,hazards_not_flagged_per_10000,354.50346420323325,332.5790566796195,376.5171509281679,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.05,hazards_reaching_dry_stream_per_10000,191.68591224018473,169.53013441248734,213.83260024549918,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen medicines_syringes,0.05,non_hazard_false_alarms_per_10000,582.8821861304459,504.1822201102864,667.7137032884843,,../an_in/results/B2.json;../an_in/results/B2_logits.npz;../an_in/results/B2.json;../an_in/results/B2_logits.npz,A1
+unseen e_waste,0.05,hazards_present_per_10000,500.0,500.0,500.0,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.05,hazards_flagged_per_10000,208.0,186.15876545824653,229.73245422842197,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.05,hazards_not_flagged_per_10000,292.00000000000006,270.267545771578,313.84123454175347,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.05,hazards_reaching_dry_stream_per_10000,273.0,251.478715459298,295.26004722944026,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+unseen e_waste,0.05,non_hazard_false_alarms_per_10000,582.8821861304459,504.1822201102864,667.7137032884843,,../an_in/results/B3.json;../an_in/results/B3_logits.npz;../an_in/results/B3.json;../an_in/results/B3_logits.npz,A1
+always-dry baseline,0.05,hazards_reaching_dry_stream_per_10000,500.0,,,,../an_in/results/A1.json;../an_in/results/A1_logits.npz,A1
