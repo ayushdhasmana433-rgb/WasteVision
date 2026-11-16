@@ -563,8 +563,8 @@ def _align(z, ids):
 BLOCK_OWN = "OWN operating point (validation-fitted where the job has one)"
 BLOCK_VAL = "PRIMARY: threshold set on known validation items, reported on T1 test"
 BLOCK_TEST = "SECONDARY: ROC point matched on test (comparison only, not deployable)"
-VAL_OPS = [("val_match_D1", None), ("val_match_5pct", 0.05), ("val_match_10pct", 0.10)]
-TEST_OPS = [("test_match_D1", None), ("test_match_5pct", 0.05), ("test_match_10pct", 0.10)]
+VAL_OPS = [("val_match_D2", None), ("val_match_5pct", 0.05), ("val_match_10pct", 0.10)]
+TEST_OPS = [("test_match_D2", None), ("test_match_5pct", 0.05), ("test_match_10pct", 0.10)]
 
 
 def val_threshold(known_scores, target):
@@ -607,13 +607,13 @@ def analyse_decisions(cx):
     df = pd.DataFrame(rows)
     cx.rep.notes.append(
         "Decision-design table, PRIMARY block (op_point val_match_*): the threshold of every sweepable design is set on the "
-        "known non-hazard VALIDATION items of the same job to reach the target false-alarm rate (D1's own validation rate, "
+        "known non-hazard VALIDATION items of the same job to reach the target false-alarm rate (D2's own validation rate, "
         "5%, 10%), then fixed; catch rate on the unknown T1 items and the false-alarm rate realised on the known T1 test "
         "items are reported with grouped bootstrap intervals (thresholds fixed across resamples). SECONDARY block "
         "(op_point test_match_*): ROC point matched on the known T1 test items, comparison only, NOT deployable. "
         "op_point 'own': the design's own operating point.")
     cx.save("decision_designs", df, sorted(set(used)),
-            "unseen hazards (B1-B3) and shoes control (B4): catch rate / wrongly-flagged share, false alarms, D1 minus design; "
+            "unseen hazards (B1-B3) and shoes control (B4): catch rate / wrongly-flagged share, false alarms, D2 minus design; "
             "primary = validation-matched thresholds",
             ["held_out_class", "design", "op_point", "measure"])
     cx.figs["decision"] = df
@@ -645,16 +645,16 @@ def _decision_job(cx, bj, e1, s_by_class, rows, used):
     vn = int(kv.sum())
     # D: dict(name, score (flag score, higher = flag) or None, vscore (same score on known validation items) or None,
     #         own bool or None, sign, files, rule)
-    D = [dict(name="D0 top-class routing", score=None, vscore=None, own=sc["top_haz"][sel], sign=1, files=files_b,
+    D = [dict(name="D1 top-class routing", score=None, vscore=None, own=sc["top_haz"][sel], sign=1, files=files_b,
               rule="flag if the top class is a hazard class")]
-    D.append(dict(name="D1 hazard-sum flag", score=haz, vscore=sc["haz"][kv], own=haz >= thr, sign=1, files=files_b,
+    D.append(dict(name="D2 hazard-sum flag", score=haz, vscore=sc["haz"][kv], own=haz >= thr, sign=1, files=files_b,
                   rule=f"flag if summed hazard probability >= t (own: {thr:.2f})"))
     for nm, key in (("MSP", "msp"), ("MaxLogit", "maxlogit"), ("Energy", "energy")):
         s = sc[key][sel]
-        D.append(dict(name=f"D4 {nm}", score=-s, vscore=-sc[key][kv], own=s < rej[nm], sign=-1, files=files_b,
+        D.append(dict(name=f"D3 {nm}", score=-s, vscore=-sc[key][kv], own=s < rej[nm], sign=-1, files=files_b,
                       rule=f"flag if {nm} <= t at a swept threshold; own point: {nm} strictly below the validation "
                            f"5% quantile {rej[nm]:.4g}"))
-    D.append(dict(name="D1+reject(MSP)", score=None, vscore=None, own=(haz >= thr) | (sc["msp"][sel] < rej["MSP"]), sign=1,
+    D.append(dict(name="D2+reject(MSP)", score=None, vscore=None, own=(haz >= thr) | (sc["msp"][sel] < rej["MSP"]), sign=1,
                   files=files_b, rule="flag if hazard-sum >= own threshold OR MSP strictly below the validation reject threshold"))
     sj = s_by_class.get(c)
     if sj and sj != "S1":
@@ -662,27 +662,27 @@ def _decision_job(cx, bj, e1, s_by_class, rows, used):
         if rs is not None:
             pos = _align(rs.z, ids)
             if pos is None:
-                cx.rep.skip(f"D2 for {c}", f"{sj} lacks some of the {len(ids)} image ids used in {bj}")
+                cx.rep.skip(f"D4 for {c}", f"{sj} lacks some of the {len(ids)} image ids used in {bj}")
             else:
                 hs = job_scores(rs.z)["haz"]
                 kvs = (rs.z["role"] == "val") & (rs.z["stream_true"] != SC)
-                D.append(dict(name="D2 stream-trained", score=hs[pos], vscore=hs[kvs] if kvs.any() else None,
+                D.append(dict(name="D4 stream-trained", score=hs[pos], vscore=hs[kvs] if kvs.any() else None,
                               own=hs[pos] >= rs.j["thresholds"]["hazard"], sign=1, files=src_str(rs.files),
                               rule=f"flag if Special Care stream probability >= t (own: {rs.j['thresholds']['hazard']:.2f})"))
                 used.append(sj)
     if e1 is not None:
         pos = _align(e1.z, ids)
         if pos is None:
-            cx.rep.skip(f"D6 for {c}", f"E1 lacks some of the {len(ids)} image ids used in {bj}")
+            cx.rep.skip(f"D5 for {c}", f"E1 lacks some of the {len(ids)} image ids used in {bj}")
         else:
             fe = src_str(e1.files)
             ssum_all, spr_all = e1.z["stream_probs"][:, SC].astype(float), e1.z["hazard_prob"].astype(float)
             # E1 holds every image: known validation items = val rows of non-hazard classes other than the held-out class
             kve = (e1.z["role"] == "val") & (e1.z["stream_true"] != SC) & (e1.z["class_idx"] != RUN.CLASS_TO_IDX[c])
-            D.append(dict(name="D6 CLIP class-prompt sum", score=ssum_all[pos], vscore=ssum_all[kve] if kve.any() else None,
+            D.append(dict(name="D5 CLIP class-prompt sum", score=ssum_all[pos], vscore=ssum_all[kve] if kve.any() else None,
                           own=ssum_all[pos] >= RUN.SC_THRESHOLD, sign=1, files=fe,
                           rule=f"flag if summed hazard-class prompt probability >= t (own: {RUN.SC_THRESHOLD:.2f}, a rule, not fitted)"))
-            D.append(dict(name="D6 CLIP hazard prompt", score=spr_all[pos], vscore=spr_all[kve] if kve.any() else None,
+            D.append(dict(name="D5 CLIP hazard prompt", score=spr_all[pos], vscore=spr_all[kve] if kve.any() else None,
                           own=spr_all[pos] >= CLIP_PROMPT_THRESHOLD, sign=1, files=fe,
                           rule=f"flag if hazard-prompt probability >= t (own: {CLIP_PROMPT_THRESHOLD}, prompt wins; not fitted)"))
             used.append("E1")
@@ -696,7 +696,7 @@ def _decision_job(cx, bj, e1, s_by_class, rows, used):
             cat, _ = boot.ratio(d["own"] & is_unk, is_unk)
             res[(d["name"], "own")] = dict(catch=cat, far=far, thr=None)
     by_name = {d["name"]: d for d in D}
-    d1 = by_name["D1 hazard-sum flag"]
+    d1 = by_name["D2 hazard-sum flag"]
     # PRIMARY: thresholds from known validation items, fixed across resamples
     v_far_d1 = float((d1["vscore"] >= thr).mean()) if kv.any() else None
     targets = {}
@@ -707,8 +707,8 @@ def _decision_job(cx, bj, e1, s_by_class, rows, used):
             if d["score"] is None or d["vscore"] is None:
                 continue
             for op, _ in VAL_OPS:
-                if d is d1 and op == "val_match_D1":
-                    t_, rv, flag = thr, v_far_d1, d["own"]          # D1 stays at its own threshold
+                if d is d1 and op == "val_match_D2":
+                    t_, rv, flag = thr, v_far_d1, d["own"]          # D2 stays at its own threshold
                 else:
                     t_, rv = val_threshold(d["vscore"], targets[op])
                     flag = d["score"] >= t_
@@ -723,9 +723,9 @@ def _decision_job(cx, bj, e1, s_by_class, rows, used):
         outs = sweep_to_far(d["score"][~is_unk], d["score"][is_unk], Wk, Wu, [d1_far] + [t for _, t in TEST_OPS[1:]])
         for (op, _), o in zip(TEST_OPS, outs):
             res[(d["name"], op)] = o
-    # D1 stays at its own threshold in test_match_D1; the other designs are matched to its false-alarm rate
-    res[(d1["name"], "test_match_D1")] = dict(res[(d1["name"], "own")], thr=np.full_like(d1_far, thr))
-    targets["test_match_D1"] = ci(d1_far)[0]
+    # D2 stays at its own threshold in test_match_D2; the other designs are matched to its false-alarm rate
+    res[(d1["name"], "test_match_D2")] = dict(res[(d1["name"], "own")], thr=np.full_like(d1_far, thr))
+    targets["test_match_D2"] = ci(d1_far)[0]
     targets["test_match_5pct"], targets["test_match_10pct"] = 0.05, 0.10
     leak = boot.ratio(~d1["own"] & (sc["s_pred"][sel] == DRY) & is_unk, is_unk)
     for (dn, op), o in res.items():
@@ -747,7 +747,7 @@ def _decision_job(cx, bj, e1, s_by_class, rows, used):
         if dn != d1["name"]:
             diff = res[(d1["name"], op)]["catch"] - o["catch"]
             p, lo, hi = ci(diff)
-            rows.append(dict(base, measure="diff_D1_minus_design", value=p, ci_lo=lo, ci_hi=hi, n=nu))
+            rows.append(dict(base, measure="diff_D2_minus_design", value=p, ci_lo=lo, ci_hi=hi, n=nu))
     cx.shared["unseen_leak"][c] = dict(vals=leak[0], n=nu, files=rb.files)
     cx.shared["unseen_catch"][c] = dict(vals=res[(d1["name"], "own")]["catch"], n=nu, files=rb.files, job=bj)
     if c == "shoes":
@@ -1063,7 +1063,7 @@ def analyse_scenarios(cx):
     R_src = {"A_T1 flag recall": (R, src_str(files_a))}
     for c, d in cx.shared.get("unseen_catch", {}).items():
         if c in HAZARD_CLASSES:
-            R_src[f"unseen {c} (D1 catch)"] = (d["vals"], src_str(d["files"]))
+            R_src[f"unseen {c} (D2 catch)"] = (d["vals"], src_str(d["files"]))
     F_src = {"A_T1 false-alarm rate": (A["FAR"], src_str(files_a))}
     for s, d in cx.shared.get("far_leftout", {}).items():
         F_src[f"left-out source {s}"] = (d["vals"], src_str(d["files"]))
@@ -1226,7 +1226,7 @@ def make_figures(cx):
     pal = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#17becf"]
     if "decision" in cx.figs:
         df = cx.figs["decision"]
-        ops = ["own", "val_match_D1", "val_match_5pct", "val_match_10pct"]
+        ops = ["own", "val_match_D2", "val_match_5pct", "val_match_10pct"]
         classes = list(dict.fromkeys(df.held_out_class))
         fig, axs = plt.subplots(1, len(classes), figsize=(4.2 * len(classes), 4.2), sharey=True, squeeze=False)
         designs = list(dict.fromkeys(df.design))
@@ -1243,7 +1243,7 @@ def make_figures(cx):
                            yerr=[[max(r.value - r.ci_lo, 0)], [max(r.ci_hi - r.value, 0)]] if pd.notna(r.ci_lo) else None,
                            error_kw=dict(lw=0.8))
             ax.set_xticks(np.arange(len(ops)) + 0.4)
-            ax.set_xticklabels(["own point", "val: = D1 FAR", "val: 5% FAR", "val: 10% FAR"], fontsize=8)
+            ax.set_xticklabels(["own point", "val: = D2 FAR", "val: 5% FAR", "val: 10% FAR"], fontsize=8)
             ax.set_title(f"{c} ({'caught' if c in HAZARD_CLASSES else 'wrongly flagged'})", fontsize=10)
             ax.set_ylim(0, 1.02)
         axs[0][0].set_ylabel("share of unknown items")
@@ -1323,10 +1323,10 @@ DEFINITIONS = """\
 - Test rows of a job: role == test. Tier from the `tier` array (T1 headline, T2 conveyor, T3 street).
 - Stream accuracy: argmax of the summed (temperature-scaled) stream probabilities equals the true stream. Top-class stream accuracy: stream of the top class. Flag: summed Special Care probability >= the job's validation-fitted threshold (0.20). Class accuracy and macro-F1 use only items whose class is in the label space.
 - Decision designs: unknown items = T1 test images of the held-out class; known items = T1 test images of trained non-hazard classes (true stream not Special Care). False alarm = a known item flagged. Caught = an unknown item flagged.
-  D0: flagged if the top class is a hazard class (no threshold). D1: flagged if the summed temperature-scaled hazard probability >= t. D4: MSP / MaxLogit / Energy (temperature-scaled, as in run.py) are familiarity scores. At the OWN point a D4 item is flagged if its score is STRICTLY BELOW the validation 5% quantile (as in run.py, `score < threshold`); at swept (matched) thresholds it is flagged if the score is AT OR BELOW t (implemented as -score >= -t). D1+reject(MSP): D1 flag OR MSP strictly below the validation reject threshold. D2: Special Care probability of the stream-trained job >= t. D6: CLIP hazard-class prompt sum >= t, or hazard-prompt probability >= t. D6 uses all 12 class prompts, so the held-out class is not unseen to CLIP.
-  Own point: D1 and D2 use the job's hazard threshold (a cost rule, 1/(1+4)); D4 uses the validation 5% quantile reject threshold; D6 has no fitted threshold (rule values 0.20 / 0.5).
-  PRIMARY matched comparison (op_point val_match_D1, val_match_5pct, val_match_10pct): for each job and design the threshold is set on that job's known non-hazard VALIDATION items (role val, true stream not Special Care; for E1 also not the held-out class) to reach the target false-alarm rate (D1's own validation rate, 5%, 10%): k = floor(target * n) highest known scores are flagged (moved down to the end of a tie block), threshold = the k-th highest score, flag = score >= t. The threshold is then FIXED. Reported on the T1 test items: catch rate on the unknown items, and the false-alarm rate realised on the known T1 test items (`known_false_alarm`), each with a grouped bootstrap interval (thresholds do not change across resamples). D1 stays at its own threshold at val_match_D1 and the others are matched to D1's validation rate.
-  SECONDARY block (op_point test_match_D1, test_match_5pct, test_match_10pct): "ROC point matched on test (comparison only, not deployable)". The threshold is set on the known T1 TEST items of the same job (highest rate not above the target; whole tie blocks only, so the realised rate is at most the target) and re-fitted in every bootstrap resample. It is an evaluation-time matching, not a deployable threshold.
+  D1: flagged if the top class is a hazard class (no threshold). D2: flagged if the summed temperature-scaled hazard probability >= t. D3: MSP / MaxLogit / Energy (temperature-scaled, as in run.py) are familiarity scores. At the OWN point a D3 item is flagged if its score is STRICTLY BELOW the validation 5% quantile (as in run.py, `score < threshold`); at swept (matched) thresholds it is flagged if the score is AT OR BELOW t (implemented as -score >= -t). D2+reject(MSP): D2 flag OR MSP strictly below the validation reject threshold. D4: Special Care probability of the stream-trained job >= t. D5: CLIP hazard-class prompt sum >= t, or hazard-prompt probability >= t. D5 uses all 12 class prompts, so the held-out class is not unseen to CLIP.
+  Own point: D2 and D4 use the job's hazard threshold (a cost rule, 1/(1+4)); D3 uses the validation 5% quantile reject threshold; D5 has no fitted threshold (rule values 0.20 / 0.5).
+  PRIMARY matched comparison (op_point val_match_D2, val_match_5pct, val_match_10pct): for each job and design the threshold is set on that job's known non-hazard VALIDATION items (role val, true stream not Special Care; for E1 also not the held-out class) to reach the target false-alarm rate (D2's own validation rate, 5%, 10%): k = floor(target * n) highest known scores are flagged (moved down to the end of a tie block), threshold = the k-th highest score, flag = score >= t. The threshold is then FIXED. Reported on the T1 test items: catch rate on the unknown items, and the false-alarm rate realised on the known T1 test items (`known_false_alarm`), each with a grouped bootstrap interval (thresholds do not change across resamples). D2 stays at its own threshold at val_match_D2 and the others are matched to D2's validation rate.
+  SECONDARY block (op_point test_match_D2, test_match_5pct, test_match_10pct): "ROC point matched on test (comparison only, not deployable)". The threshold is set on the known T1 TEST items of the same job (highest rate not above the target; whole tie blocks only, so the realised rate is at most the target) and re-fitted in every bootstrap resample. It is an evaluation-time matching, not a deployable threshold.
 - Material-flow scenarios are scenario arithmetic: flag precision = R*pi/(R*pi + FAR*(1-pi)); R and FAR come from the A-job T1 numbers; FAR is also taken from the left-out sources (B5-B8, at 0.20) and from the share of shoes flagged (B4).
 """
 

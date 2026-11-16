@@ -11,8 +11,8 @@ leakage_block, pack_predictions, clip_scores, clip_summary, writers) and rebuild
 so keys and array names are the real ones. Only the logits are invented, so that known answers exist:
 
   * B1 (battery held out): half of the unknown items look like another hazard class, half are ambiguous dry-looking
-    items with hazard mass. The hazard-sum flag D1 clearly beats MSP (matched false-alarm rates).
-  * B2 (medicines held out): CLIP mostly sees medicines as plastic, so D6 is clearly worse than D1.
+    items with hazard mass. The hazard-sum flag D2 clearly beats MSP (matched false-alarm rates).
+  * B2 (medicines held out): CLIP mostly sees medicines as plastic, so D5 is clearly worse than D2.
   * B4 (shoes held out): harmless dry-looking items; every flagging design should flag few of them.
   * C1 (naive split) is clearly more accurate than C2 (grouped split).
   * A2 has the lowest validation loss; A1 is seed 42.
@@ -210,7 +210,7 @@ def make_job(jid, splits, all_df, root, splits_path, seed):
 
 def make_clip(splits, root, splits_path, rng):
     """E1 file made with run.clip_scores / clip_summary and the same npz arrays as run.run_clip_job. CLIP sees medicines
-    mostly as plastic (so D6 is bad on them) and the other hazard classes about 70% of the time."""
+    mostly as plastic (so D5 is bad on them) and the other hazard classes about 70% of the time."""
     d = 24
     ct = rng.normal(size=(12, d))
     ct /= np.linalg.norm(ct, axis=1, keepdims=True)

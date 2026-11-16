@@ -149,7 +149,7 @@ def _b_arrays(fake, job):
 def test_matched_catch_rate_and_realised_false_alarm(fake, target, op):
     d = table(fake, "decision_designs")
     z, known, unk, haz, msp = _b_arrays(fake, "B1")
-    for design, known_score, unk_score in (("D1 hazard-sum flag", haz[known], haz[unk]), ("D4 MSP", -msp[known], -msp[unk])):
+    for design, known_score, unk_score in (("D2 hazard-sum flag", haz[known], haz[unk]), ("D3 MSP", -msp[known], -msp[unk])):
         catch, far, k = _matched_catch(known_score, unk_score, target)
         sel = d[(d.held_out_class == "battery") & (d.design == design) & (d.op_point == op)]
         got = sel[sel.measure == "catch"].iloc[0]
@@ -163,16 +163,16 @@ def test_matched_catch_rate_and_realised_false_alarm(fake, target, op):
         assert abs(far_row.value * n_known - k) < 1e-9
 
 
-def test_matched_to_D1_far_reproduces_D1_own_point(fake):
+def test_matched_to_D2_far_reproduces_D2_own_point(fake):
     d = table(fake, "decision_designs")
     for c in ("battery", "medicines_syringes", "e_waste", "shoes"):
-        s = d[(d.held_out_class == c) & (d.design == "D1 hazard-sum flag")]
+        s = d[(d.held_out_class == c) & (d.design == "D2 hazard-sum flag")]
         own = s[s.op_point == "own"].set_index("measure").value
-        m = s[s.op_point == "test_match_D1"].set_index("measure").value
+        m = s[s.op_point == "test_match_D2"].set_index("measure").value
         meas = [x for x in own.index if x in ("catch", "wrongly_flagged")][0]
         assert abs(own[meas] - m[meas]) < 1e-12 and abs(own["known_false_alarm"] - m["known_false_alarm"]) < 1e-12
-        # every sweepable design realises at most D1's false-alarm rate at match_D1 and at least one item less than it
-        o = d[(d.held_out_class == c) & (d.op_point == "test_match_D1") & (d.measure == "known_false_alarm")]
+        # every sweepable design realises at most D2's false-alarm rate at match_D2 and at least one item less than it
+        o = d[(d.held_out_class == c) & (d.op_point == "test_match_D2") & (d.measure == "known_false_alarm")]
         n_known = int(o.n.iloc[0])
         assert (o.value * n_known <= own["known_false_alarm"] * n_known + 1e-9).all()
         assert (o.value * n_known >= own["known_false_alarm"] * n_known - 3).all()     # ties can cost an item or two
@@ -183,35 +183,35 @@ def test_known_answers_in_decision_table(fake):
 
     def val(c, design, op, measure="catch"):
         return d[(d.held_out_class == c) & (d.design == design) & (d.op_point == op) & (d.measure == measure)].value.iloc[0]
-    # B1: D1 clearly better than MSP, MaxLogit and Energy at matched false-alarm rates
+    # B1: D2 clearly better than MSP, MaxLogit and Energy at matched false-alarm rates
     for op in ("val_match_5pct", "val_match_10pct", "test_match_5pct", "test_match_10pct"):
-        for other in ("D4 MSP", "D4 MaxLogit", "D4 Energy"):
-            assert val("battery", "D1 hazard-sum flag", op) - val("battery", other, op) > 0.3
-    row = d[(d.held_out_class == "battery") & (d.design == "D4 MSP") & (d.op_point == "val_match_5pct") & (d.measure == "diff_D1_minus_design")].iloc[0]
+        for other in ("D3 MSP", "D3 MaxLogit", "D3 Energy"):
+            assert val("battery", "D2 hazard-sum flag", op) - val("battery", other, op) > 0.3
+    row = d[(d.held_out_class == "battery") & (d.design == "D3 MSP") & (d.op_point == "val_match_5pct") & (d.measure == "diff_D2_minus_design")].iloc[0]
     assert row.ci_lo > 0 and row.ci_lo <= row.value <= row.ci_hi
-    # B2: CLIP clearly worse than D1
-    for design in ("D6 CLIP class-prompt sum", "D6 CLIP hazard prompt"):
+    # B2: CLIP clearly worse than D2
+    for design in ("D5 CLIP class-prompt sum", "D5 CLIP hazard prompt"):
         for op in ("val_match_5pct", "test_match_5pct"):
-            assert val("medicines_syringes", "D1 hazard-sum flag", op) - val("medicines_syringes", design, op) > 0.3
+            assert val("medicines_syringes", "D2 hazard-sum flag", op) - val("medicines_syringes", design, op) > 0.3
     # shoes (harmless control): few wrongly flagged at the matched points
-    assert val("shoes", "D1 hazard-sum flag", "val_match_5pct", "wrongly_flagged") < 0.2
-    # D2 and D6 rows exist for all three hazards (same image ids)
+    assert val("shoes", "D2 hazard-sum flag", "val_match_5pct", "wrongly_flagged") < 0.2
+    # D4 and D5 rows exist for all three hazards (same image ids)
     for c in ("battery", "medicines_syringes", "e_waste"):
         names = set(d[d.held_out_class == c].design)
-        assert {"D0 top-class routing", "D1 hazard-sum flag", "D4 MSP", "D2 stream-trained", "D6 CLIP hazard prompt"} <= names
+        assert {"D1 top-class routing", "D2 hazard-sum flag", "D3 MSP", "D4 stream-trained", "D5 CLIP hazard prompt"} <= names
 
 
 def test_own_points_agree_with_run_json(fake):
-    """D1 own catch = run.py's flagged_special_care on T1; MSP own = rejected; D1+reject = rejected_or_flagged."""
+    """D2 own catch = run.py's flagged_special_care on T1; MSP own = rejected; D2+reject = rejected_or_flagged."""
     d = table(fake, "decision_designs")
     for job, c in (("B1", "battery"), ("B2", "medicines_syringes"), ("B3", "e_waste")):
         u = json.load(open(os.path.join(fake["results"], f"{job}.json")))["unknown_T1"]
         own = d[(d.held_out_class == c) & (d.op_point == "own") & (d.measure == "catch")].set_index("design").value
-        assert abs(own["D1 hazard-sum flag"] - u["flagged_special_care"]) < 1e-9
-        assert abs(own["D4 MSP"] - u["rejected"]) < 1e-9
-        assert abs(own["D4 Energy"] - u["rejected_Energy"]) < 1e-9
-        assert abs(own["D4 MaxLogit"] - u["rejected_MaxLogit"]) < 1e-9
-        assert abs(own["D1+reject(MSP)"] - u["rejected_or_flagged"]) < 1e-9
+        assert abs(own["D2 hazard-sum flag"] - u["flagged_special_care"]) < 1e-9
+        assert abs(own["D3 MSP"] - u["rejected"]) < 1e-9
+        assert abs(own["D3 Energy"] - u["rejected_Energy"]) < 1e-9
+        assert abs(own["D3 MaxLogit"] - u["rejected_MaxLogit"]) < 1e-9
+        assert abs(own["D2+reject(MSP)"] - u["rejected_or_flagged"]) < 1e-9
 
 
 def test_flag_precision_formula(fake):
@@ -332,7 +332,7 @@ def test_paper_numbers_have_sources_and_valid_intervals(fake):
             assert e["ci95_lo"] - 1e-9 <= e["value"] <= e["ci95_hi"] + 1e-9, key
     k = "main_bootstrap|tier=T1|metric=stream_acc"
     assert k in pn and pn[k]["n"] and pn[k]["ci95_lo"] is not None
-    assert any(k.startswith("decision_designs|held_out_class=battery|design=D1") for k in pn)
+    assert any(k.startswith("decision_designs|held_out_class=battery|design=D2") for k in pn)
 
 
 def test_missing_jobs_are_reported_not_fatal(fake, tmp_path):
@@ -349,7 +349,7 @@ def test_missing_jobs_are_reported_not_fatal(fake, tmp_path):
         assert f"job {j}:" in rep, j
     assert "no --features" in rep
     d = pd.read_csv(os.path.join(out, "decision_designs.csv"))
-    assert not d.design.str.startswith(("D2", "D6")).any() and (d.design == "D1 hazard-sum flag").any()
+    assert not d.design.str.startswith(("D4", "D5")).any() and (d.design == "D2 hazard-sum flag").any()
     assert not os.path.exists(os.path.join(out, "stream_model_S1.csv"))
     assert not os.path.exists(os.path.join(out, "object_or_dataset_source_probe.csv"))
     # numbers that exist are unchanged by the deletion (same seed, same resamples)
@@ -478,11 +478,11 @@ def test_validation_matched_rows_recomputed(fake):
     known = (z["role"] == "test") & (z["tier"] == "T1") & (z["stream_true"] != SC_STREAM)
     unk = (z["role"] == "unknown") & (z["tier"] == "T1")
     d1_val_far = float((sp[kv] >= 0.2).mean())
-    cases = [("D1 hazard-sum flag", sp, 1), ("D4 MSP", -msp, -1)]
+    cases = [("D2 hazard-sum flag", sp, 1), ("D3 MSP", -msp, -1)]
     for design, score, sign in cases:
-        for op, target in (("val_match_5pct", 0.05), ("val_match_10pct", 0.10), ("val_match_D1", d1_val_far)):
-            if design.startswith("D1") and op == "val_match_D1":
-                t, k = 0.2, int((sp[kv] >= 0.2).sum())            # D1 stays at its own threshold
+        for op, target in (("val_match_5pct", 0.05), ("val_match_10pct", 0.10), ("val_match_D2", d1_val_far)):
+            if design.startswith("D2") and op == "val_match_D2":
+                t, k = 0.2, int((sp[kv] >= 0.2).sum())            # D2 stays at its own threshold
             else:
                 t, k = _val_threshold_plain(score[kv], target)
             sel = d[(d.held_out_class == "battery") & (d.design == design) & (d.op_point == op)]
@@ -492,15 +492,15 @@ def test_validation_matched_rows_recomputed(fake):
             assert abs(far.value - (score[known] >= t).mean()) < 1e-9, (design, op)
             assert abs(catch.threshold - sign * t) < 1e-9
             assert abs(catch.val_far_realised - k / kv.sum()) < 1e-12 and int(catch.n_val_known) == int(kv.sum())
-            assert abs(catch.val_far_realised * kv.sum() - target * kv.sum()) <= 1.0 + 1e-9 or op == "val_match_D1"
+            assert abs(catch.val_far_realised * kv.sum() - target * kv.sum()) <= 1.0 + 1e-9 or op == "val_match_D2"
             # realised false-alarm on test items is reported with an interval
             assert far.ci_lo <= far.value <= far.ci_hi and far.ci_hi > far.ci_lo
             assert catch.block.startswith("PRIMARY") and "validation" in catch.threshold_fitted_on
-    # paired difference D1 - MSP at the validation-matched 5% point
+    # paired difference D2 - MSP at the validation-matched 5% point
     r = d[(d.held_out_class == "battery") & (d.op_point == "val_match_5pct")]
-    c1 = r[(r.design == "D1 hazard-sum flag") & (r.measure == "catch")].value.iloc[0]
-    c2 = r[(r.design == "D4 MSP") & (r.measure == "catch")].value.iloc[0]
-    assert abs(r[(r.design == "D4 MSP") & (r.measure == "diff_D1_minus_design")].value.iloc[0] - (c1 - c2)) < 1e-12
+    c1 = r[(r.design == "D2 hazard-sum flag") & (r.measure == "catch")].value.iloc[0]
+    c2 = r[(r.design == "D3 MSP") & (r.measure == "catch")].value.iloc[0]
+    assert abs(r[(r.design == "D3 MSP") & (r.measure == "diff_D2_minus_design")].value.iloc[0] - (c1 - c2)) < 1e-12
 
 
 def test_validation_matched_clip_uses_val_rows_without_held_out_class(fake):
@@ -514,20 +514,20 @@ def test_validation_matched_clip_uses_val_rows_without_held_out_class(fake):
     unk = (zb["role"] == "unknown") & (zb["tier"] == "T1")
     ik = np.array([pos[i] for i in zb["ids"][known]])
     iu = np.array([pos[i] for i in zb["ids"][unk]])
-    sel = d[(d.held_out_class == "battery") & (d.design == "D6 CLIP hazard prompt") & (d.op_point == "val_match_5pct")]
+    sel = d[(d.held_out_class == "battery") & (d.design == "D5 CLIP hazard prompt") & (d.op_point == "val_match_5pct")]
     assert abs(sel[sel.measure == "catch"].value.iloc[0] - (hp[iu] >= t).mean()) < 1e-9
     assert abs(sel[sel.measure == "known_false_alarm"].value.iloc[0] - (hp[ik] >= t).mean()) < 1e-9
 
 
 def test_blocks_are_labelled(fake):
     d = table(fake, "decision_designs")
-    assert set(d.op_point) == {"own", "val_match_D1", "val_match_5pct", "val_match_10pct", "test_match_D1",
+    assert set(d.op_point) == {"own", "val_match_D2", "val_match_5pct", "val_match_10pct", "test_match_D2",
                                "test_match_5pct", "test_match_10pct"}
     sec = d[d.op_point.str.startswith("test_match")]
     assert sec.block.str.contains("ROC point matched on test (comparison only, not deployable)", regex=False).all()
     assert d[d.op_point.str.startswith("val_match")].block.str.startswith("PRIMARY").all()
     # every sweepable design has all three validation-matched rows for every held-out class
-    for c, g in d[d.op_point.str.startswith("val_match") & (d.measure != "diff_D1_minus_design")].groupby("held_out_class"):
+    for c, g in d[d.op_point.str.startswith("val_match") & (d.measure != "diff_D2_minus_design")].groupby("held_out_class"):
         assert g.groupby("design").op_point.nunique().eq(3).all(), c
     rep = open(os.path.join(fake["out"], "analysis_report.md")).read()
     assert "PRIMARY matched comparison" in rep and "ROC point matched on test (comparison only, not deployable)" in rep
@@ -640,7 +640,7 @@ def test_d4_wording_matches_code(fake):
     rep = open(os.path.join(fake["out"], "analysis_report.md")).read()
     assert "STRICTLY BELOW" in rep and "AT OR BELOW" in rep
     d = table(fake, "decision_designs")
-    rule = d[d.design == "D4 MSP"].rule.iloc[0]
+    rule = d[d.design == "D3 MSP"].rule.iloc[0]
     assert "strictly below" in rule
     # own point is strict "<" as in run.py: own catch equals run.py's `rejected` (checked in test_own_points_agree_with_run_json)
 

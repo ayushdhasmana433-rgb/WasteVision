@@ -77,12 +77,12 @@ def task1():
                 v, _ = boot.ratio(num, den)
                 p, lo, hi = A.ci(v)
                 rows.append(dict(base, measure=m, value=p, ci_lo=lo, ci_hi=hi, n=n))
-        add("D1 alone", None, None, None, d1)
+        add("D2 alone", None, None, None, d1)
         for a in ALPHAS:
             tau, vfar = A.val_threshold(vs, a)
             cf = clip >= tau
             add(f"CLIP alone (val FAR {a:.0%})", a, tau, vfar, cf)
-            add(f"D1 OR CLIP (val FAR {a:.0%})", a, tau, vfar, d1 | cf)
+            add(f"D2 OR CLIP (val FAR {a:.0%})", a, tau, vfar, d1 | cf)
     df = pd.DataFrame(rows)
     df["source_files"] = A.src_str([f"{RDIR}/{j}{s}" for j in ("B1", "B2", "B3", "B4", "E1") for s in (".json", "_logits.npz")])
     df.to_csv(f"{OUT}/extra_combined_flag.csv", index=False)
@@ -155,7 +155,7 @@ def task3():
             for mn, num, den, n in ((meas, (h >= t) & is_unk, is_unk, nu), ("known_false_alarm", (h >= t) & ~is_unk, ~is_unk, nk)):
                 v, _ = boot.ratio(num, den)
                 p, lo, hi = A.ci(v)
-                rows.append(dict(job=bj, scenario=f"D1 on held-out {c}", cost_ratio=r_, threshold=t, measure=mn, value=p,
+                rows.append(dict(job=bj, scenario=f"D2 on held-out {c}", cost_ratio=r_, threshold=t, measure=mn, value=p,
                                  ci_lo=lo, ci_hi=hi, n=n))
     df = pd.DataFrame(rows)
     df["source_files"] = A.src_str([f"{RDIR}/{j}{s}" for j in ("A1", "B1", "B2", "B3", "B4") for s in (".json", "_logits.npz")])
